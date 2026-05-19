@@ -18,9 +18,15 @@
       --fiscal-dim: rgba(53, 185, 215, 0.15);
       --contabil: #ff8c42;
       --contabil-dim: rgba(255, 140, 66, 0.15);
+      --outras: #94a3b8;
+      --outras-dim: rgba(148, 163, 184, 0.15);
       --green: #4ade80;
+      --green-dim: rgba(74, 222, 128, 0.15);
       --red: #ef4444;
+      --red-dim: rgba(239, 68, 68, 0.15);
       --amber: #fbbf24;
+      --amber-dim: rgba(251, 191, 36, 0.15);
+      --gray-tag: rgba(148, 163, 184, 0.15);
       --text: #ffffff;
       --text-muted: #94a3b8;
       --text-dim: #64748b;
@@ -38,9 +44,7 @@
 
     /* ========== HEADER ========== */
     .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 18px 28px;
       background: linear-gradient(180deg, #0a1f33 0%, #061525 100%);
       border-bottom: 1px solid var(--border);
@@ -69,10 +73,7 @@
       padding: 14px 28px; background: rgba(13, 36, 56, 0.5);
       border-bottom: 1px solid var(--border); flex-wrap: wrap;
     }
-    .comp-label {
-      font-size: 11px; color: var(--text-dim); text-transform: uppercase;
-      letter-spacing: 0.6px; font-weight: 600;
-    }
+    .comp-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }
     .comp-filter { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
     .comp-pill {
       background: var(--bg-card); color: var(--text-muted);
@@ -86,106 +87,67 @@
       background: var(--text); color: var(--bg-deepest);
       border-color: var(--text); font-weight: 700;
     }
-    .comp-pill.is-current::after {
-      content: '·'; margin-left: 6px; color: var(--fiscal);
-    }
+    .comp-pill.is-current::after { content: '·'; margin-left: 6px; color: var(--fiscal); }
     .comp-pill.active.is-current::after { color: var(--bg-deepest); }
 
     /* ========== SPLIT ========== */
-    .split {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px;
-    }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; }
     .team-block {
       background: var(--bg-card); border-radius: 12px;
       padding: 24px; border-top: 4px solid;
     }
     .team-block.fiscal { border-top-color: var(--fiscal); }
     .team-block.contabil { border-top-color: var(--contabil); }
-    .team-header {
-      display: flex; align-items: baseline; justify-content: space-between;
-      margin-bottom: 18px;
-    }
+    .team-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18px; }
     .team-name { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
     .team-block.fiscal .team-name { color: var(--fiscal); }
     .team-block.contabil .team-name { color: var(--contabil); }
     .team-subtotal { font-size: 12px; color: var(--text-muted); }
 
-    /* ========== CARDS DE CONTAGEM (clicáveis) ========== */
-    .cards-row {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 10px; margin-bottom: 16px;
-    }
+    /* ========== CARDS CONTAGEM ========== */
+    .cards-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
     .card-count {
       background: var(--bg-card-2); padding: 14px 12px;
       border-radius: 8px; border: 1px solid var(--border);
       cursor: pointer; transition: background 0.15s, transform 0.1s, border-color 0.15s;
       position: relative;
     }
-    .card-count:hover {
-      background: var(--bg-card-3); border-color: rgba(255,255,255,0.15);
-      transform: translateY(-1px);
-    }
+    .card-count:hover { background: var(--bg-card-3); border-color: rgba(255,255,255,0.15); transform: translateY(-1px); }
     .card-count::after {
       content: '↗'; position: absolute; top: 8px; right: 10px;
       font-size: 12px; color: var(--text-dim); opacity: 0; transition: opacity 0.15s;
     }
     .card-count:hover::after { opacity: 1; }
-    .card-label {
-      font-size: 10px; color: var(--text-muted); text-transform: uppercase;
-      letter-spacing: 0.6px; margin-bottom: 6px;
-    }
+    .card-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
     .card-value { font-size: 30px; font-weight: 700; line-height: 1; }
     .card-value.amber { color: var(--amber); }
     .card-value.red { color: var(--red); }
 
     /* ========== HERO % + FORECAST ========== */
-    .hero-row {
-      display: grid; grid-template-columns: 1.5fr 1fr;
-      gap: 12px; margin-bottom: 16px;
-    }
+    .hero-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px; margin-bottom: 16px; }
     .card-percent {
       background: var(--bg-card-3); border-radius: 10px;
       padding: 18px; text-align: center; border: 1px solid var(--border);
-      cursor: pointer; transition: background 0.15s, transform 0.1s;
-      position: relative;
+      cursor: pointer; transition: background 0.15s, transform 0.1s; position: relative;
     }
-    .card-percent:hover {
-      background: #1a3a58; transform: translateY(-1px);
-    }
-    .card-percent::after {
-      content: '↗'; position: absolute; top: 8px; right: 12px;
-      font-size: 12px; color: var(--text-dim); opacity: 0; transition: opacity 0.15s;
-    }
+    .card-percent:hover { background: #1a3a58; transform: translateY(-1px); }
+    .card-percent::after { content: '↗'; position: absolute; top: 8px; right: 12px; font-size: 12px; color: var(--text-dim); opacity: 0; transition: opacity 0.15s; }
     .card-percent:hover::after { opacity: 1; }
     .card-percent .card-label { margin-bottom: 4px; }
-    .percent-value {
-      font-size: 56px; font-weight: 800; line-height: 1;
-      color: var(--green); letter-spacing: -1.5px;
-    }
+    .percent-value { font-size: 56px; font-weight: 800; line-height: 1; color: var(--green); letter-spacing: -1.5px; }
     .percent-suffix { font-size: 26px; font-weight: 600; }
     .card-forecast {
       background: var(--bg-card-2); border-radius: 10px;
       padding: 18px; border: 1px solid var(--border);
       display: flex; flex-direction: column; justify-content: center;
     }
-    .forecast-value {
-      font-size: 26px; font-weight: 700; line-height: 1; margin-top: 4px;
-    }
-    .forecast-source {
-      font-size: 11px; color: var(--text-dim);
-      margin-top: 8px; line-height: 1.3;
-    }
+    .forecast-value { font-size: 26px; font-weight: 700; line-height: 1; margin-top: 4px; }
+    .forecast-source { font-size: 11px; color: var(--text-dim); margin-top: 8px; line-height: 1.3; }
     .forecast-empty { font-size: 13px; color: var(--text-dim); font-style: italic; }
 
     /* ========== RANKING ========== */
-    .ranking {
-      background: var(--bg-card-2); border-radius: 10px;
-      padding: 14px; border: 1px solid var(--border);
-    }
-    .ranking-title {
-      font-size: 11px; color: var(--text-muted); text-transform: uppercase;
-      letter-spacing: 0.6px; margin-bottom: 8px;
-    }
+    .ranking { background: var(--bg-card-2); border-radius: 10px; padding: 14px; border: 1px solid var(--border); }
+    .ranking-title { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
     .ranking-row {
       display: grid; grid-template-columns: 1fr auto auto;
       gap: 14px; padding: 7px 8px; align-items: center;
@@ -201,17 +163,10 @@
     .rank-pct.mid { color: var(--amber); }
     .rank-pct.bad { color: var(--red); }
 
-    /* ========== BOTTOM ROW ========== */
-    .bottom-row {
-      display: grid; grid-template-columns: 1.6fr 1fr;
-      gap: 20px; padding: 0 20px 20px;
-    }
+    /* ========== BOTTOM ========== */
+    .bottom-row { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; padding: 0 20px 20px; }
     .panel { background: var(--bg-card); border-radius: 12px; padding: 24px; }
-    .panel-title {
-      font-size: 13px; color: var(--text-muted); text-transform: uppercase;
-      letter-spacing: 0.8px; margin-bottom: 16px;
-      display: flex; align-items: center; justify-content: space-between;
-    }
+    .panel-title { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; }
     .legend { display: flex; gap: 14px; font-size: 11px; }
     .legend-item { display: flex; align-items: center; gap: 6px; color: var(--text-muted); }
     .legend-swatch { width: 11px; height: 11px; border-radius: 50%; }
@@ -231,60 +186,49 @@
       letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px;
       min-width: 68px; text-align: center;
     }
-    .time-tag.fiscal {
-      background: var(--fiscal-dim); color: var(--fiscal);
-      border: 1px solid rgba(53, 185, 215, 0.3);
-    }
-    .time-tag.contabil {
-      background: var(--contabil-dim); color: var(--contabil);
-      border: 1px solid rgba(255, 140, 66, 0.3);
-    }
-    .atraso-empresa {
-      font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    }
+    .time-tag.fiscal { background: var(--fiscal-dim); color: var(--fiscal); border: 1px solid rgba(53, 185, 215, 0.3); }
+    .time-tag.contabil { background: var(--contabil-dim); color: var(--contabil); border: 1px solid rgba(255, 140, 66, 0.3); }
+    .time-tag.outras { background: var(--outras-dim); color: var(--outras); border: 1px solid rgba(148, 163, 184, 0.3); }
+    .atraso-empresa { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .atraso-dias { font-size: 13px; font-weight: 700; color: var(--red); font-variant-numeric: tabular-nums; }
 
     /* ========== FOOTER ========== */
-    .footer {
-      text-align: center; padding: 16px; font-size: 11px;
-      color: var(--text-dim); border-top: 1px solid var(--border);
-    }
+    .footer { text-align: center; padding: 16px; font-size: 11px; color: var(--text-dim); border-top: 1px solid var(--border); }
 
     /* ========== SVG CHART ========== */
     .chart-svg { width: 100%; height: auto; max-height: 280px; }
     .chart-grid-line { stroke: rgba(255, 255, 255, 0.06); stroke-width: 1; }
-    .chart-label {
-      fill: var(--text-dim); font-size: 11px; font-family: 'Poppins', sans-serif;
-    }
+    .chart-label { fill: var(--text-dim); font-size: 11px; font-family: 'Poppins', sans-serif; }
     .chart-line { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
     .chart-line.fiscal { stroke: var(--fiscal); }
     .chart-line.contabil { stroke: var(--contabil); }
     .chart-dot.fiscal { fill: var(--fiscal); }
     .chart-dot.contabil { fill: var(--contabil); }
 
-    /* ========== MODAL DRILL-DOWN ========== */
+    /* ========== MODAL BASE ========== */
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(6, 21, 37, 0.88);
       backdrop-filter: blur(4px); display: none;
-      align-items: center; justify-content: center;
-      z-index: 1000; padding: 24px;
+      align-items: flex-start; justify-content: center;
+      z-index: 1000; padding: 24px; overflow-y: auto;
     }
     .modal-overlay.aberto { display: flex; }
     .modal {
-      background: var(--bg-card); border-radius: 12px;
+      background: var(--bg-card); border-radius: 14px;
       width: 100%; max-width: 1500px; max-height: 92vh;
       display: flex; flex-direction: column;
       border: 1px solid var(--border); overflow: hidden;
+      margin: auto;
     }
-    .modal-header {
+
+    /* ========== MODAL LISTA ========== */
+    .modal.modo-lista .modal-header {
       display: flex; align-items: center; justify-content: space-between;
       padding: 18px 24px; border-bottom: 1px solid var(--border);
       background: var(--bg-card-2);
     }
     .modal-title { font-size: 16px; font-weight: 600; }
-    .modal-title .count {
-      color: var(--text-muted); font-weight: 400; margin-left: 8px;
-    }
+    .modal-title .count { color: var(--text-muted); font-weight: 400; margin-left: 8px; }
     .modal-actions { display: flex; gap: 10px; align-items: center; }
     .modal-btn {
       background: var(--bg-card-3); color: var(--text);
@@ -296,21 +240,18 @@
     .modal-btn:hover { background: #1a3a58; }
     .modal-close {
       background: transparent; color: var(--text-muted); border: none;
-      font-size: 22px; cursor: pointer; padding: 4px 10px;
-      line-height: 1; transition: color 0.15s;
+      font-size: 22px; cursor: pointer; padding: 4px 10px; line-height: 1;
+      transition: color 0.15s;
     }
     .modal-close:hover { color: var(--text); }
-    .modal-controls {
-      display: flex; gap: 12px; padding: 14px 24px;
-      border-bottom: 1px solid var(--border); align-items: center;
-    }
+    .modal-controls { display: flex; gap: 12px; padding: 14px 24px; border-bottom: 1px solid var(--border); align-items: center; }
     .modal-search {
       flex: 1; background: var(--bg-card-2); color: var(--text);
       border: 1px solid var(--border); padding: 9px 14px;
       border-radius: 6px; font-size: 13px; font-family: 'Poppins', sans-serif;
     }
     .modal-search:focus { outline: none; border-color: var(--fiscal); }
-    .modal-body { flex: 1; overflow: auto; padding: 0; }
+    .modal-body { flex: 1; overflow: auto; }
     .modal-table { width: 100%; border-collapse: collapse; font-size: 12px; }
     .modal-table thead th {
       background: var(--bg-card-2); padding: 11px 14px;
@@ -320,19 +261,15 @@
       cursor: pointer; user-select: none; white-space: nowrap;
     }
     .modal-table thead th:hover { color: var(--text); }
-    .modal-table thead th.sorted::after {
-      content: ' ↓'; color: var(--fiscal);
-    }
+    .modal-table thead th.sorted::after { content: ' ↓'; color: var(--fiscal); }
     .modal-table thead th.sorted.asc::after { content: ' ↑'; }
     .modal-table tbody tr {
       border-bottom: 1px solid rgba(255,255,255,0.04);
-      transition: background 0.12s;
+      transition: background 0.12s; cursor: pointer;
     }
-    .modal-table tbody tr:hover { background: rgba(255,255,255,0.025); }
+    .modal-table tbody tr:hover { background: rgba(53,185,215,0.06); }
     .modal-table td { padding: 9px 14px; vertical-align: middle; }
-    .modal-table td.cnpj, .modal-table td.data, .modal-table td.dias {
-      font-variant-numeric: tabular-nums;
-    }
+    .modal-table td.cnpj, .modal-table td.data, .modal-table td.dias { font-variant-numeric: tabular-nums; }
     .modal-table td.empresa { font-weight: 500; }
     .modal-table td.responsavel { color: var(--text-muted); }
     .modal-table .badge {
@@ -340,16 +277,135 @@
       font-size: 10px; font-weight: 600; text-transform: uppercase;
       letter-spacing: 0.3px; white-space: nowrap;
     }
-    .badge.green { background: rgba(74,222,128,0.15); color: var(--green); border: 1px solid rgba(74,222,128,0.3); }
-    .badge.red { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
-    .badge.amber { background: rgba(251,191,36,0.15); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
-    .badge.gray { background: rgba(148,163,184,0.15); color: var(--text-muted); border: 1px solid rgba(148,163,184,0.3); }
+    .badge.green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(74,222,128,0.3); }
+    .badge.red { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+    .badge.amber { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
+    .badge.gray { background: var(--gray-tag); color: var(--text-muted); border: 1px solid rgba(148,163,184,0.3); }
     .badge.fiscal { background: var(--fiscal-dim); color: var(--fiscal); border: 1px solid rgba(53,185,215,0.3); }
     .badge.contabil { background: var(--contabil-dim); color: var(--contabil); border: 1px solid rgba(255,140,66,0.3); }
-    .modal-empty {
-      padding: 60px 24px; text-align: center;
-      color: var(--text-dim); font-size: 14px;
+    .badge.outras { background: var(--outras-dim); color: var(--outras); border: 1px solid rgba(148,163,184,0.3); }
+    .modal-empty { padding: 60px 24px; text-align: center; color: var(--text-dim); font-size: 14px; }
+
+    /* ========== MODAL CARD EMPRESA ========== */
+    .modal.modo-card { background: var(--bg-card); }
+
+    .card-header {
+      background: linear-gradient(135deg, #35b9d7 0%, #1a6e8e 50%, #012e43 100%);
+      padding: 28px 36px 24px; color: white; position: relative;
     }
+    .card-back-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .card-back {
+      background: rgba(255,255,255,0.12); color: white; border: 1px solid rgba(255,255,255,0.2);
+      padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer;
+      font-family: 'Poppins', sans-serif; font-weight: 500;
+      display: flex; align-items: center; gap: 6px; transition: background 0.15s;
+    }
+    .card-back:hover { background: rgba(255,255,255,0.2); }
+    .card-back.invisible { visibility: hidden; }
+    .card-close-x {
+      background: rgba(255,255,255,0.12); color: white; border: 1px solid rgba(255,255,255,0.2);
+      width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
+      font-size: 18px; line-height: 1; display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s;
+    }
+    .card-close-x:hover { background: rgba(255,255,255,0.25); }
+
+    .card-content {
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 24px; align-items: flex-start;
+    }
+    .card-info { flex: 1; }
+    .card-tag {
+      font-size: 11px; letter-spacing: 1.5px; font-weight: 600;
+      color: rgba(255,255,255,0.75); text-transform: uppercase; margin-bottom: 10px;
+    }
+    .card-tag .dot { color: var(--fiscal); margin-right: 6px; }
+    .card-empresa-nome {
+      font-size: 28px; font-weight: 700; line-height: 1.2;
+      letter-spacing: -0.5px; margin-bottom: 4px; color: white;
+    }
+    .card-empresa-cnpj { font-size: 14px; color: rgba(255,255,255,0.65); margin-bottom: 18px; font-variant-numeric: tabular-nums; }
+
+    .card-meta { display: flex; gap: 24px; align-items: center; font-size: 13px; color: rgba(255,255,255,0.85); flex-wrap: wrap; }
+    .card-meta-item { display: flex; align-items: center; gap: 6px; }
+    .card-meta-item svg { color: rgba(255,255,255,0.7); flex-shrink: 0; }
+
+    .card-score {
+      background: rgba(255,255,255,0.12); border-radius: 12px;
+      padding: 18px 24px; text-align: center;
+      border: 1px solid rgba(255,255,255,0.18); min-width: 140px;
+    }
+    .card-score-value { font-size: 42px; font-weight: 800; line-height: 1; letter-spacing: -1px; }
+    .card-score-suffix { font-size: 22px; font-weight: 600; }
+    .card-score-label {
+      font-size: 10px; color: rgba(255,255,255,0.7);
+      text-transform: uppercase; letter-spacing: 0.6px; margin-top: 6px;
+    }
+    .card-score.muted .card-score-value { color: rgba(255,255,255,0.5); }
+
+    /* Card body */
+    .card-body { padding: 28px 36px 32px; overflow-y: auto; }
+
+    .card-section { margin-bottom: 28px; }
+    .card-section:last-child { margin-bottom: 0; }
+    .card-section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: 1.5px; font-weight: 600;
+      color: var(--fiscal); text-transform: uppercase; margin-bottom: 10px;
+    }
+    .card-section-tag::before {
+      content: ''; width: 16px; height: 2px; background: var(--fiscal); border-radius: 2px;
+    }
+    .card-section-title { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
+    .card-section-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; margin-top: -10px; }
+
+    .kpis-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    @media (max-width: 800px) { .kpis-grid { grid-template-columns: repeat(2, 1fr); } }
+    .kpi-card {
+      background: var(--bg-card-2); padding: 14px 14px;
+      border-radius: 8px; border: 1px solid var(--border);
+    }
+    .kpi-card .kpi-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
+    .kpi-card .kpi-value { font-size: 26px; font-weight: 700; line-height: 1; }
+    .kpi-card.green .kpi-value { color: var(--green); }
+    .kpi-card.amber .kpi-value { color: var(--amber); }
+    .kpi-card.red .kpi-value { color: var(--red); }
+    .kpi-card.gray .kpi-value { color: var(--text-muted); }
+
+    .card-legend { display: flex; gap: 14px; font-size: 11px; margin-bottom: 14px; flex-wrap: wrap; }
+    .card-legend-item { display: flex; align-items: center; gap: 6px; color: var(--text-muted); }
+
+    .atividade {
+      background: var(--bg-card-2); border-radius: 8px;
+      padding: 14px 16px; margin-bottom: 8px;
+      border-left: 3px solid var(--border);
+      display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start;
+    }
+    .atividade.green { border-left-color: var(--green); }
+    .atividade.amber { border-left-color: var(--amber); }
+    .atividade.red { border-left-color: var(--red); }
+    .atividade.gray { border-left-color: var(--text-dim); }
+
+    .atividade-main { min-width: 0; }
+    .atividade-titulo { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
+    .atividade-nome { font-size: 14px; font-weight: 600; }
+    .atividade-prio {
+      font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 3px;
+      background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(251,191,36,0.3);
+      text-transform: uppercase; letter-spacing: 0.4px;
+    }
+    .atividade-meta {
+      font-size: 12px; color: var(--text-muted); display: flex;
+      gap: 16px; flex-wrap: wrap; margin-top: 4px;
+    }
+    .atividade-meta strong { color: var(--text); font-weight: 500; font-variant-numeric: tabular-nums; }
+    .atividade-resp { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+    .atividade-resp strong { color: var(--text); font-weight: 500; }
+
+    .atividade-status { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; flex-shrink: 0; }
   </style>
 </head>
 <body>
@@ -414,28 +470,11 @@
     </section>
   </main>
 
-  <footer class="footer">
-    LaraFy. Inteligência tributária para quem decide.
-  </footer>
+  <footer class="footer">LaraFy. Inteligência tributária para quem decide.</footer>
 
-  <!-- Modal drill-down -->
+  <!-- Modal único (modo lista OU modo card) -->
   <div class="modal-overlay" id="modal" onclick="if(event.target===this) fecharModal()">
-    <div class="modal">
-      <div class="modal-header">
-        <div>
-          <span class="modal-title" id="modal-title">--</span>
-          <span class="count" id="modal-count"></span>
-        </div>
-        <div class="modal-actions">
-          <button class="modal-btn" id="btn-export">Exportar CSV</button>
-          <button class="modal-close" onclick="fecharModal()">×</button>
-        </div>
-      </div>
-      <div class="modal-controls">
-        <input type="text" class="modal-search" id="modal-search" placeholder="Buscar por empresa, CNPJ ou responsável...">
-      </div>
-      <div class="modal-body" id="modal-body"></div>
-    </div>
+    <div class="modal" id="modal-container"></div>
   </div>
 
   <script>
@@ -449,14 +488,20 @@
       competenciaSelecionada: null,
       modal: {
         aberto: false,
+        modo: 'lista',
         titulo: '',
         entregas: [],
         entregasFiltradas: [],
         busca: '',
         sortBy: 'dias_atraso',
-        sortDir: 'desc'
+        sortDir: 'desc',
+        cnpjCard: null,
+        competenciaCard: null,
+        voltarPara: null
       }
     };
+
+    // ========== Utils ==========
 
     function ordemComp(comp) {
       if (!comp) return 0;
@@ -489,8 +534,8 @@
       return null;
     }
 
-    // Regra "entregue se dentro de PzTec OU PzLegal"
     function statusPrazo(e) {
+      if (e.status_semaforo === 'gray') return { texto: 'Dispensada', classe: 'gray' };
       if (!e.data_entrega) return { texto: 'Não entregue', classe: 'gray' };
       const dEnt = parseDataBR(e.data_entrega);
       if (!dEnt) return { texto: 'Data inválida', classe: 'gray' };
@@ -502,13 +547,27 @@
       return { texto: 'Fora do prazo', classe: 'red' };
     }
 
+    function formatarCNPJ(cnpj) {
+      if (!cnpj) return '--';
+      const d = String(cnpj).replace(/\D/g, '').padStart(14, '0');
+      return `${d.slice(0,2)}.${d.slice(2,5)}.${d.slice(5,8)}/${d.slice(8,12)}-${d.slice(12)}`;
+    }
+
+    function timeClass(time) {
+      const t = (time || '').toLowerCase();
+      if (t === 'fiscal') return 'fiscal';
+      if (t === 'contabil') return 'contabil';
+      return 'outras';
+    }
+
+    // ========== Boot ==========
+
     async function carregar() {
       try {
         const resp = await fetch(DATA_URL + '?ts=' + Date.now());
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         const data = await resp.json();
         estado.data = data;
-
         const disponiveis = data.competencias_disponiveis || [];
         if (estado.competenciaSelecionada === null || !disponiveis.includes(estado.competenciaSelecionada)) {
           estado.competenciaSelecionada = data.competencia_atual;
@@ -536,7 +595,7 @@
       const container = document.getElementById('comp-filter');
       container.innerHTML = comps.map(c => `
         <button class="comp-pill ${c === estado.competenciaSelecionada ? 'active' : ''} ${c === competenciaAtualDoSistema ? 'is-current' : ''}"
-          data-comp="${c}" title="${c === competenciaAtualDoSistema ? 'Competência corrente' : c}">${c}</button>
+          data-comp="${c}">${c}</button>
       `).join('');
       container.querySelectorAll('.comp-pill').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -561,8 +620,7 @@
       const kpis = (dadosTime.kpis || {})[competencia];
       if (!kpis) {
         cardsEl.innerHTML = `<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados para ${competencia}.</div>`;
-        heroEl.innerHTML = '';
-        rankingEl.innerHTML = '';
+        heroEl.innerHTML = ''; rankingEl.innerHTML = '';
         if (subtotalEl) subtotalEl.textContent = '--';
         return;
       }
@@ -571,33 +629,27 @@
 
       cardsEl.innerHTML = `
         <div class="card-count" data-time="${timeNome}" data-status="all" data-comp="${competencia}">
-          <div class="card-label">Total</div>
-          <div class="card-value">${kpis.total}</div>
+          <div class="card-label">Total</div><div class="card-value">${kpis.total}</div>
         </div>
         <div class="card-count" data-time="${timeNome}" data-status="green" data-comp="${competencia}">
-          <div class="card-label">Entregues</div>
-          <div class="card-value">${kpis.entregues}</div>
+          <div class="card-label">Entregues</div><div class="card-value">${kpis.entregues}</div>
         </div>
         <div class="card-count" data-time="${timeNome}" data-status="amber" data-comp="${competencia}">
-          <div class="card-label">Pendentes</div>
-          <div class="card-value amber">${kpis.pendentes}</div>
+          <div class="card-label">Pendentes</div><div class="card-value amber">${kpis.pendentes}</div>
         </div>
         <div class="card-count" data-time="${timeNome}" data-status="red" data-comp="${competencia}">
-          <div class="card-label">Atrasadas</div>
-          <div class="card-value red">${kpis.atrasadas}</div>
+          <div class="card-label">Atrasadas</div><div class="card-value red">${kpis.atrasadas}</div>
         </div>
       `;
       cardsEl.querySelectorAll('.card-count').forEach(el => {
-        el.addEventListener('click', () => abrirModalCard(el.dataset.time, el.dataset.status, el.dataset.comp));
+        el.addEventListener('click', () => abrirModalCardKPI(el.dataset.time, el.dataset.status, el.dataset.comp));
       });
 
       const fc = dadosTime.forecast || {};
       const forecastHTML = fc.baseline !== null && fc.baseline !== undefined
-        ? `
-          <div class="card-label">Forecast (baseline)</div>
-          <div class="forecast-value">${fc.baseline.toFixed(1)}<span class="percent-suffix">%</span></div>
-          <div class="forecast-source">média de ${fc.amostra_meses} ${fc.amostra_meses === 1 ? 'mês' : 'meses'}: ${(fc.competencias_baseline || []).join(', ')}</div>
-        `
+        ? `<div class="card-label">Forecast (baseline)</div>
+           <div class="forecast-value">${fc.baseline.toFixed(1)}<span class="percent-suffix">%</span></div>
+           <div class="forecast-source">média de ${fc.amostra_meses} ${fc.amostra_meses === 1 ? 'mês' : 'meses'}: ${(fc.competencias_baseline || []).join(', ')}</div>`
         : `<div class="card-label">Forecast (baseline)</div><div class="forecast-empty">Sem histórico fechado</div>`;
 
       heroEl.innerHTML = `
@@ -608,16 +660,14 @@
         <div class="card-forecast">${forecastHTML}</div>
       `;
       heroEl.querySelectorAll('.card-percent').forEach(el => {
-        el.addEventListener('click', () => abrirModalCard(el.dataset.time, el.dataset.status, el.dataset.comp));
+        el.addEventListener('click', () => abrirModalCardKPI(el.dataset.time, el.dataset.status, el.dataset.comp));
       });
 
       const ranking = (dadosTime.ranking || {})[competencia] || [];
       const top5 = ranking.slice(0, 5);
       if (top5.length === 0) {
-        rankingEl.innerHTML = `
-          <div class="ranking-title">Top responsáveis · ${competencia}</div>
-          <div style="color:var(--text-dim); padding:10px 0; font-size:12px">Sem responsáveis na competência.</div>
-        `;
+        rankingEl.innerHTML = `<div class="ranking-title">Top responsáveis · ${competencia}</div>
+          <div style="color:var(--text-dim); padding:10px 0; font-size:12px">Sem responsáveis na competência.</div>`;
         return;
       }
       rankingEl.innerHTML = `
@@ -650,8 +700,7 @@
       }
       const W = 1000, H = 280;
       const pad = { top:20, right:20, bottom:36, left:40 };
-      const innerW = W - pad.left - pad.right;
-      const innerH = H - pad.top - pad.bottom;
+      const innerW = W - pad.left - pad.right, innerH = H - pad.top - pad.bottom;
       const xStep = comps.length > 1 ? innerW / (comps.length - 1) : 0;
       const xAt = i => pad.left + i * xStep;
       const yAt = pct => pad.top + innerH - (pct / 100) * innerH;
@@ -673,8 +722,7 @@
           ${buildDots(mFiscal, 'fiscal')}
           ${buildDots(mContabil, 'contabil')}
           ${xLabels}
-        </svg>
-      `;
+        </svg>`;
     }
 
     function renderAtrasos(lista) {
@@ -684,72 +732,88 @@
         return;
       }
       el.innerHTML = lista.slice(0, 12).map(a => `
-        <div class="atraso-row" data-time="${a.time}">
-          <span class="time-tag ${(a.time || '').toLowerCase()}">${a.time || '--'}</span>
+        <div class="atraso-row" data-cnpj="${a.cnpj}" data-comp="${a.competencia}">
+          <span class="time-tag ${timeClass(a.time)}">${a.time || '--'}</span>
           <span class="atraso-empresa" title="${a.empresa}">${a.empresa}</span>
           <span class="atraso-dias">${a.dias_atraso}d</span>
         </div>
       `).join('');
       el.querySelectorAll('.atraso-row').forEach(row => {
-        row.addEventListener('click', () => abrirModalCard(row.dataset.time, 'red', null));
+        row.addEventListener('click', () => abrirModalCardEmpresa(row.dataset.cnpj, row.dataset.comp));
       });
     }
 
-    // ========== MODAL DRILL-DOWN ==========
+    // ========== MODAL ==========
 
-    function abrirModalCard(time, status, comp) {
+    function abrirModalCardKPI(time, status, comp) {
       const todas = (estado.data && estado.data.entregas) || [];
       let filtradas = todas.filter(e => e.time === time);
       if (comp) filtradas = filtradas.filter(e => e.competencia === comp);
       if (status === 'green') filtradas = filtradas.filter(e => e.status_semaforo === 'green');
       else if (status === 'amber') filtradas = filtradas.filter(e => e.status_semaforo === 'amber');
       else if (status === 'red') filtradas = filtradas.filter(e => e.status_semaforo === 'red');
-
-      const statusLabel = {
-        all: 'Todas',
-        green: 'Entregues',
-        amber: 'Pendentes',
-        red: 'Atrasadas'
-      }[status] || status;
-
-      const titulo = comp
-        ? `${statusLabel} · ${time} · ${comp}`
-        : `${statusLabel} · ${time} · todas as competências`;
-
-      abrirModalGenerico(titulo, filtradas);
+      const statusLabel = { all: 'Todas', green: 'Entregues', amber: 'Pendentes', red: 'Atrasadas' }[status] || status;
+      const titulo = comp ? `${statusLabel} · ${time} · ${comp}` : `${statusLabel} · ${time}`;
+      abrirModalLista(titulo, filtradas);
     }
 
     function abrirModalResponsavel(responsavel, time, comp) {
       const todas = (estado.data && estado.data.entregas) || [];
-      const filtradas = todas.filter(e =>
-        e.responsavel === responsavel && e.time === time && e.competencia === comp
-      );
-      abrirModalGenerico(`${responsavel} · ${time} · ${comp}`, filtradas);
+      const filtradas = todas.filter(e => e.responsavel === responsavel && e.time === time && e.competencia === comp);
+      abrirModalLista(`${responsavel} · ${time} · ${comp}`, filtradas);
     }
 
-    function abrirModalGenerico(titulo, entregas) {
+    function abrirModalLista(titulo, entregas) {
       estado.modal.aberto = true;
+      estado.modal.modo = 'lista';
       estado.modal.titulo = titulo;
       estado.modal.entregas = entregas;
       estado.modal.busca = '';
       estado.modal.sortBy = 'dias_atraso';
       estado.modal.sortDir = 'desc';
-
+      estado.modal.voltarPara = null;
       document.getElementById('modal').classList.add('aberto');
-      document.getElementById('modal-title').textContent = titulo;
-      document.getElementById('modal-search').value = '';
+      renderModal();
+    }
+
+    function abrirModalCardEmpresa(cnpj, competencia, voltarPara) {
+      estado.modal.aberto = true;
+      estado.modal.modo = 'card';
+      estado.modal.cnpjCard = cnpj;
+      estado.modal.competenciaCard = competencia || estado.competenciaSelecionada;
+      estado.modal.voltarPara = voltarPara || null;
+      document.getElementById('modal').classList.add('aberto');
       renderModal();
     }
 
     function fecharModal() {
       estado.modal.aberto = false;
+      estado.modal.voltarPara = null;
       document.getElementById('modal').classList.remove('aberto');
     }
 
-    function renderModal() {
-      let entregas = estado.modal.entregas.slice();
+    function voltarParaLista() {
+      const vp = estado.modal.voltarPara;
+      if (vp) {
+        Object.assign(estado.modal, vp);
+        estado.modal.modo = 'lista';
+        estado.modal.voltarPara = null;
+        renderModal();
+      } else {
+        fecharModal();
+      }
+    }
 
-      // Filtro de busca
+    function renderModal() {
+      const container = document.getElementById('modal-container');
+      container.className = 'modal modo-' + estado.modal.modo;
+      if (estado.modal.modo === 'lista') renderModalLista(container);
+      else if (estado.modal.modo === 'card') renderModalCard(container);
+    }
+
+    // ========== Modo LISTA ==========
+    function renderModalLista(container) {
+      let entregas = estado.modal.entregas.slice();
       const termo = (estado.modal.busca || '').toLowerCase().trim();
       if (termo) {
         entregas = entregas.filter(e =>
@@ -759,15 +823,12 @@
           (e.obrigacao || '').toLowerCase().includes(termo)
         );
       }
-
-      // Sort
       const sortBy = estado.modal.sortBy;
       const dir = estado.modal.sortDir === 'asc' ? 1 : -1;
       entregas.sort((a, b) => {
         let va = a[sortBy], vb = b[sortBy];
         if (sortBy === 'data_entrega' || sortBy === 'prazo_legal' || sortBy === 'prazo_tecnico') {
-          va = parseDataBR(va) || 0;
-          vb = parseDataBR(vb) || 0;
+          va = parseDataBR(va) || 0; vb = parseDataBR(vb) || 0;
         }
         if (typeof va === 'string') va = va.toLowerCase();
         if (typeof vb === 'string') vb = vb.toLowerCase();
@@ -775,15 +836,7 @@
         if (va > vb) return 1 * dir;
         return 0;
       });
-
       estado.modal.entregasFiltradas = entregas;
-      document.getElementById('modal-count').textContent = `(${entregas.length} ${entregas.length === 1 ? 'entrega' : 'entregas'})`;
-
-      const body = document.getElementById('modal-body');
-      if (entregas.length === 0) {
-        body.innerHTML = '<div class="modal-empty">Nenhuma entrega encontrada com os filtros aplicados.</div>';
-        return;
-      }
 
       const cols = [
         { key: 'time', label: 'Time' },
@@ -799,44 +852,68 @@
         { key: 'status_original', label: 'Status' },
         { key: 'dias_atraso', label: 'Dias Atraso' }
       ];
-
       const ths = cols.map(c => {
         const sorted = sortBy === c.key ? 'sorted' : '';
         const asc = estado.modal.sortDir === 'asc' ? 'asc' : '';
         return `<th data-col="${c.key}" class="${sorted} ${asc}">${c.label}</th>`;
       }).join('');
 
-      const rows = entregas.map(e => {
-        const sp = statusPrazo(e);
-        const semaforoClass = e.status_semaforo === 'green' ? 'green'
-                            : e.status_semaforo === 'red' ? 'red'
-                            : e.status_semaforo === 'amber' ? 'amber' : 'gray';
-        return `
-          <tr>
-            <td><span class="badge ${(e.time || '').toLowerCase()}">${e.time || '--'}</span></td>
-            <td class="empresa">${e.empresa || '--'}${e.prioritaria ? ' <span class="badge amber" style="margin-left:6px">prio</span>' : ''}</td>
-            <td class="cnpj">${e.cnpj || '--'}</td>
-            <td>${e.obrigacao || '--'}</td>
-            <td>${e.competencia || '--'}</td>
-            <td class="responsavel">${e.responsavel || 'Sem responsável'}</td>
-            <td class="data">${e.prazo_legal || '--'}</td>
-            <td class="data">${e.prazo_tecnico || '--'}</td>
-            <td class="data">${e.data_entrega || '--'}</td>
-            <td><span class="badge ${sp.classe}">${sp.texto}</span></td>
-            <td><span class="badge ${semaforoClass}">${e.status_original || '--'}</span></td>
-            <td class="dias">${e.dias_atraso > 0 ? e.dias_atraso + 'd' : '--'}</td>
-          </tr>
-        `;
-      }).join('');
+      const rows = entregas.length === 0
+        ? `<tr><td colspan="${cols.length}" class="modal-empty">Nenhuma entrega encontrada.</td></tr>`
+        : entregas.map(e => {
+          const sp = statusPrazo(e);
+          const sc = e.status_semaforo === 'green' ? 'green'
+                  : e.status_semaforo === 'red' ? 'red'
+                  : e.status_semaforo === 'amber' ? 'amber' : 'gray';
+          return `
+            <tr data-cnpj="${e.cnpj}" data-comp="${e.competencia}">
+              <td><span class="badge ${timeClass(e.time)}">${e.time || '--'}</span></td>
+              <td class="empresa">${e.empresa || '--'}${e.prioritaria ? ' <span class="badge amber" style="margin-left:6px">prio</span>' : ''}</td>
+              <td class="cnpj">${formatarCNPJ(e.cnpj)}</td>
+              <td>${e.obrigacao || '--'}</td>
+              <td>${e.competencia || '--'}</td>
+              <td class="responsavel">${e.responsavel || 'Sem responsável'}</td>
+              <td class="data">${e.prazo_legal || '--'}</td>
+              <td class="data">${e.prazo_tecnico || '--'}</td>
+              <td class="data">${e.data_entrega || '--'}</td>
+              <td><span class="badge ${sp.classe}">${sp.texto}</span></td>
+              <td><span class="badge ${sc}">${e.status_original || '--'}</span></td>
+              <td class="dias">${e.dias_atraso > 0 ? e.dias_atraso + 'd' : '--'}</td>
+            </tr>
+          `;
+        }).join('');
 
-      body.innerHTML = `
-        <table class="modal-table">
-          <thead><tr>${ths}</tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
+      container.innerHTML = `
+        <div class="modal-header">
+          <div>
+            <span class="modal-title">${estado.modal.titulo}</span>
+            <span class="count">(${entregas.length} ${entregas.length === 1 ? 'entrega' : 'entregas'})</span>
+          </div>
+          <div class="modal-actions">
+            <button class="modal-btn" id="btn-export">Exportar CSV</button>
+            <button class="modal-close" onclick="fecharModal()">×</button>
+          </div>
+        </div>
+        <div class="modal-controls">
+          <input type="text" class="modal-search" id="modal-search" placeholder="Buscar por empresa, CNPJ, responsável ou obrigação..." value="${estado.modal.busca}">
+        </div>
+        <div class="modal-body">
+          <table class="modal-table">
+            <thead><tr>${ths}</tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
       `;
 
-      body.querySelectorAll('th[data-col]').forEach(th => {
+      const searchEl = document.getElementById('modal-search');
+      searchEl.addEventListener('input', (e) => {
+        estado.modal.busca = e.target.value;
+        renderModal();
+        const novo = document.getElementById('modal-search');
+        if (novo) { novo.focus(); novo.setSelectionRange(novo.value.length, novo.value.length); }
+      });
+      document.getElementById('btn-export').addEventListener('click', exportarCSV);
+      container.querySelectorAll('th[data-col]').forEach(th => {
         th.addEventListener('click', () => {
           const col = th.dataset.col;
           if (estado.modal.sortBy === col) {
@@ -848,8 +925,160 @@
           renderModal();
         });
       });
+      container.querySelectorAll('tbody tr[data-cnpj]').forEach(tr => {
+        tr.addEventListener('click', () => {
+          const voltarPara = {
+            titulo: estado.modal.titulo,
+            entregas: estado.modal.entregas,
+            busca: estado.modal.busca,
+            sortBy: estado.modal.sortBy,
+            sortDir: estado.modal.sortDir
+          };
+          abrirModalCardEmpresa(tr.dataset.cnpj, tr.dataset.comp, voltarPara);
+        });
+      });
     }
 
+    // ========== Modo CARD EMPRESA ==========
+    function renderModalCard(container) {
+      const cnpj = estado.modal.cnpjCard;
+      const comp = estado.modal.competenciaCard;
+      const dados = (estado.data && estado.data.atividades_por_empresa) ? estado.data.atividades_por_empresa[cnpj] : null;
+
+      if (!dados) {
+        container.innerHTML = `
+          <div class="card-header">
+            <div class="card-back-bar">
+              <button class="card-back ${estado.modal.voltarPara ? '' : 'invisible'}" onclick="voltarParaLista()">← Voltar</button>
+              <button class="card-close-x" onclick="fecharModal()">×</button>
+            </div>
+            <div class="card-content"><div class="card-info"><div class="card-empresa-nome">Empresa não encontrada</div><div class="card-empresa-cnpj">CNPJ ${formatarCNPJ(cnpj)}</div></div></div>
+          </div>
+          <div class="card-body"><p style="color:var(--text-dim)">Sem dados de atividades para esta empresa.</p></div>
+        `;
+        return;
+      }
+
+      const atividadesDoMes = dados.atividades
+        .filter(a => a.competencia === comp)
+        .sort((a, b) => {
+          const da = parseDataBR(a.prazo_legal) || new Date(9999, 0, 1);
+          const db = parseDataBR(b.prazo_legal) || new Date(9999, 0, 1);
+          return da - db;
+        });
+
+      const total = atividadesDoMes.length;
+      const entregues = atividadesDoMes.filter(a => a.status_semaforo === 'green').length;
+      const pendentes = atividadesDoMes.filter(a => a.status_semaforo === 'amber').length;
+      const atrasadas = atividadesDoMes.filter(a => a.status_semaforo === 'red').length;
+      const dispensadas = atividadesDoMes.filter(a => a.status_semaforo === 'gray').length;
+      const efetivas = total - dispensadas;
+      const percent = efetivas > 0 ? (entregues / efetivas * 100) : null;
+
+      const cidadeUF = [dados.cidade, dados.estado].filter(Boolean).join(' / ') || '--';
+      const departamentos = (dados.departamentos || []).join(', ') || 'Não informado';
+      const respCount = (dados.responsaveis || []).length;
+
+      const iconPin = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+      const iconUsers = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
+      const iconBuilding = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="9" y2="9"/><line x1="9" y1="15" x2="9" y2="15"/><line x1="15" y1="9" x2="15" y2="9"/><line x1="15" y1="15" x2="15" y2="15"/></svg>`;
+      const iconCalendar = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+
+      const scoreHTML = percent !== null
+        ? `<div class="card-score">
+            <div class="card-score-value">${percent.toFixed(1)}<span class="card-score-suffix">%</span></div>
+            <div class="card-score-label">Entregue · ${comp}</div>
+          </div>`
+        : `<div class="card-score muted">
+            <div class="card-score-value">--</div>
+            <div class="card-score-label">Sem atividades em ${comp}</div>
+          </div>`;
+
+      const kpisHTML = total === 0
+        ? `<p style="color:var(--text-dim); padding:8px 0">Sem atividades nesta competência.</p>`
+        : `
+          <div class="kpis-grid">
+            <div class="kpi-card"><div class="kpi-label">Total</div><div class="kpi-value">${total}</div></div>
+            <div class="kpi-card green"><div class="kpi-label">Entregues</div><div class="kpi-value">${entregues}</div></div>
+            <div class="kpi-card amber"><div class="kpi-label">Pendentes</div><div class="kpi-value">${pendentes}</div></div>
+            <div class="kpi-card red"><div class="kpi-label">Atrasadas</div><div class="kpi-value">${atrasadas}</div></div>
+            <div class="kpi-card gray"><div class="kpi-label">Dispensadas</div><div class="kpi-value">${dispensadas}</div></div>
+          </div>
+        `;
+
+      const atividadesHTML = atividadesDoMes.length === 0
+        ? `<p style="color:var(--text-dim); padding:8px 0">Sem atividades nesta competência.</p>`
+        : atividadesDoMes.map(a => {
+          const sp = statusPrazo(a);
+          const sc = a.status_semaforo || 'gray';
+          return `
+            <div class="atividade ${sc}">
+              <div class="atividade-main">
+                <div class="atividade-titulo">
+                  <span class="badge ${timeClass(a.time)}">${a.time || 'Outras'}</span>
+                  <span class="atividade-nome">${a.obrigacao || '--'}</span>
+                  ${a.prioritaria ? '<span class="atividade-prio">Prioritária</span>' : ''}
+                </div>
+                <div class="atividade-meta">
+                  <span>Pz Legal: <strong>${a.prazo_legal || '--'}</strong></span>
+                  <span>Pz Técnico: <strong>${a.prazo_tecnico || '--'}</strong></span>
+                  <span>Entrega: <strong>${a.data_entrega || '--'}</strong></span>
+                  ${a.dias_atraso > 0 ? `<span>Atraso: <strong style="color:var(--red)">${a.dias_atraso}d</strong></span>` : ''}
+                </div>
+                <div class="atividade-resp">Responsável: <strong>${a.responsavel || 'Sem responsável'}</strong>${a.departamento ? ` · ${a.departamento}` : ''}</div>
+              </div>
+              <div class="atividade-status">
+                <span class="badge ${sc}">${a.status_original || '--'}</span>
+                <span class="badge ${sp.classe}">${sp.texto}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      container.innerHTML = `
+        <div class="card-header">
+          <div class="card-back-bar">
+            <button class="card-back ${estado.modal.voltarPara ? '' : 'invisible'}" onclick="voltarParaLista()">← Voltar para lista</button>
+            <button class="card-close-x" onclick="fecharModal()">×</button>
+          </div>
+          <div class="card-content">
+            <div class="card-info">
+              <div class="card-tag"><span class="dot">●</span> CLIENTE · ${departamentos}</div>
+              <div class="card-empresa-nome">${dados.empresa || '(empresa sem nome)'}</div>
+              <div class="card-empresa-cnpj">CNPJ ${formatarCNPJ(dados.cnpj)}</div>
+              <div class="card-meta">
+                <span class="card-meta-item">${iconPin} ${cidadeUF}</span>
+                <span class="card-meta-item">${iconCalendar} Competência ${comp}</span>
+                <span class="card-meta-item">${iconUsers} ${respCount} ${respCount === 1 ? 'responsável' : 'responsáveis'}</span>
+                <span class="card-meta-item">${iconBuilding} ${dados.total_atividades || 0} atividades no total</span>
+              </div>
+            </div>
+            ${scoreHTML}
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-section">
+            <div class="card-section-tag">Dimensão</div>
+            <div class="card-section-title">Números da empresa em ${comp}</div>
+            ${kpisHTML}
+          </div>
+          <div class="card-section">
+            <div class="card-section-tag">Atividades</div>
+            <div class="card-section-title">Todas as atividades em ${comp}</div>
+            <div class="card-section-sub">Ordenadas por prazo legal (mais próximas primeiro)</div>
+            <div class="card-legend">
+              <span class="card-legend-item"><span class="legend-swatch" style="background:var(--green)"></span>No prazo</span>
+              <span class="card-legend-item"><span class="legend-swatch" style="background:var(--amber)"></span>Pendente</span>
+              <span class="card-legend-item"><span class="legend-swatch" style="background:var(--red)"></span>Atrasada</span>
+              <span class="card-legend-item"><span class="legend-swatch" style="background:var(--text-dim)"></span>Dispensada</span>
+            </div>
+            ${atividadesHTML}
+          </div>
+        </div>
+      `;
+    }
+
+    // ========== Export CSV ==========
     function exportarCSV() {
       const entregas = estado.modal.entregasFiltradas || [];
       if (entregas.length === 0) return;
@@ -876,12 +1105,7 @@
       URL.revokeObjectURL(url);
     }
 
-    // Bindings
-    document.getElementById('modal-search').addEventListener('input', (e) => {
-      estado.modal.busca = e.target.value;
-      renderModal();
-    });
-    document.getElementById('btn-export').addEventListener('click', exportarCSV);
+    // ========== Bindings globais ==========
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && estado.modal.aberto) fecharModal();
     });
