@@ -24,6 +24,8 @@
       --green-dim: rgba(74, 222, 128, 0.15);
       --red: #ef4444;
       --red-dim: rgba(239, 68, 68, 0.15);
+      --red-done: #fb7185;
+      --red-done-dim: rgba(251, 113, 133, 0.15);
       --amber: #fbbf24;
       --amber-dim: rgba(251, 191, 36, 0.15);
       --gray-tag: rgba(148, 163, 184, 0.15);
@@ -31,11 +33,9 @@
       --text-muted: #94a3b8;
       --text-dim: #64748b;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { font-family: 'Poppins', sans-serif; background: var(--bg-deepest); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-    /* HEADER */
     .header { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; background: linear-gradient(180deg, #0a1f33 0%, #061525 100%); border-bottom: 1px solid var(--border); }
     .brand { display: flex; align-items: baseline; gap: 14px; }
     .brand-name { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
@@ -48,7 +48,6 @@
     .header-link { font-size: 12px; color: var(--text-muted); text-decoration: none; padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.15s; background: rgba(13,36,56,0.4); }
     .header-link:hover { background: var(--bg-card-2); color: var(--text); }
 
-    /* COMP BAR */
     .comp-bar { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 14px 28px; background: rgba(13, 36, 56, 0.5); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
     .comp-bar-section { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
     .comp-bar-actions { display: flex; align-items: center; gap: 12px; }
@@ -60,12 +59,11 @@
     .comp-pill.is-current::after { content: '·'; margin-left: 6px; color: var(--fiscal); }
     .comp-pill.active.is-current::after { color: var(--bg-deepest); }
 
-    /* BUSCA EMPRESA */
     .search-wrap { position: relative; }
     .search-input { background: var(--bg-card-2); color: var(--text); border: 1px solid var(--border); padding: 8px 12px; border-radius: 6px; font-size: 13px; font-family: 'Poppins', sans-serif; width: 280px; }
     .search-input:focus { outline: none; border-color: var(--fiscal); }
     .search-input::placeholder { color: var(--text-dim); }
-    .search-dropdown { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--bg-card-2); border: 1px solid var(--border); border-radius: 8px; max-height: 360px; overflow-y: auto; z-index: 100; display: none; box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
+    .search-dropdown { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--bg-card-2); border: 1px solid var(--border); border-radius: 8px; max-height: 420px; overflow-y: auto; z-index: 100; display: none; box-shadow: 0 12px 32px rgba(0,0,0,0.4); }
     .search-dropdown.aberto { display: block; }
     .search-item { padding: 10px 14px; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.04); }
     .search-item:hover { background: var(--bg-card-3); }
@@ -74,13 +72,11 @@
     .search-item-cnpj { font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; margin-top: 2px; }
     .search-empty { padding: 16px; text-align: center; color: var(--text-dim); font-size: 12px; }
 
-    /* TOGGLE PRIO */
     .toggle-prio { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; font-size: 12px; color: var(--text-muted); padding: 8px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-card-2); transition: all 0.15s; }
     .toggle-prio:hover { background: var(--bg-card-3); color: var(--text); }
     .toggle-prio input { cursor: pointer; accent-color: var(--amber); }
     .toggle-prio.ativo { border-color: var(--amber); color: var(--amber); background: var(--amber-dim); }
 
-    /* SPLIT */
     .split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; }
     .team-block { background: var(--bg-card); border-radius: 12px; padding: 24px; border-top: 4px solid; }
     .team-block.fiscal { border-top-color: var(--fiscal); }
@@ -92,42 +88,31 @@
     .team-subtotal { font-size: 12px; color: var(--text-muted); }
     .filtro-prio-tag { display: inline-block; font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 3px; background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); text-transform: uppercase; letter-spacing: 0.4px; margin-left: 8px; }
 
-    .cards-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
-    .card-count { background: var(--bg-card-2); padding: 14px 12px; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; transition: background 0.15s, transform 0.1s, border-color 0.15s; position: relative; }
+    .cards-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 16px; }
+    .card-count { background: var(--bg-card-2); padding: 12px 10px; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; transition: background 0.15s, transform 0.1s, border-color 0.15s; position: relative; }
     .card-count:hover { background: var(--bg-card-3); border-color: rgba(255,255,255,0.15); transform: translateY(-1px); }
-    .card-count::after { content: '↗'; position: absolute; top: 8px; right: 10px; font-size: 12px; color: var(--text-dim); opacity: 0; transition: opacity 0.15s; }
+    .card-count::after { content: '↗'; position: absolute; top: 6px; right: 8px; font-size: 11px; color: var(--text-dim); opacity: 0; transition: opacity 0.15s; }
     .card-count:hover::after { opacity: 1; }
-    .card-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
-    .card-value { font-size: 30px; font-weight: 700; line-height: 1; }
+    .card-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; line-height: 1.2; }
+    .card-value { font-size: 26px; font-weight: 700; line-height: 1; }
     .card-value.amber { color: var(--amber); }
     .card-value.red { color: var(--red); }
+    .card-value.red-done { color: var(--red-done); }
 
-    .hero-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .hero-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px; }
     .card-percent { background: var(--bg-card-3); border-radius: 10px; padding: 18px; text-align: center; border: 1px solid var(--border); cursor: pointer; transition: background 0.15s, transform 0.1s; position: relative; }
     .card-percent:hover { background: #1a3a58; transform: translateY(-1px); }
     .card-percent::after { content: '↗'; position: absolute; top: 8px; right: 12px; font-size: 12px; color: var(--text-dim); opacity: 0; transition: opacity 0.15s; }
     .card-percent:hover::after { opacity: 1; }
-    .card-percent .card-label { margin-bottom: 4px; }
-    .percent-value { font-size: 56px; font-weight: 800; line-height: 1; color: var(--green); letter-spacing: -1.5px; }
-    .percent-suffix { font-size: 26px; font-weight: 600; }
+    .card-percent .card-label { margin-bottom: 4px; font-size: 10px; }
+    .percent-value { font-size: 52px; font-weight: 800; line-height: 1; color: var(--green); letter-spacing: -1.5px; }
+    .percent-suffix { font-size: 24px; font-weight: 600; }
     .card-forecast { background: var(--bg-card-2); border-radius: 10px; padding: 18px; border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
-    .forecast-value { font-size: 26px; font-weight: 700; line-height: 1; margin-top: 4px; }
+    .card-forecast .card-label { font-size: 10px; }
+    .forecast-value { font-size: 24px; font-weight: 700; line-height: 1; margin-top: 4px; }
     .forecast-source { font-size: 11px; color: var(--text-dim); margin-top: 8px; line-height: 1.3; }
     .forecast-empty { font-size: 13px; color: var(--text-dim); font-style: italic; }
 
-    .ranking { background: var(--bg-card-2); border-radius: 10px; padding: 14px; border: 1px solid var(--border); }
-    .ranking-title { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
-    .ranking-row { display: grid; grid-template-columns: 1fr auto auto; gap: 14px; padding: 7px 8px; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.04); border-radius: 4px; cursor: pointer; transition: background 0.15s; }
-    .ranking-row:last-child { border-bottom: none; }
-    .ranking-row:hover { background: rgba(255,255,255,0.04); }
-    .rank-name { font-size: 13px; }
-    .rank-numbers { font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
-    .rank-pct { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; min-width: 50px; text-align: right; }
-    .rank-pct.good { color: var(--green); }
-    .rank-pct.mid { color: var(--amber); }
-    .rank-pct.bad { color: var(--red); }
-
-    /* RANKING GERAL */
     .ranking-geral-section { padding: 0 20px 20px; }
     .panel { background: var(--bg-card); border-radius: 12px; padding: 24px; }
     .panel-title-row { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; gap: 16px; }
@@ -150,14 +135,12 @@
     .rg-pct.bad { color: var(--red); }
     .rg-empty { padding: 32px 16px; text-align: center; color: var(--text-dim); grid-column: 1/-1; }
 
-    /* BOTTOM ROW */
     .bottom-row { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; padding: 0 20px 20px; }
     .panel-title-simple { font-size: 13px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; font-weight: 600; }
     .legend { display: flex; gap: 14px; font-size: 11px; }
     .legend-item { display: flex; align-items: center; gap: 6px; color: var(--text-muted); }
     .legend-swatch { width: 11px; height: 11px; border-radius: 50%; }
 
-    /* ATRASOS */
     .atrasos { max-height: 320px; overflow-y: auto; }
     .atraso-row { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; padding: 9px 6px; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; border-radius: 4px; transition: background 0.15s; }
     .atraso-row:hover { background: rgba(255,255,255,0.04); }
@@ -167,11 +150,12 @@
     .time-tag.contabil { background: var(--contabil-dim); color: var(--contabil); border: 1px solid rgba(255, 140, 66, 0.3); }
     .time-tag.outras { background: var(--outras-dim); color: var(--outras); border: 1px solid rgba(148, 163, 184, 0.3); }
     .atraso-empresa { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .atraso-dias { font-size: 13px; font-weight: 700; color: var(--red); font-variant-numeric: tabular-nums; }
+    .atraso-dias { font-size: 13px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .atraso-dias.red { color: var(--red); }
+    .atraso-dias.red-done { color: var(--red-done); }
 
     .footer { text-align: center; padding: 16px; font-size: 11px; color: var(--text-dim); border-top: 1px solid var(--border); }
 
-    /* SVG CHART */
     .chart-svg { width: 100%; height: auto; max-height: 280px; }
     .chart-grid-line { stroke: rgba(255, 255, 255, 0.06); stroke-width: 1; }
     .chart-label { fill: var(--text-dim); font-size: 11px; font-family: 'Poppins', sans-serif; }
@@ -181,12 +165,10 @@
     .chart-dot.fiscal { fill: var(--fiscal); }
     .chart-dot.contabil { fill: var(--contabil); }
 
-    /* MODAL BASE */
     .modal-overlay { position: fixed; inset: 0; background: rgba(6, 21, 37, 0.88); backdrop-filter: blur(4px); display: none; align-items: flex-start; justify-content: center; z-index: 1000; padding: 24px; overflow-y: auto; }
     .modal-overlay.aberto { display: flex; }
     .modal { background: var(--bg-card); border-radius: 14px; width: 100%; max-width: 1500px; max-height: 92vh; display: flex; flex-direction: column; border: 1px solid var(--border); overflow: hidden; margin: auto; }
 
-    /* MODAL LISTA */
     .modal.modo-lista .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; border-bottom: 1px solid var(--border); background: var(--bg-card-2); }
     .modal-title { font-size: 16px; font-weight: 600; }
     .modal-title .count { color: var(--text-muted); font-weight: 400; margin-left: 8px; }
@@ -213,6 +195,7 @@
     .modal-table .badge { display: inline-block; padding: 3px 9px; border-radius: 4px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; }
     .badge.green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(74,222,128,0.3); }
     .badge.red { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+    .badge.red-done { background: var(--red-done-dim); color: var(--red-done); border: 1px solid rgba(251,113,133,0.3); }
     .badge.amber { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
     .badge.gray { background: var(--gray-tag); color: var(--text-muted); border: 1px solid rgba(148,163,184,0.3); }
     .badge.fiscal { background: var(--fiscal-dim); color: var(--fiscal); border: 1px solid rgba(53,185,215,0.3); }
@@ -220,7 +203,6 @@
     .badge.outras { background: var(--outras-dim); color: var(--outras); border: 1px solid rgba(148,163,184,0.3); }
     .modal-empty { padding: 60px 24px; text-align: center; color: var(--text-dim); font-size: 14px; }
 
-    /* MODAL CARD (empresa e pessoa) */
     .card-header { background: linear-gradient(135deg, #35b9d7 0%, #1a6e8e 50%, #012e43 100%); padding: 28px 36px 24px; color: white; position: relative; }
     .card-header.pessoa { background: linear-gradient(135deg, #5b8def 0%, #2d4f8e 50%, #0a1f33 100%); }
     .card-back-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
@@ -253,19 +235,20 @@
     .card-section-title { font-size: 18px; font-weight: 700; margin-bottom: 14px; }
     .card-section-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; margin-top: -10px; }
 
-    .kpis-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-    @media (max-width: 800px) { .kpis-grid { grid-template-columns: repeat(2, 1fr); } }
-    .kpi-card { background: var(--bg-card-2); padding: 14px; border-radius: 8px; border: 1px solid var(--border); }
-    .kpi-card .kpi-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 6px; }
-    .kpi-card .kpi-value { font-size: 26px; font-weight: 700; line-height: 1; }
+    .kpis-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+    @media (max-width: 900px) { .kpis-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 500px) { .kpis-grid { grid-template-columns: repeat(2, 1fr); } }
+    .kpi-card { background: var(--bg-card-2); padding: 12px 10px; border-radius: 8px; border: 1px solid var(--border); }
+    .kpi-card .kpi-label { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; line-height: 1.2; }
+    .kpi-card .kpi-value { font-size: 22px; font-weight: 700; line-height: 1; }
     .kpi-card.green .kpi-value { color: var(--green); }
     .kpi-card.amber .kpi-value { color: var(--amber); }
     .kpi-card.red .kpi-value { color: var(--red); }
+    .kpi-card.red-done .kpi-value { color: var(--red-done); }
     .kpi-card.gray .kpi-value { color: var(--text-muted); }
 
-    /* HISTORICO BARS */
     .historico-grid { display: grid; gap: 8px; }
-    .historico-row { display: grid; grid-template-columns: 70px 1fr 80px 60px; gap: 12px; align-items: center; padding: 7px 0; }
+    .historico-row { display: grid; grid-template-columns: 70px 1fr 110px 60px; gap: 12px; align-items: center; padding: 7px 0; }
     .historico-comp { font-size: 13px; font-weight: 600; }
     .historico-bar-track { background: var(--bg-card-2); height: 10px; border-radius: 5px; position: relative; overflow: hidden; }
     .historico-bar-fill { height: 100%; border-radius: 5px; transition: width 0.3s; }
@@ -285,6 +268,7 @@
     .atividade.green { border-left-color: var(--green); }
     .atividade.amber { border-left-color: var(--amber); }
     .atividade.red { border-left-color: var(--red); }
+    .atividade.red-done { border-left-color: var(--red-done); }
     .atividade.gray { border-left-color: var(--text-dim); }
     .atividade-main { min-width: 0; }
     .atividade-titulo { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; flex-wrap: wrap; }
@@ -343,7 +327,6 @@
         </div>
         <div class="cards-row" id="cards-fiscal"></div>
         <div class="hero-row" id="hero-fiscal"></div>
-        <div class="ranking" id="ranking-fiscal"></div>
       </div>
       <div class="team-block contabil">
         <div class="team-header">
@@ -352,7 +335,6 @@
         </div>
         <div class="cards-row" id="cards-contabil"></div>
         <div class="hero-row" id="hero-contabil"></div>
-        <div class="ranking" id="ranking-contabil"></div>
       </div>
     </section>
 
@@ -403,18 +385,17 @@
       competenciaSelecionada: null,
       filtroPrio: false,
       modal: {
-        aberto: false,
-        modo: 'lista',
+        aberto: false, modo: 'lista',
         titulo: '', entregas: [], entregasFiltradas: [],
         busca: '', sortBy: 'dias_atraso', sortDir: 'desc',
-        cnpjCard: null,
-        pessoaCard: null,
-        competenciaCard: null,
+        cnpjCard: null, pessoaCard: null, competenciaCard: null,
         voltarPara: null
       }
     };
 
-    // ========== Utils ==========
+    function normalizar(s) {
+      return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    }
     function ordemComp(comp) {
       if (!comp) return 0;
       const m = String(comp).match(/([a-z]+)\/(\d+)/);
@@ -433,17 +414,16 @@
       if (m) return new Date(+m[1], +m[2]-1, +m[3]);
       return null;
     }
+    function classeSemaforo(sem) {
+      if (sem === 'red_done') return 'red-done';
+      return sem || 'gray';
+    }
     function statusPrazo(e) {
       if (e.status_semaforo === 'gray') return { texto: 'Dispensada', classe: 'gray' };
-      if (!e.data_entrega) return { texto: 'Não entregue', classe: 'gray' };
-      const dEnt = parseDataBR(e.data_entrega);
-      if (!dEnt) return { texto: 'Data inválida', classe: 'gray' };
-      const dLeg = parseDataBR(e.prazo_legal);
-      const dTec = parseDataBR(e.prazo_tecnico);
-      const dentroLeg = dLeg && dEnt <= dLeg;
-      const dentroTec = dTec && dEnt <= dTec;
-      if (dentroLeg || dentroTec) return { texto: 'Dentro do prazo', classe: 'green' };
-      return { texto: 'Fora do prazo', classe: 'red' };
+      if (e.status_semaforo === 'red') return { texto: 'Não entregue', classe: 'red' };
+      if (e.status_semaforo === 'red_done') return { texto: 'Entregue tarde', classe: 'red-done' };
+      if (e.status_semaforo === 'green') return { texto: 'Dentro do prazo', classe: 'green' };
+      return { texto: 'Pendente', classe: 'amber' };
     }
     function formatarCNPJ(cnpj) {
       if (!cnpj) return '--';
@@ -457,28 +437,27 @@
       return 'outras';
     }
 
-    // ========== Recalcula KPIs/Ranking com filtro de prioritárias ==========
     function kpiDeConjuntoFront(conjunto) {
       const total = conjunto.length;
       const entregues = conjunto.filter(e => e.status_semaforo === 'green').length;
       const atrasadas = conjunto.filter(e => e.status_semaforo === 'red').length;
+      const entregues_atrasados = conjunto.filter(e => e.status_semaforo === 'red_done').length;
       const pendentes = conjunto.filter(e => e.status_semaforo === 'amber').length;
       const prioritarias = conjunto.filter(e => e.prioritaria).length;
       return {
-        total, entregues, pendentes, atrasadas, prioritarias,
-        percentual_entregues: total ? +((entregues / total) * 100).toFixed(1) : 0,
-        percentual_pendentes: total ? +((pendentes / total) * 100).toFixed(1) : 0,
-        percentual_atrasadas: total ? +((atrasadas / total) * 100).toFixed(1) : 0
+        total, entregues, pendentes, atrasadas, entregues_atrasados, prioritarias,
+        percentual_entregues: total ? +((entregues / total) * 100).toFixed(1) : 0
       };
     }
     function rankingDeConjuntoFront(conjunto) {
       const porResp = {};
       for (const e of conjunto) {
         const r = e.responsavel || 'Sem responsável';
-        if (!porResp[r]) porResp[r] = { nome: r, total: 0, entregues: 0, pendentes: 0, atrasadas: 0 };
+        if (!porResp[r]) porResp[r] = { nome: r, total: 0, entregues: 0, pendentes: 0, atrasadas: 0, entregues_atrasados: 0 };
         porResp[r].total++;
         if (e.status_semaforo === 'green') porResp[r].entregues++;
         if (e.status_semaforo === 'red') porResp[r].atrasadas++;
+        if (e.status_semaforo === 'red_done') porResp[r].entregues_atrasados++;
         if (e.status_semaforo === 'amber') porResp[r].pendentes++;
       }
       return Object.values(porResp)
@@ -490,8 +469,6 @@
       const filtradas = estado.filtroPrio ? entregas.filter(e => e.prioritaria) : entregas;
       return { kpis: kpiDeConjuntoFront(filtradas), ranking: rankingDeConjuntoFront(filtradas) };
     }
-
-    // ========== Ranking Geral recalculado ==========
     function rankingGeralFront(competencia) {
       if (!estado.filtroPrio && estado.data && estado.data.ranking_geral) {
         return estado.data.ranking_geral[competencia] || [];
@@ -504,38 +481,35 @@
           if (a.status_semaforo === 'gray') continue;
           if (estado.filtroPrio && !a.prioritaria) continue;
           const r = a.responsavel || 'Sem responsável';
-          if (!porResp[r]) porResp[r] = { nome: r, total: 0, entregues: 0, pendentes: 0, atrasadas: 0, departamentos: new Set() };
+          if (!porResp[r]) porResp[r] = { nome: r, total: 0, entregues: 0, pendentes: 0, atrasadas: 0, entregues_atrasados: 0, departamentos: new Set() };
           porResp[r].total++;
           if (a.departamento) porResp[r].departamentos.add(a.departamento);
           if (a.status_semaforo === 'green') porResp[r].entregues++;
           if (a.status_semaforo === 'red') porResp[r].atrasadas++;
+          if (a.status_semaforo === 'red_done') porResp[r].entregues_atrasados++;
           if (a.status_semaforo === 'amber') porResp[r].pendentes++;
         }
       }
       return Object.values(porResp).map(r => ({
         nome: r.nome, total: r.total, entregues: r.entregues,
         pendentes: r.pendentes, atrasadas: r.atrasadas,
+        entregues_atrasados: r.entregues_atrasados,
         departamentos: Array.from(r.departamentos),
         percentual: r.total ? +((r.entregues / r.total) * 100).toFixed(1) : 0
       })).sort((a, b) => b.percentual - a.percentual || b.entregues - a.entregues);
     }
-
-    // ========== Buscar atividades por responsável ==========
     function buscarAtividadesPorResponsavel(nome) {
       const lista = [];
       const empresas = (estado.data && estado.data.atividades_por_empresa) || {};
       for (const cnpj of Object.keys(empresas)) {
         const reg = empresas[cnpj];
         for (const a of reg.atividades) {
-          if (a.responsavel === nome) {
-            lista.push({ ...a, empresa: reg.empresa, cnpj: reg.cnpj });
-          }
+          if (a.responsavel === nome) lista.push({ ...a, empresa: reg.empresa, cnpj: reg.cnpj });
         }
       }
       return lista;
     }
 
-    // ========== Boot ==========
     async function carregar() {
       try {
         const resp = await fetch(DATA_URL + '?ts=' + Date.now());
@@ -577,9 +551,7 @@
     function renderCompFilter(competencias, competenciaAtualDoSistema) {
       const comps = competencias.slice().sort((a, b) => ordemComp(a) - ordemComp(b));
       const container = document.getElementById('comp-filter');
-      container.innerHTML = comps.map(c => `
-        <button class="comp-pill ${c === estado.competenciaSelecionada ? 'active' : ''} ${c === competenciaAtualDoSistema ? 'is-current' : ''}" data-comp="${c}">${c}</button>
-      `).join('');
+      container.innerHTML = comps.map(c => `<button class="comp-pill ${c === estado.competenciaSelecionada ? 'active' : ''} ${c === competenciaAtualDoSistema ? 'is-current' : ''}" data-comp="${c}">${c}</button>`).join('');
       container.querySelectorAll('.comp-pill').forEach(btn => {
         btn.addEventListener('click', () => { estado.competenciaSelecionada = btn.dataset.comp; renderTudo(); });
       });
@@ -589,34 +561,36 @@
       const timeNome = slug === 'fiscal' ? 'Fiscal' : 'Contabil';
       const cardsEl = document.getElementById('cards-' + slug);
       const heroEl = document.getElementById('hero-' + slug);
-      const rankingEl = document.getElementById('ranking-' + slug);
       const subtotalEl = document.getElementById('subtotal-' + slug);
 
       const dadosTime = (slug === 'fiscal' ? estado.data.fiscal : estado.data.contabil);
       if (!dadosTime) { cardsEl.innerHTML = '<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados do time.</div>'; return; }
 
-      const { kpis, ranking } = kpisDoTimeNaCompetencia(timeNome, competencia);
+      const { kpis } = kpisDoTimeNaCompetencia(timeNome, competencia);
 
       if (!kpis || kpis.total === 0) {
         cardsEl.innerHTML = `<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados ${estado.filtroPrio ? 'prioritárias ' : ''}para ${competencia}.</div>`;
-        heroEl.innerHTML = ''; rankingEl.innerHTML = '';
+        heroEl.innerHTML = '';
         if (subtotalEl) subtotalEl.textContent = '--';
         return;
       }
       if (subtotalEl) subtotalEl.textContent = `${kpis.total} entregas · ${kpis.prioritarias} prioritárias`;
 
       cardsEl.innerHTML = `
-        <div class="card-count" data-time="${timeNome}" data-status="all" data-comp="${competencia}">
+        <div class="card-count" data-time="${timeNome}" data-status="all" data-comp="${competencia}" title="Total de liberações na competência">
           <div class="card-label">Total</div><div class="card-value">${kpis.total}</div>
         </div>
-        <div class="card-count" data-time="${timeNome}" data-status="green" data-comp="${competencia}">
+        <div class="card-count" data-time="${timeNome}" data-status="green" data-comp="${competencia}" title="Entregue dentro do prazo">
           <div class="card-label">Entregues</div><div class="card-value">${kpis.entregues}</div>
         </div>
-        <div class="card-count" data-time="${timeNome}" data-status="amber" data-comp="${competencia}">
+        <div class="card-count" data-time="${timeNome}" data-status="amber" data-comp="${competencia}" title="Pendentes, ainda no prazo">
           <div class="card-label">Pendentes</div><div class="card-value amber">${kpis.pendentes}</div>
         </div>
-        <div class="card-count" data-time="${timeNome}" data-status="red" data-comp="${competencia}">
+        <div class="card-count" data-time="${timeNome}" data-status="red" data-comp="${competencia}" title="Não entregue, prazo já vencido">
           <div class="card-label">Atrasadas</div><div class="card-value red">${kpis.atrasadas}</div>
+        </div>
+        <div class="card-count" data-time="${timeNome}" data-status="red_done" data-comp="${competencia}" title="Entregue, porém com atraso">
+          <div class="card-label">Ent. Atrasada</div><div class="card-value red-done">${kpis.entregues_atrasados || 0}</div>
         </div>
       `;
       cardsEl.querySelectorAll('.card-count').forEach(el => {
@@ -632,33 +606,13 @@
 
       heroEl.innerHTML = `
         <div class="card-percent" data-time="${timeNome}" data-status="green" data-comp="${competencia}">
-          <div class="card-label">% Entregue</div>
+          <div class="card-label">% Entregue no prazo</div>
           <div class="percent-value">${kpis.percentual_entregues.toFixed(1)}<span class="percent-suffix">%</span></div>
         </div>
         <div class="card-forecast">${forecastHTML}</div>
       `;
       heroEl.querySelectorAll('.card-percent').forEach(el => {
         el.addEventListener('click', () => abrirModalCardKPI(el.dataset.time, el.dataset.status, el.dataset.comp));
-      });
-
-      const top5 = ranking.slice(0, 5);
-      if (top5.length === 0) {
-        rankingEl.innerHTML = `<div class="ranking-title">Top responsáveis · ${competencia}</div>
-          <div style="color:var(--text-dim); padding:10px 0; font-size:12px">Sem responsáveis na competência.</div>`;
-        return;
-      }
-      rankingEl.innerHTML = `
-        <div class="ranking-title">Top responsáveis · ${competencia}</div>
-        ${top5.map(r => `
-          <div class="ranking-row" data-resp="${encodeURIComponent(r.nome)}" data-comp="${competencia}">
-            <div class="rank-name">${r.nome}</div>
-            <div class="rank-numbers">${r.entregues}/${r.total}</div>
-            <div class="rank-pct ${classePercentual(r.percentual)}">${r.percentual.toFixed(1)}%</div>
-          </div>
-        `).join('')}
-      `;
-      rankingEl.querySelectorAll('.ranking-row').forEach(el => {
-        el.addEventListener('click', () => abrirModalCardPessoa(decodeURIComponent(el.dataset.resp), el.dataset.comp));
       });
     }
 
@@ -667,19 +621,17 @@
       const container = document.getElementById('ranking-geral-grid');
       document.getElementById('ranking-geral-comp').textContent = `${competencia} · ${ranking.length} ${ranking.length === 1 ? 'responsável' : 'responsáveis'}`;
 
-      if (!ranking.length) {
-        container.innerHTML = '<div class="rg-empty">Sem responsáveis com atividades nesta competência.</div>';
-        return;
-      }
+      if (!ranking.length) { container.innerHTML = '<div class="rg-empty">Sem responsáveis com atividades nesta competência.</div>'; return; }
       const top = ranking.slice(0, 15);
       container.innerHTML = top.map((r, i) => {
         const posClass = i === 0 ? 'top-1' : i === 1 ? 'top-2' : i === 2 ? 'top-3' : '';
+        const totalAtraso = (r.atrasadas || 0) + (r.entregues_atrasados || 0);
         return `
           <div class="rg-card" data-resp="${encodeURIComponent(r.nome)}" data-comp="${competencia}">
             <div class="rg-position ${posClass}">${i + 1}º</div>
             <div class="rg-info">
               <div class="rg-nome">${r.nome}</div>
-              <div class="rg-stats">${r.entregues}/${r.total} entregas · ${r.atrasadas} atraso${r.atrasadas !== 1 ? 's' : ''}</div>
+              <div class="rg-stats">${r.entregues}/${r.total} entregas · ${totalAtraso} ${totalAtraso === 1 ? 'atraso' : 'atrasos'}</div>
             </div>
             <div class="rg-pct ${classePercentual(r.percentual)}">${r.percentual.toFixed(1)}%</div>
           </div>
@@ -719,37 +671,61 @@
     function renderAtrasos(lista) {
       const el = document.getElementById('atrasos');
       if (!lista || lista.length === 0) { el.innerHTML = '<div style="color:var(--text-dim); padding:16px 0; text-align:center">Nenhum atraso crítico.</div>'; return; }
-      el.innerHTML = lista.slice(0, 12).map(a => `
-        <div class="atraso-row" data-cnpj="${a.cnpj}" data-comp="${a.competencia}">
-          <span class="time-tag ${timeClass(a.time)}">${a.time || '--'}</span>
-          <span class="atraso-empresa" title="${a.empresa}">${a.empresa}</span>
-          <span class="atraso-dias">${a.dias_atraso}d</span>
-        </div>
-      `).join('');
+      el.innerHTML = lista.slice(0, 12).map(a => {
+        const colorClass = a.status_semaforo === 'red_done' ? 'red-done' : 'red';
+        return `
+          <div class="atraso-row" data-cnpj="${a.cnpj}" data-comp="${a.competencia}">
+            <span class="time-tag ${timeClass(a.time)}">${a.time || '--'}</span>
+            <span class="atraso-empresa" title="${a.empresa}">${a.empresa}</span>
+            <span class="atraso-dias ${colorClass}">${a.dias_atraso}d</span>
+          </div>
+        `;
+      }).join('');
       el.querySelectorAll('.atraso-row').forEach(row => {
         row.addEventListener('click', () => abrirModalCardEmpresa(row.dataset.cnpj, row.dataset.comp));
       });
     }
 
-    // ========== BUSCA EMPRESA ==========
+    // ========== BUSCA HEADER ==========
     function renderSearchDropdown(termo) {
       const dropdown = document.getElementById('search-dropdown');
-      const t = (termo || '').toLowerCase().trim();
-      if (t.length < 2) { dropdown.classList.remove('aberto'); return; }
+      const tRaw = (termo || '').trim();
+      if (tRaw.length < 2) { dropdown.classList.remove('aberto'); return; }
 
+      const tNorm = normalizar(tRaw);
+      const tDigits = tRaw.replace(/\D/g, '');
+      const palavras = tNorm.split(/\s+/).filter(Boolean);
       const empresas = (estado.data && estado.data.atividades_por_empresa) || {};
       const matches = [];
+
       for (const cnpj of Object.keys(empresas)) {
         const reg = empresas[cnpj];
-        const empresa = (reg.empresa || '').toLowerCase();
+        const empresaNorm = normalizar(reg.empresa || '');
         const cnpjStr = String(cnpj).replace(/\D/g, '');
-        if (empresa.includes(t) || cnpjStr.includes(t.replace(/\D/g, ''))) {
-          matches.push(reg);
+        const matchTodas = palavras.length > 0 && palavras.every(p => empresaNorm.includes(p));
+        const matchCNPJ = tDigits.length >= 3 && cnpjStr.includes(tDigits);
+
+        if (matchTodas || matchCNPJ) {
+          let score = 0;
+          if (empresaNorm.startsWith(tNorm)) score = 100;
+          else if (matchTodas) {
+            const tokensEmpresa = empresaNorm.split(/\s+/);
+            let prefixHits = 0;
+            for (const p of palavras) {
+              if (tokensEmpresa.some(t => t.startsWith(p))) prefixHits++;
+            }
+            score = 50 + prefixHits * 5;
+          }
+          else if (matchCNPJ) score = 30;
+          matches.push({ reg, score });
         }
-        if (matches.length >= 50) break;
       }
-      matches.sort((a, b) => (a.empresa || '').localeCompare(b.empresa || ''));
-      const top = matches.slice(0, 12);
+
+      matches.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return (a.reg.empresa || '').localeCompare(b.reg.empresa || '');
+      });
+      const top = matches.slice(0, 20).map(m => m.reg);
 
       if (top.length === 0) {
         dropdown.innerHTML = '<div class="search-empty">Nenhuma empresa encontrada.</div>';
@@ -782,7 +758,8 @@
       if (status === 'green') filtradas = filtradas.filter(e => e.status_semaforo === 'green');
       else if (status === 'amber') filtradas = filtradas.filter(e => e.status_semaforo === 'amber');
       else if (status === 'red') filtradas = filtradas.filter(e => e.status_semaforo === 'red');
-      const statusLabel = { all: 'Todas', green: 'Entregues', amber: 'Pendentes', red: 'Atrasadas' }[status] || status;
+      else if (status === 'red_done') filtradas = filtradas.filter(e => e.status_semaforo === 'red_done');
+      const statusLabel = { all: 'Todas', green: 'Entregues', amber: 'Pendentes', red: 'Atrasadas', red_done: 'Ent. Atrasada' }[status] || status;
       const sufixo = estado.filtroPrio ? ' · só prioritárias' : '';
       const titulo = comp ? `${statusLabel} · ${time} · ${comp}${sufixo}` : `${statusLabel} · ${time}${sufixo}`;
       abrirModalLista(titulo, filtradas);
@@ -838,17 +815,27 @@
       else if (estado.modal.modo === 'card-pessoa') renderModalCardPessoa(container);
     }
 
-    function renderModalLista(container) {
-      let entregas = estado.modal.entregas.slice();
-      const termo = (estado.modal.busca || '').toLowerCase().trim();
-      if (termo) {
-        entregas = entregas.filter(e =>
-          (e.empresa || '').toLowerCase().includes(termo) ||
-          (e.cnpj || '').toLowerCase().includes(termo) ||
-          (e.responsavel || '').toLowerCase().includes(termo) ||
-          (e.obrigacao || '').toLowerCase().includes(termo)
+    function filtrarEntregasModal(entregas, termoRaw) {
+      const tRaw = (termoRaw || '').trim();
+      if (!tRaw) return entregas;
+      const tNorm = normalizar(tRaw);
+      const tDigits = tRaw.replace(/\D/g, '');
+      const palavras = tNorm.split(/\s+/).filter(Boolean);
+      return entregas.filter(e => {
+        const empresaN = normalizar(e.empresa);
+        const respN = normalizar(e.responsavel);
+        const obrigN = normalizar(e.obrigacao);
+        const cnpjStr = String(e.cnpj || '').replace(/\D/g, '');
+        const todasCasam = palavras.length === 0 || palavras.every(p =>
+          empresaN.includes(p) || respN.includes(p) || obrigN.includes(p)
         );
-      }
+        const matchCNPJ = tDigits.length >= 3 && cnpjStr.includes(tDigits);
+        return todasCasam || matchCNPJ;
+      });
+    }
+
+    function renderModalLista(container) {
+      let entregas = filtrarEntregasModal(estado.modal.entregas.slice(), estado.modal.busca);
       const sortBy = estado.modal.sortBy;
       const dir = estado.modal.sortDir === 'asc' ? 1 : -1;
       entregas.sort((a, b) => {
@@ -887,9 +874,7 @@
         ? `<tr><td colspan="${cols.length}" class="modal-empty">Nenhuma entrega encontrada.</td></tr>`
         : entregas.map(e => {
           const sp = statusPrazo(e);
-          const sc = e.status_semaforo === 'green' ? 'green'
-                  : e.status_semaforo === 'red' ? 'red'
-                  : e.status_semaforo === 'amber' ? 'amber' : 'gray';
+          const sc = classeSemaforo(e.status_semaforo);
           return `
             <tr data-cnpj="${e.cnpj}" data-comp="${e.competencia}">
               <td><span class="badge ${timeClass(e.time)}">${e.time || '--'}</span></td>
@@ -941,9 +926,8 @@
       container.querySelectorAll('th[data-col]').forEach(th => {
         th.addEventListener('click', () => {
           const col = th.dataset.col;
-          if (estado.modal.sortBy === col) {
-            estado.modal.sortDir = estado.modal.sortDir === 'asc' ? 'desc' : 'asc';
-          } else { estado.modal.sortBy = col; estado.modal.sortDir = 'desc'; }
+          if (estado.modal.sortBy === col) estado.modal.sortDir = estado.modal.sortDir === 'asc' ? 'desc' : 'asc';
+          else { estado.modal.sortBy = col; estado.modal.sortDir = 'desc'; }
           renderModal();
         });
       });
@@ -955,17 +939,14 @@
       });
     }
 
-    // Ícones SVG
     const ICO = {
       pin: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
       users: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
       building: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>`,
       calendar: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
-      briefcase: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`,
-      user: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`
+      briefcase: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`
     };
 
-    // ========== Modo CARD EMPRESA ==========
     function renderModalCardEmpresa(container) {
       const cnpj = estado.modal.cnpjCard;
       const comp = estado.modal.competenciaCard;
@@ -980,23 +961,22 @@
             </div>
             <div class="card-content"><div class="card-info"><div class="card-empresa-nome">Empresa não encontrada</div><div class="card-empresa-cnpj">CNPJ ${formatarCNPJ(cnpj)}</div></div></div>
           </div>
-          <div class="card-body"><p style="color:var(--text-dim)">Sem dados de atividades para esta empresa.</p></div>
+          <div class="card-body"><p style="color:var(--text-dim)">Sem dados de atividades.</p></div>
         `;
         return;
       }
 
-      const atividadesDoMes = dados.atividades
-        .filter(a => a.competencia === comp)
-        .sort((a, b) => {
-          const da = parseDataBR(a.prazo_legal) || new Date(9999, 0, 1);
-          const db = parseDataBR(b.prazo_legal) || new Date(9999, 0, 1);
-          return da - db;
-        });
+      const atividadesDoMes = dados.atividades.filter(a => a.competencia === comp).sort((a, b) => {
+        const da = parseDataBR(a.prazo_legal) || new Date(9999, 0, 1);
+        const db = parseDataBR(b.prazo_legal) || new Date(9999, 0, 1);
+        return da - db;
+      });
 
       const total = atividadesDoMes.length;
       const entregues = atividadesDoMes.filter(a => a.status_semaforo === 'green').length;
       const pendentes = atividadesDoMes.filter(a => a.status_semaforo === 'amber').length;
       const atrasadas = atividadesDoMes.filter(a => a.status_semaforo === 'red').length;
+      const entreguesAtrasados = atividadesDoMes.filter(a => a.status_semaforo === 'red_done').length;
       const dispensadas = atividadesDoMes.filter(a => a.status_semaforo === 'gray').length;
       const efetivas = total - dispensadas;
       const percent = efetivas > 0 ? (entregues / efetivas * 100) : null;
@@ -1006,7 +986,7 @@
       const respCount = (dados.responsaveis || []).length;
 
       const scoreHTML = percent !== null
-        ? `<div class="card-score"><div class="card-score-value">${percent.toFixed(1)}<span class="card-score-suffix">%</span></div><div class="card-score-label">Entregue · ${comp}</div></div>`
+        ? `<div class="card-score"><div class="card-score-value">${percent.toFixed(1)}<span class="card-score-suffix">%</span></div><div class="card-score-label">Entregue no prazo · ${comp}</div></div>`
         : `<div class="card-score muted"><div class="card-score-value">--</div><div class="card-score-label">Sem atividades em ${comp}</div></div>`;
 
       const kpisHTML = total === 0 ? `<p style="color:var(--text-dim); padding:8px 0">Sem atividades nesta competência.</p>` : `
@@ -1015,6 +995,7 @@
           <div class="kpi-card green"><div class="kpi-label">Entregues</div><div class="kpi-value">${entregues}</div></div>
           <div class="kpi-card amber"><div class="kpi-label">Pendentes</div><div class="kpi-value">${pendentes}</div></div>
           <div class="kpi-card red"><div class="kpi-label">Atrasadas</div><div class="kpi-value">${atrasadas}</div></div>
+          <div class="kpi-card red-done"><div class="kpi-label">Ent. Atrasada</div><div class="kpi-value">${entreguesAtrasados}</div></div>
           <div class="kpi-card gray"><div class="kpi-label">Dispensadas</div><div class="kpi-value">${dispensadas}</div></div>
         </div>
       `;
@@ -1022,7 +1003,7 @@
       const atividadesHTML = atividadesDoMes.length === 0 ? `<p style="color:var(--text-dim); padding:8px 0">Sem atividades nesta competência.</p>` :
         atividadesDoMes.map(a => {
           const sp = statusPrazo(a);
-          const sc = a.status_semaforo || 'gray';
+          const sc = classeSemaforo(a.status_semaforo);
           return `
             <div class="atividade ${sc}">
               <div class="atividade-main">
@@ -1077,11 +1058,12 @@
           <div class="card-section">
             <div class="card-section-tag">Atividades</div>
             <div class="card-section-title">Todas as atividades em ${comp}</div>
-            <div class="card-section-sub">Ordenadas por prazo legal (mais próximas primeiro). Clique no nome do responsável pra abrir o card dele.</div>
+            <div class="card-section-sub">Ordenadas por prazo legal. Clique no nome do responsável pra abrir o card dele.</div>
             <div class="card-legend">
               <span class="card-legend-item"><span class="legend-swatch" style="background:var(--green)"></span>No prazo</span>
               <span class="card-legend-item"><span class="legend-swatch" style="background:var(--amber)"></span>Pendente</span>
               <span class="card-legend-item"><span class="legend-swatch" style="background:var(--red)"></span>Atrasada</span>
+              <span class="card-legend-item"><span class="legend-swatch" style="background:var(--red-done)"></span>Ent. Atrasada</span>
               <span class="card-legend-item"><span class="legend-swatch" style="background:var(--text-dim)"></span>Dispensada</span>
             </div>
             ${atividadesHTML}
@@ -1089,7 +1071,6 @@
         </div>
       `;
 
-      // Click no responsavel dentro de uma atividade abre o card da pessoa
       container.querySelectorAll('.atividade-resp.clickable').forEach(el => {
         el.addEventListener('click', () => {
           const resp = decodeURIComponent(el.dataset.resp || '');
@@ -1100,7 +1081,6 @@
       });
     }
 
-    // ========== Modo CARD PESSOA ==========
     function renderModalCardPessoa(container) {
       const nome = estado.modal.pessoaCard;
       const comp = estado.modal.competenciaCard;
@@ -1115,7 +1095,7 @@
             </div>
             <div class="card-content"><div class="card-info"><div class="card-empresa-nome">${nome}</div></div></div>
           </div>
-          <div class="card-body"><p style="color:var(--text-dim)">Sem atividades atribuídas a este responsável.</p></div>
+          <div class="card-body"><p style="color:var(--text-dim)">Sem atividades atribuídas.</p></div>
         `;
         return;
       }
@@ -1130,34 +1110,32 @@
       const entregues = doMes.filter(a => a.status_semaforo === 'green').length;
       const pendentes = doMes.filter(a => a.status_semaforo === 'amber').length;
       const atrasadas = doMes.filter(a => a.status_semaforo === 'red').length;
+      const entreguesAtrasados = doMes.filter(a => a.status_semaforo === 'red_done').length;
       const dispensadas = doMes.filter(a => a.status_semaforo === 'gray').length;
       const efetivas = total - dispensadas;
       const percent = efetivas > 0 ? (entregues / efetivas * 100) : null;
 
       const departamentos = new Set();
-      const empresas = new Set();
+      const empresasSet = new Set();
       todasAtividades.forEach(a => {
         if (a.departamento) departamentos.add(a.departamento);
-        if (a.empresa) empresas.add(a.empresa);
+        if (a.empresa) empresasSet.add(a.empresa);
       });
       const deptStr = Array.from(departamentos).join(', ') || 'Não informado';
 
-      // Histórico por competência (últimos 6 meses)
       const historicoMap = {};
       for (const a of todasAtividades) {
         if (!a.competencia) continue;
-        if (!historicoMap[a.competencia]) historicoMap[a.competencia] = { total: 0, entregues: 0, pendentes: 0, atrasadas: 0, dispensadas: 0 };
+        if (!historicoMap[a.competencia]) historicoMap[a.competencia] = { total: 0, entregues: 0, dispensadas: 0 };
         const h = historicoMap[a.competencia];
         h.total++;
         if (a.status_semaforo === 'green') h.entregues++;
-        else if (a.status_semaforo === 'red') h.atrasadas++;
-        else if (a.status_semaforo === 'amber') h.pendentes++;
         else if (a.status_semaforo === 'gray') h.dispensadas++;
       }
       const historicoComps = Object.keys(historicoMap).sort((a, b) => ordemComp(b) - ordemComp(a)).slice(0, 6);
 
       const scoreHTML = percent !== null
-        ? `<div class="card-score"><div class="card-score-value">${percent.toFixed(1)}<span class="card-score-suffix">%</span></div><div class="card-score-label">Entregue · ${comp}</div></div>`
+        ? `<div class="card-score"><div class="card-score-value">${percent.toFixed(1)}<span class="card-score-suffix">%</span></div><div class="card-score-label">Entregue no prazo · ${comp}</div></div>`
         : `<div class="card-score muted"><div class="card-score-value">--</div><div class="card-score-label">Sem atividades em ${comp}</div></div>`;
 
       const kpisHTML = total === 0 ? `<p style="color:var(--text-dim); padding:8px 0">Sem atividades nesta competência.</p>` : `
@@ -1166,6 +1144,7 @@
           <div class="kpi-card green"><div class="kpi-label">Entregues</div><div class="kpi-value">${entregues}</div></div>
           <div class="kpi-card amber"><div class="kpi-label">Pendentes</div><div class="kpi-value">${pendentes}</div></div>
           <div class="kpi-card red"><div class="kpi-label">Atrasadas</div><div class="kpi-value">${atrasadas}</div></div>
+          <div class="kpi-card red-done"><div class="kpi-label">Ent. Atrasada</div><div class="kpi-value">${entreguesAtrasados}</div></div>
           <div class="kpi-card gray"><div class="kpi-label">Dispensadas</div><div class="kpi-value">${dispensadas}</div></div>
         </div>
       `;
@@ -1192,7 +1171,7 @@
       const atividadesHTML = doMes.length === 0 ? `<p style="color:var(--text-dim); padding:8px 0">Sem atividades nesta competência.</p>` :
         doMes.map(a => {
           const sp = statusPrazo(a);
-          const sc = a.status_semaforo || 'gray';
+          const sc = classeSemaforo(a.status_semaforo);
           return `
             <div class="atividade ${sc}">
               <div class="atividade-main">
@@ -1232,7 +1211,7 @@
               <div class="card-empresa-cnpj">${todasAtividades.length} atividade${todasAtividades.length === 1 ? '' : 's'} no total</div>
               <div class="card-meta">
                 <span class="card-meta-item">${ICO.calendar} Competência ${comp}</span>
-                <span class="card-meta-item">${ICO.building} ${empresas.size} ${empresas.size === 1 ? 'empresa atendida' : 'empresas atendidas'}</span>
+                <span class="card-meta-item">${ICO.building} ${empresasSet.size} ${empresasSet.size === 1 ? 'empresa atendida' : 'empresas atendidas'}</span>
                 <span class="card-meta-item">${ICO.briefcase} ${departamentos.size} ${departamentos.size === 1 ? 'departamento' : 'departamentos'}</span>
               </div>
             </div>
@@ -1259,7 +1238,6 @@
         </div>
       `;
 
-      // Click no nome da empresa abre o card da empresa
       container.querySelectorAll('.atividade-empresa-link').forEach(el => {
         el.addEventListener('click', () => {
           const cnpj = el.dataset.cnpj;
