@@ -1,1043 +1,894 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Painel Operacional Fiscal · LaraFy</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Operacional Fiscal & Contábil · LaraFy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-deepest: #061525;
+      --bg-card: #0d2438;
+      --bg-card-2: #112d44;
+      --bg-card-3: #163450;
+      --border: rgba(255, 255, 255, 0.08);
+      --fiscal: #35b9d7;
+      --fiscal-dim: rgba(53, 185, 215, 0.15);
+      --contabil: #ff8c42;
+      --contabil-dim: rgba(255, 140, 66, 0.15);
+      --green: #4ade80;
+      --red: #ef4444;
+      --amber: #fbbf24;
+      --text: #ffffff;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+    }
 
-  :root {
-    --navy: #0a2638;
-    --navy-light: #143a52;
-    --navy-dark: #061525;
-    --cyan: #35b9d7;
-    --cyan-soft: #5fcce5;
-    --cyan-dim: #1d8aa3;
-    --white: #ffffff;
-    --bg: #f5f7f9;
-    --surface: #ffffff;
-    --border: #e2e8ee;
-    --border-strong: #cbd5dd;
-    --text: #1a2937;
-    --text-secondary: #4a6378;
-    --text-muted: #7a8b9b;
-    --green: #10b981;
-    --green-bg: #d1fae5;
-    --green-soft: #ecfdf5;
-    --amber: #f59e0b;
-    --amber-bg: #fef3c7;
-    --amber-soft: #fffbeb;
-    --orange: #ea580c;
-    --orange-bg: #fed7aa;
-    --orange-soft: #fff7ed;
-    --red: #ef4444;
-    --red-bg: #fee2e2;
-    --red-soft: #fef2f2;
-    --serif: 'Fraunces', 'Times New Roman', serif;
-    --sans: 'Inter Tight', -apple-system, system-ui, sans-serif;
-    --shadow-sm: 0 1px 2px rgba(10, 38, 56, 0.04);
-    --shadow: 0 2px 8px rgba(10, 38, 56, 0.06);
-  }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html, body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    font-feature-settings: 'tnum', 'kern';
-    min-height: 100vh;
-  }
+    html, body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-deepest);
+      color: var(--text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
 
-  .app { max-width: 1480px; margin: 0 auto; }
+    /* ========== HEADER ========== */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 28px;
+      background: linear-gradient(180deg, #0a1f33 0%, #061525 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .brand { display: flex; align-items: baseline; gap: 14px; }
+    .brand-name { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+    .brand-divider { color: var(--text-dim); }
+    .brand-context {
+      font-size: 13px; color: var(--text-muted); font-weight: 400;
+      letter-spacing: 0.3px; text-transform: uppercase;
+    }
+    .header-info { display: flex; gap: 24px; align-items: center; }
+    .header-pill { display: flex; flex-direction: column; align-items: flex-end; }
+    .pill-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+    .pill-value { font-size: 16px; font-weight: 600; }
+    .header-link {
+      font-size: 12px; color: var(--text-muted); text-decoration: none;
+      padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px;
+      transition: all 0.15s;
+    }
+    .header-link:hover { background: var(--bg-card-2); color: var(--text); }
 
-  /* === HEADER === */
-  .topbar {
-    background: var(--navy);
-    color: var(--white);
-    padding: 18px 32px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    border-bottom: 1px solid var(--navy-light);
-    flex-wrap: wrap;
-  }
+    /* ========== COMP BAR ========== */
+    .comp-bar {
+      display: flex; align-items: center; gap: 18px;
+      padding: 14px 28px; background: rgba(13, 36, 56, 0.5);
+      border-bottom: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .comp-label {
+      font-size: 11px; color: var(--text-dim); text-transform: uppercase;
+      letter-spacing: 0.6px; font-weight: 600;
+    }
+    .comp-filter { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .comp-pill {
+      background: var(--bg-card); color: var(--text-muted);
+      border: 1px solid var(--border); padding: 7px 16px;
+      border-radius: 6px; font-size: 13px; font-weight: 500;
+      cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s;
+      font-family: 'Poppins', sans-serif;
+    }
+    .comp-pill:hover { background: var(--bg-card-2); color: var(--text); }
+    .comp-pill.active {
+      background: var(--text); color: var(--bg-deepest);
+      border-color: var(--text); font-weight: 700;
+    }
+    .comp-pill.is-current::after {
+      content: '·'; margin-left: 6px; color: var(--fiscal);
+    }
+    .comp-pill.active.is-current::after { color: var(--bg-deepest); }
 
-  .brand { display: flex; align-items: center; gap: 16px; }
-  .brand-logo { height: 28px; filter: brightness(0) invert(1); opacity: 0.95; }
-  .brand-sep { width: 1px; height: 22px; background: rgba(255,255,255,0.15); }
-  .brand-title { font-family: var(--serif); font-size: 19px; font-weight: 500; letter-spacing: -0.01em; }
-  .brand-title em { font-style: italic; color: var(--cyan); font-weight: 400; }
+    /* ========== SPLIT ========== */
+    .split {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px;
+    }
+    .team-block {
+      background: var(--bg-card); border-radius: 12px;
+      padding: 24px; border-top: 4px solid;
+    }
+    .team-block.fiscal { border-top-color: var(--fiscal); }
+    .team-block.contabil { border-top-color: var(--contabil); }
+    .team-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .team-name { font-size: 20px; font-weight: 700; letter-spacing: 1px; }
+    .team-block.fiscal .team-name { color: var(--fiscal); }
+    .team-block.contabil .team-name { color: var(--contabil); }
+    .team-subtotal { font-size: 12px; color: var(--text-muted); }
 
-  .meta { display: flex; align-items: center; gap: 24px; font-size: 12px; color: rgba(255,255,255,0.7); }
-  .meta-item { display: flex; align-items: center; gap: 8px; letter-spacing: 0.05em; }
-  .meta-item strong { color: var(--white); font-weight: 500; }
+    /* ========== CARDS DE CONTAGEM (clicáveis) ========== */
+    .cards-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-bottom: 16px;
+    }
+    .card-count {
+      background: var(--bg-card-2); padding: 14px 12px;
+      border-radius: 8px; border: 1px solid var(--border);
+      cursor: pointer; transition: background 0.15s, transform 0.1s, border-color 0.15s;
+      position: relative;
+    }
+    .card-count:hover {
+      background: var(--bg-card-3); border-color: rgba(255,255,255,0.15);
+      transform: translateY(-1px);
+    }
+    .card-count::after {
+      content: '↗'; position: absolute; top: 8px; right: 10px;
+      font-size: 12px; color: var(--text-dim); opacity: 0; transition: opacity 0.15s;
+    }
+    .card-count:hover::after { opacity: 1; }
+    .card-label {
+      font-size: 10px; color: var(--text-muted); text-transform: uppercase;
+      letter-spacing: 0.6px; margin-bottom: 6px;
+    }
+    .card-value { font-size: 30px; font-weight: 700; line-height: 1; }
+    .card-value.amber { color: var(--amber); }
+    .card-value.red { color: var(--red); }
 
-  .live-dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
-    animation: pulse 2.4s infinite;
-  }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-    70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-  }
+    /* ========== HERO % + FORECAST ========== */
+    .hero-row {
+      display: grid; grid-template-columns: 1.5fr 1fr;
+      gap: 12px; margin-bottom: 16px;
+    }
+    .card-percent {
+      background: var(--bg-card-3); border-radius: 10px;
+      padding: 18px; text-align: center; border: 1px solid var(--border);
+      cursor: pointer; transition: background 0.15s, transform 0.1s;
+      position: relative;
+    }
+    .card-percent:hover {
+      background: #1a3a58; transform: translateY(-1px);
+    }
+    .card-percent::after {
+      content: '↗'; position: absolute; top: 8px; right: 12px;
+      font-size: 12px; color: var(--text-dim); opacity: 0; transition: opacity 0.15s;
+    }
+    .card-percent:hover::after { opacity: 1; }
+    .card-percent .card-label { margin-bottom: 4px; }
+    .percent-value {
+      font-size: 56px; font-weight: 800; line-height: 1;
+      color: var(--green); letter-spacing: -1.5px;
+    }
+    .percent-suffix { font-size: 26px; font-weight: 600; }
+    .card-forecast {
+      background: var(--bg-card-2); border-radius: 10px;
+      padding: 18px; border: 1px solid var(--border);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .forecast-value {
+      font-size: 26px; font-weight: 700; line-height: 1; margin-top: 4px;
+    }
+    .forecast-source {
+      font-size: 11px; color: var(--text-dim);
+      margin-top: 8px; line-height: 1.3;
+    }
+    .forecast-empty { font-size: 13px; color: var(--text-dim); font-style: italic; }
 
-  .btn-refresh {
-    background: rgba(255,255,255,0.08);
-    color: var(--white);
-    border: 1px solid rgba(255,255,255,0.15);
-    padding: 7px 14px;
-    border-radius: 6px;
-    font-family: var(--sans);
-    font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .btn-refresh:hover { background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); }
+    /* ========== RANKING ========== */
+    .ranking {
+      background: var(--bg-card-2); border-radius: 10px;
+      padding: 14px; border: 1px solid var(--border);
+    }
+    .ranking-title {
+      font-size: 11px; color: var(--text-muted); text-transform: uppercase;
+      letter-spacing: 0.6px; margin-bottom: 8px;
+    }
+    .ranking-row {
+      display: grid; grid-template-columns: 1fr auto auto;
+      gap: 14px; padding: 7px 8px; align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 4px; cursor: pointer; transition: background 0.15s;
+    }
+    .ranking-row:last-child { border-bottom: none; }
+    .ranking-row:hover { background: rgba(255,255,255,0.04); }
+    .rank-name { font-size: 13px; }
+    .rank-numbers { font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+    .rank-pct { font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; min-width: 50px; text-align: right; }
+    .rank-pct.good { color: var(--green); }
+    .rank-pct.mid { color: var(--amber); }
+    .rank-pct.bad { color: var(--red); }
 
-  /* === FILTERS === */
-  .filters {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 32px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
+    /* ========== BOTTOM ROW ========== */
+    .bottom-row {
+      display: grid; grid-template-columns: 1.6fr 1fr;
+      gap: 20px; padding: 0 20px 20px;
+    }
+    .panel { background: var(--bg-card); border-radius: 12px; padding: 24px; }
+    .panel-title {
+      font-size: 13px; color: var(--text-muted); text-transform: uppercase;
+      letter-spacing: 0.8px; margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .legend { display: flex; gap: 14px; font-size: 11px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; color: var(--text-muted); }
+    .legend-swatch { width: 11px; height: 11px; border-radius: 50%; }
 
-  .filter-group { display: flex; align-items: center; gap: 8px; }
-  .filter-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
+    /* ========== ATRASOS ========== */
+    .atrasos { max-height: 320px; overflow-y: auto; }
+    .atraso-row {
+      display: grid; grid-template-columns: auto 1fr auto;
+      gap: 10px; padding: 9px 6px; align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      cursor: pointer; border-radius: 4px; transition: background 0.15s;
+    }
+    .atraso-row:hover { background: rgba(255,255,255,0.04); }
+    .atraso-row:last-child { border-bottom: none; }
+    .time-tag {
+      font-size: 10px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px;
+      min-width: 68px; text-align: center;
+    }
+    .time-tag.fiscal {
+      background: var(--fiscal-dim); color: var(--fiscal);
+      border: 1px solid rgba(53, 185, 215, 0.3);
+    }
+    .time-tag.contabil {
+      background: var(--contabil-dim); color: var(--contabil);
+      border: 1px solid rgba(255, 140, 66, 0.3);
+    }
+    .atraso-empresa {
+      font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .atraso-dias { font-size: 13px; font-weight: 700; color: var(--red); font-variant-numeric: tabular-nums; }
 
-  .filter-select, .filter-input {
-    font-family: var(--sans);
-    font-size: 14px;
-    padding: 8px 12px;
-    border: 1px solid var(--border-strong);
-    border-radius: 6px;
-    background: var(--surface);
-    color: var(--text);
-    cursor: pointer;
-  }
-  .filter-select:focus, .filter-input:focus { outline: none; border-color: var(--cyan); }
-  .filter-input { cursor: text; min-width: 240px; }
+    /* ========== FOOTER ========== */
+    .footer {
+      text-align: center; padding: 16px; font-size: 11px;
+      color: var(--text-dim); border-top: 1px solid var(--border);
+    }
 
-  .chips { display: flex; gap: 6px; align-items: center; }
-  .chip {
-    padding: 7px 14px;
-    font-size: 13px;
-    font-weight: 500;
-    border: 1px solid var(--border-strong);
-    background: var(--surface);
-    border-radius: 20px;
-    cursor: pointer;
-    color: var(--text-secondary);
-    transition: all 0.15s;
-  }
-  .chip:hover { border-color: var(--cyan); color: var(--text); }
-  .chip.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
-  .chip.active.green { background: var(--green); border-color: var(--green); }
-  .chip.active.amber { background: var(--amber); border-color: var(--amber); }
-  .chip.active.red { background: var(--red); border-color: var(--red); }
-  .chip-count { font-size: 11px; opacity: 0.7; margin-left: 4px; }
+    /* ========== SVG CHART ========== */
+    .chart-svg { width: 100%; height: auto; max-height: 280px; }
+    .chart-grid-line { stroke: rgba(255, 255, 255, 0.06); stroke-width: 1; }
+    .chart-label {
+      fill: var(--text-dim); font-size: 11px; font-family: 'Poppins', sans-serif;
+    }
+    .chart-line { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .chart-line.fiscal { stroke: var(--fiscal); }
+    .chart-line.contabil { stroke: var(--contabil); }
+    .chart-dot.fiscal { fill: var(--fiscal); }
+    .chart-dot.contabil { fill: var(--contabil); }
 
-  .toggle { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: var(--text-secondary); user-select: none; }
-  .toggle input {
-    appearance: none;
-    width: 36px; height: 20px;
-    background: var(--border-strong);
-    border-radius: 10px;
-    position: relative;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .toggle input::after {
-    content: '';
-    position: absolute;
-    width: 16px; height: 16px;
-    background: var(--white);
-    border-radius: 50%;
-    top: 2px; left: 2px;
-    transition: left 0.2s;
-  }
-  .toggle input:checked { background: var(--cyan); }
-  .toggle input:checked::after { left: 18px; }
-
-  /* === TABS === */
-  .tabs {
-    display: flex;
-    padding: 0 32px;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-  }
-  .tab {
-    padding: 14px 24px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text-muted);
-    cursor: pointer;
-    border: none;
-    border-bottom: 2px solid transparent;
-    background: none;
-    font-family: var(--sans);
-    transition: all 0.15s;
-  }
-  .tab:hover { color: var(--text); }
-  .tab.active { color: var(--navy); border-bottom-color: var(--cyan); }
-
-  /* === CONTENT === */
-  .content { padding: 32px; }
-  .view { display: none; }
-  .view.active { display: block; }
-
-  /* === KPI CARDS === */
-  .kpis {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-  .kpi {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 22px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-  }
-  .kpi-accent { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--cyan); }
-  .kpi.green .kpi-accent { background: var(--green); }
-  .kpi.amber .kpi-accent { background: var(--amber); }
-  .kpi.red .kpi-accent { background: var(--red); }
-  .kpi-label { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; }
-  .kpi-value { font-family: var(--serif); font-size: 48px; font-weight: 500; letter-spacing: -0.03em; line-height: 1; color: var(--text); font-variant-numeric: tabular-nums; }
-  .kpi-meta { display: flex; align-items: baseline; gap: 10px; margin-top: 10px; }
-  .kpi-percent { font-size: 16px; font-weight: 600; color: var(--cyan); }
-  .kpi.green .kpi-percent { color: var(--green); }
-  .kpi.amber .kpi-percent { color: var(--amber); }
-  .kpi.red .kpi-percent { color: var(--red); }
-  .kpi-sub { font-size: 12px; color: var(--text-muted); }
-
-  /* === SECTIONS === */
-  .section {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 24px;
-    margin-bottom: 20px;
-    box-shadow: var(--shadow-sm);
-  }
-  .section.alert-amber { background: var(--amber-soft); border-color: var(--amber-bg); }
-  .section.alert-red { background: var(--red-soft); border-color: var(--red-bg); }
-  .section.alert-orange { background: var(--orange-soft); border-color: var(--orange-bg); }
-
-  .section-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 18px;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .section-title { font-family: var(--serif); font-size: 22px; font-weight: 500; letter-spacing: -0.01em; color: var(--text); display: flex; align-items: center; gap: 10px; }
-  .section-title em { font-style: italic; color: var(--cyan-dim); font-weight: 400; }
-  .section-title-icon { display: inline-flex; width: 28px; height: 28px; align-items: center; justify-content: center; border-radius: 6px; font-size: 14px; }
-  .section-title-icon.amber { background: var(--amber); color: var(--white); }
-  .section-title-icon.red { background: var(--red); color: var(--white); }
-  .section-title-icon.orange { background: var(--orange); color: var(--white); }
-  .section-count { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
-  .section-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 4px; font-weight: 400; letter-spacing: 0; text-transform: none; line-height: 1.4; max-width: 600px; }
-
-  /* === CARDS (atrasos, expirando, entregues atrasadas) === */
-  .alert-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-    gap: 12px;
-  }
-  .alert-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 16px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 14px;
-    align-items: center;
-  }
-  .alert-card.urgente { border-left: 3px solid var(--red); }
-  .alert-card.expirando { border-left: 3px solid var(--amber); }
-  .alert-card.historico { border-left: 3px solid var(--orange); }
-
-  .alert-info { min-width: 0; }
-  .alert-empresa { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .alert-meta { font-size: 11px; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-  .alert-meta .sep { width: 3px; height: 3px; background: var(--text-muted); border-radius: 50%; opacity: 0.5; }
-
-  .pri-badge { background: var(--cyan); color: var(--white); font-size: 9px; font-weight: 700; letter-spacing: 0.1em; padding: 2px 6px; border-radius: 3px; text-transform: uppercase; }
-
-  .alert-num { text-align: right; }
-  .alert-num-value { font-family: var(--serif); font-size: 24px; font-weight: 500; line-height: 1; font-variant-numeric: tabular-nums; }
-  .alert-num-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.8; margin-top: 2px; }
-  .alert-card.urgente .alert-num { color: var(--red); }
-  .alert-card.expirando .alert-num { color: var(--amber); }
-  .alert-card.historico .alert-num { color: var(--orange); }
-
-  /* === EMPRESAS GRID === */
-  .empresas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 12px;
-  }
-  .empresa-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--amber);
-    border-radius: 6px;
-    padding: 14px 16px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 12px;
-    align-items: center;
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
-  .empresa-card:hover { box-shadow: var(--shadow); }
-  .empresa-card.green { border-left-color: var(--green); }
-  .empresa-card.amber { border-left-color: var(--amber); }
-  .empresa-card.red { border-left-color: var(--red); }
-  .empresa-card.orange { border-left-color: var(--orange); }
-  .empresa-info { min-width: 0; }
-  .empresa-nome { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 5px; }
-  .empresa-meta { font-size: 11px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-  .empresa-status { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
-  .status-dot { width: 10px; height: 10px; border-radius: 50%; }
-  .status-dot.green { background: var(--green); }
-  .status-dot.amber { background: var(--amber); }
-  .status-dot.red { background: var(--red); }
-  .status-dot.orange { background: var(--orange); }
-  .empresa-prazo { font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
-
-  /* === RANKING === */
-  .ranking-list { display: flex; flex-direction: column; gap: 8px; }
-  .rank-row {
-    display: grid;
-    grid-template-columns: 32px 1fr 220px;
-    align-items: center;
-    gap: 16px;
-    padding: 14px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-  }
-  .rank-row:hover { border-color: var(--cyan); }
-  .rank-num { font-family: var(--serif); font-size: 22px; font-style: italic; color: var(--text-muted); text-align: center; line-height: 1; }
-  .rank-row.top3 .rank-num { color: var(--cyan-dim); font-weight: 500; }
-  .rank-info { min-width: 0; }
-  .rank-nome { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
-  .rank-bar { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
-  .rank-bar-fill { height: 100%; background: linear-gradient(90deg, var(--cyan-dim), var(--cyan)); border-radius: 3px; transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-  .rank-stats { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .rank-counts { display: flex; gap: 12px; font-size: 12px; color: var(--text-muted); }
-  .rank-count { display: flex; flex-direction: column; align-items: center; }
-  .rank-count strong { font-family: var(--serif); font-size: 18px; font-weight: 500; color: var(--text); font-variant-numeric: tabular-nums; line-height: 1; }
-  .rank-count.g strong { color: var(--green); }
-  .rank-count.a strong { color: var(--amber); }
-  .rank-count.r strong { color: var(--red); }
-  .rank-count span { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
-  .rank-percent { font-family: var(--serif); font-size: 28px; font-weight: 500; color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -0.02em; min-width: 64px; text-align: right; }
-
-  /* === ANÁLISES === */
-  .trend-chart { display: flex; flex-direction: column; gap: 10px; }
-  .trend-row { display: grid; grid-template-columns: 80px 1fr 150px; align-items: center; gap: 16px; }
-  .trend-comp { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--text-secondary); }
-  .trend-bar-container { height: 28px; background: var(--bg); border-radius: 4px; overflow: hidden; display: flex; }
-  .trend-bar-seg { height: 100%; transition: width 0.6s; display: flex; align-items: center; justify-content: center; }
-  .trend-bar-seg.green { background: var(--green); }
-  .trend-bar-seg.amber { background: var(--amber); }
-  .trend-bar-seg.red { background: var(--red); }
-  .trend-bar-seg span { font-size: 11px; color: var(--white); font-weight: 600; }
-  .trend-totals { display: flex; gap: 10px; align-items: center; font-size: 12px; color: var(--text-muted); }
-  .trend-totals strong { color: var(--text); font-weight: 600; }
-
-  .recorrentes-list { display: flex; flex-direction: column; gap: 8px; }
-  .recorrente-row {
-    display: grid;
-    grid-template-columns: 32px 1fr auto;
-    align-items: center;
-    gap: 16px;
-    padding: 14px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-  }
-  .recorrente-empresa { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
-  .recorrente-meta { font-size: 11px; color: var(--text-muted); }
-  .recorrente-num {
-    font-family: var(--serif);
-    font-size: 22px;
-    font-style: italic;
-    color: var(--red);
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
-  }
-  .recorrente-num-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); text-align: right; margin-top: 4px; }
-  .recorrente-comps { display: flex; gap: 4px; flex-wrap: wrap; }
-  .recorrente-chip {
-    font-size: 10px;
-    padding: 2px 6px;
-    background: var(--red-bg);
-    color: var(--red);
-    border-radius: 3px;
-    font-weight: 600;
-  }
-
-  /* === STATES === */
-  .empty-state, .loading-state, .error-state {
-    padding: 40px 32px;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 14px;
-    background: var(--surface);
-    border: 1px dashed var(--border-strong);
-    border-radius: 8px;
-  }
-  .error-state { color: var(--red); border-color: var(--red-bg); background: var(--red-soft); }
-
-  /* === FOOTER === */
-  .footer { padding: 18px 32px; text-align: center; color: var(--text-muted); font-size: 11px; letter-spacing: 0.05em; border-top: 1px solid var(--border); background: var(--surface); }
-
-  @media (max-width: 900px) {
-    .topbar { padding: 14px 18px; }
-    .filters { padding: 14px 18px; }
-    .tabs { padding: 0 18px; }
-    .content { padding: 18px; }
-    .filter-input { min-width: 180px; flex: 1; }
-    .trend-row { grid-template-columns: 60px 1fr; }
-    .trend-totals { grid-column: 1 / -1; }
-    .rank-row { grid-template-columns: 28px 1fr; grid-template-rows: auto auto; }
-    .rank-stats { grid-column: 1 / -1; }
-  }
-</style>
+    /* ========== MODAL DRILL-DOWN ========== */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(6, 21, 37, 0.88);
+      backdrop-filter: blur(4px); display: none;
+      align-items: center; justify-content: center;
+      z-index: 1000; padding: 24px;
+    }
+    .modal-overlay.aberto { display: flex; }
+    .modal {
+      background: var(--bg-card); border-radius: 12px;
+      width: 100%; max-width: 1500px; max-height: 92vh;
+      display: flex; flex-direction: column;
+      border: 1px solid var(--border); overflow: hidden;
+    }
+    .modal-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 24px; border-bottom: 1px solid var(--border);
+      background: var(--bg-card-2);
+    }
+    .modal-title { font-size: 16px; font-weight: 600; }
+    .modal-title .count {
+      color: var(--text-muted); font-weight: 400; margin-left: 8px;
+    }
+    .modal-actions { display: flex; gap: 10px; align-items: center; }
+    .modal-btn {
+      background: var(--bg-card-3); color: var(--text);
+      border: 1px solid var(--border); padding: 8px 14px;
+      border-radius: 6px; font-size: 12px; cursor: pointer;
+      font-family: 'Poppins', sans-serif; font-weight: 500;
+      transition: background 0.15s;
+    }
+    .modal-btn:hover { background: #1a3a58; }
+    .modal-close {
+      background: transparent; color: var(--text-muted); border: none;
+      font-size: 22px; cursor: pointer; padding: 4px 10px;
+      line-height: 1; transition: color 0.15s;
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal-controls {
+      display: flex; gap: 12px; padding: 14px 24px;
+      border-bottom: 1px solid var(--border); align-items: center;
+    }
+    .modal-search {
+      flex: 1; background: var(--bg-card-2); color: var(--text);
+      border: 1px solid var(--border); padding: 9px 14px;
+      border-radius: 6px; font-size: 13px; font-family: 'Poppins', sans-serif;
+    }
+    .modal-search:focus { outline: none; border-color: var(--fiscal); }
+    .modal-body { flex: 1; overflow: auto; padding: 0; }
+    .modal-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .modal-table thead th {
+      background: var(--bg-card-2); padding: 11px 14px;
+      text-align: left; font-weight: 600; color: var(--text-muted);
+      text-transform: uppercase; font-size: 10px; letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border); position: sticky; top: 0;
+      cursor: pointer; user-select: none; white-space: nowrap;
+    }
+    .modal-table thead th:hover { color: var(--text); }
+    .modal-table thead th.sorted::after {
+      content: ' ↓'; color: var(--fiscal);
+    }
+    .modal-table thead th.sorted.asc::after { content: ' ↑'; }
+    .modal-table tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.12s;
+    }
+    .modal-table tbody tr:hover { background: rgba(255,255,255,0.025); }
+    .modal-table td { padding: 9px 14px; vertical-align: middle; }
+    .modal-table td.cnpj, .modal-table td.data, .modal-table td.dias {
+      font-variant-numeric: tabular-nums;
+    }
+    .modal-table td.empresa { font-weight: 500; }
+    .modal-table td.responsavel { color: var(--text-muted); }
+    .modal-table .badge {
+      display: inline-block; padding: 3px 9px; border-radius: 4px;
+      font-size: 10px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.3px; white-space: nowrap;
+    }
+    .badge.green { background: rgba(74,222,128,0.15); color: var(--green); border: 1px solid rgba(74,222,128,0.3); }
+    .badge.red { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+    .badge.amber { background: rgba(251,191,36,0.15); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
+    .badge.gray { background: rgba(148,163,184,0.15); color: var(--text-muted); border: 1px solid rgba(148,163,184,0.3); }
+    .badge.fiscal { background: var(--fiscal-dim); color: var(--fiscal); border: 1px solid rgba(53,185,215,0.3); }
+    .badge.contabil { background: var(--contabil-dim); color: var(--contabil); border: 1px solid rgba(255,140,66,0.3); }
+    .modal-empty {
+      padding: 60px 24px; text-align: center;
+      color: var(--text-dim); font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-<div class="app">
 
-  <header class="topbar">
+  <header class="header">
     <div class="brand">
-      <img class="brand-logo" src="https://www.larafy.com.br/assets/images/larafy.png" alt="LaraFy">
-      <div class="brand-sep"></div>
-      <div class="brand-title">Painel Operacional <em>Fiscal</em></div>
+      <span class="brand-name">LaraFy</span>
+      <span class="brand-divider">·</span>
+      <span class="brand-context">Painel Operacional Fiscal & Contábil</span>
     </div>
-    <div class="meta">
-      <div class="meta-item">
-        <span class="live-dot"></span>
-        <span>Atualizado <strong id="ts">--:--</strong></span>
+    <div class="header-info">
+      <a class="header-link" href="tv.html" title="Modo TV">Modo TV</a>
+      <div class="header-pill">
+        <span class="pill-label">Atualizado</span>
+        <span class="pill-value" id="atualizado">--</span>
       </div>
-      <div class="meta-item">
-        <span>Total: <strong id="total">0</strong></span>
-      </div>
-      <button class="btn-refresh" id="btnRefresh">Atualizar</button>
     </div>
   </header>
 
-  <div class="filters">
-    <div class="filter-group">
-      <span class="filter-label">Competência</span>
-      <select class="filter-select" id="competencia"></select>
-    </div>
-
-    <input type="text" class="filter-input" id="busca" placeholder="Buscar empresa ou CNPJ...">
-
-    <div class="chips" id="chips">
-      <button class="chip active" data-status="todos">Todos <span class="chip-count" id="cTodos">0</span></button>
-      <button class="chip" data-status="green">Entregues <span class="chip-count" id="cGreen">0</span></button>
-      <button class="chip" data-status="amber">Pendentes <span class="chip-count" id="cAmber">0</span></button>
-      <button class="chip" data-status="red">Atrasadas <span class="chip-count" id="cRed">0</span></button>
-    </div>
-
-    <label class="toggle">
-      <input type="checkbox" id="prioToggle">
-      Só prioritárias
-    </label>
-
-    <div class="filter-group">
-      <span class="filter-label">Responsável</span>
-      <select class="filter-select" id="responsavel"><option value="">Todos</option></select>
-    </div>
+  <div class="comp-bar">
+    <span class="comp-label">Competência</span>
+    <div class="comp-filter" id="comp-filter"></div>
   </div>
 
-  <div class="tabs">
-    <button class="tab active" data-view="geral">Visão Geral</button>
-    <button class="tab" data-view="resp">Por Responsável</button>
-    <button class="tab" data-view="analises">Análises</button>
-  </div>
-
-  <div class="content">
-
-    <!-- VIEW: GERAL -->
-    <div class="view active" id="viewGeral">
-      <div class="kpis" id="kpis"></div>
-
-      <div class="section alert-amber" id="secExpirando" style="display: none;">
-        <div class="section-head">
-          <div>
-            <h2 class="section-title">
-              <span class="section-title-icon amber">!</span>
-              Prazo legal <em>expirando</em>
-            </h2>
-            <p class="section-subtitle">Pendentes cujo prazo legal vence nos próximos 10 dias. Priorize estas para evitar passar para "atrasada".</p>
-          </div>
-          <span class="section-count" id="expirandoCount">0</span>
+  <main>
+    <section class="split">
+      <div class="team-block fiscal">
+        <div class="team-header">
+          <span class="team-name">FISCAL</span>
+          <span class="team-subtotal" id="subtotal-fiscal">--</span>
         </div>
-        <div class="alert-list" id="expirandoList"></div>
+        <div class="cards-row" id="cards-fiscal"></div>
+        <div class="hero-row" id="hero-fiscal"></div>
+        <div class="ranking" id="ranking-fiscal"></div>
       </div>
-
-      <div class="section alert-red" id="secAtrasados" style="display: none;">
-        <div class="section-head">
-          <div>
-            <h2 class="section-title">
-              <span class="section-title-icon red">!</span>
-              Atrasadas <em>não entregues</em>
-            </h2>
-            <p class="section-subtitle">Empresas que o Acessórias já marcou como atrasadas e ainda não tiveram a entrega registrada. Ação imediata necessária.</p>
-          </div>
-          <span class="section-count" id="atrasadosCount">0</span>
+      <div class="team-block contabil">
+        <div class="team-header">
+          <span class="team-name">CONTÁBIL</span>
+          <span class="team-subtotal" id="subtotal-contabil">--</span>
         </div>
-        <div class="alert-list" id="atrasadosList"></div>
+        <div class="cards-row" id="cards-contabil"></div>
+        <div class="hero-row" id="hero-contabil"></div>
+        <div class="ranking" id="ranking-contabil"></div>
       </div>
+    </section>
 
-      <div class="section alert-orange" id="secEntreguesAtraso" style="display: none;">
-        <div class="section-head">
-          <div>
-            <h2 class="section-title">
-              <span class="section-title-icon orange">•</span>
-              Entregues <em>com atraso</em>
-            </h2>
-            <p class="section-subtitle">Já foram entregues, mas fora do prazo. Histórico para análise da operação.</p>
-          </div>
-          <span class="section-count" id="entreguesAtrasoCount">0</span>
-        </div>
-        <div class="alert-list" id="entreguesAtrasoList"></div>
-      </div>
-
-      <div class="section">
-        <div class="section-head">
-          <h2 class="section-title">Empresas</h2>
-          <span class="section-count" id="empresasCount">0 entregas</span>
-        </div>
-        <div class="empresas-grid" id="empresasGrid"></div>
-      </div>
-    </div>
-
-    <!-- VIEW: POR RESPONSÁVEL -->
-    <div class="view" id="viewResp">
-      <div class="section">
-        <div class="section-head">
-          <h2 class="section-title">Ranking de <em>desempenho</em></h2>
-          <span class="section-count" id="rankCount">0 responsáveis</span>
-        </div>
-        <div class="ranking-list" id="rankingList"></div>
-      </div>
-    </div>
-
-    <!-- VIEW: ANÁLISES -->
-    <div class="view" id="viewAnalises">
-
-      <div class="section">
-        <div class="section-head">
-          <div>
-            <h2 class="section-title">Tendência <em>histórica</em></h2>
-            <p class="section-subtitle">Distribuição de entregas por competência. Barras mostram a proporção entre entregues, pendentes e atrasadas.</p>
+    <section class="bottom-row">
+      <div class="panel">
+        <div class="panel-title">
+          <span>Tendência Histórica de % Entregue</span>
+          <div class="legend">
+            <span class="legend-item"><span class="legend-swatch" style="background:var(--fiscal)"></span>Fiscal</span>
+            <span class="legend-item"><span class="legend-swatch" style="background:var(--contabil)"></span>Contábil</span>
           </div>
         </div>
-        <div class="trend-chart" id="trendChart"></div>
+        <div id="chart-container"></div>
       </div>
-
-      <div class="section">
-        <div class="section-head">
-          <div>
-            <h2 class="section-title">Empresas <em>recorrentes</em></h2>
-            <p class="section-subtitle">Empresas que falharam (atrasaram a entrega) em múltiplas competências. Indicam problema sistêmico, não pontual.</p>
-          </div>
-          <span class="section-count" id="recorrentesCount">0</span>
-        </div>
-        <div class="recorrentes-list" id="recorrentesList"></div>
+      <div class="panel">
+        <div class="panel-title">Atrasos Críticos</div>
+        <div class="atrasos" id="atrasos"></div>
       </div>
-
-    </div>
-
-  </div>
+    </section>
+  </main>
 
   <footer class="footer">
     LaraFy. Inteligência tributária para quem decide.
   </footer>
-</div>
 
-<script>
-  const DATA_URL = './data/data.json';
-  const REFRESH_INTERVAL_MS = 5 * 60 * 1000;
-  const PRAZO_EXPIRANDO_DIAS = 10;
-  const HOJE = (() => { const d = new Date(); d.setHours(0,0,0,0); return d; })();
+  <!-- Modal drill-down -->
+  <div class="modal-overlay" id="modal" onclick="if(event.target===this) fecharModal()">
+    <div class="modal">
+      <div class="modal-header">
+        <div>
+          <span class="modal-title" id="modal-title">--</span>
+          <span class="count" id="modal-count"></span>
+        </div>
+        <div class="modal-actions">
+          <button class="modal-btn" id="btn-export">Exportar CSV</button>
+          <button class="modal-close" onclick="fecharModal()">×</button>
+        </div>
+      </div>
+      <div class="modal-controls">
+        <input type="text" class="modal-search" id="modal-search" placeholder="Buscar por empresa, CNPJ ou responsável...">
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
 
-  const state = {
-    raw: null,
-    competencia: '',
-    busca: '',
-    status: 'todos',
-    prioritarias: false,
-    responsavel: '',
-    aba: 'geral'
-  };
+  <script>
+    const DATA_URL = 'data/data.json';
+    const REFRESH_MS = 5 * 60 * 1000;
 
-  // ===== HELPERS =====
-  function parseDataBR(str) {
-    if (!str || str === '') return null;
-    const partes = String(str).split('/');
-    if (partes.length !== 3) return null;
-    const d = new Date(`${partes[2]}-${partes[1].padStart(2,'0')}-${partes[0].padStart(2,'0')}T00:00:00`);
-    return isNaN(d.getTime()) ? null : d;
-  }
+    const MESES_ORD = { jan:1, fev:2, mar:3, abr:4, mai:5, jun:6, jul:7, ago:8, set:9, out:10, nov:11, dez:12 };
 
-  function diasAteHoje(prazoBR) {
-    const d = parseDataBR(prazoBR);
-    if (!d) return null;
-    return Math.round((d - HOJE) / 86400000);
-  }
-
-  function ehEntregueComAtraso(e) {
-    if (e.status_semaforo !== 'red') return false;
-    return !!(e.data_entrega && e.data_entrega !== '');
-  }
-
-  function ehAtrasadaNaoEntregue(e) {
-    if (e.status_semaforo !== 'red') return false;
-    return !e.data_entrega || e.data_entrega === '';
-  }
-
-  function ehPrazoLegalExpirando(e) {
-    if (e.status_semaforo !== 'amber') return false;
-    const dias = diasAteHoje(e.prazo_legal);
-    if (dias === null) return false;
-    return dias >= 0 && dias <= PRAZO_EXPIRANDO_DIAS;
-  }
-
-  function escapeHtml(str) {
-    return String(str || '').replace(/[&<>"']/g, c => ({
-      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
-    }[c]));
-  }
-
-  // ===== FETCH =====
-  async function carregar() {
-    try {
-      const resp = await fetch(DATA_URL + '?t=' + Date.now(), { cache: 'no-store' });
-      if (!resp.ok) throw new Error('HTTP ' + resp.status);
-      state.raw = await resp.json();
-
-      if (!state.competencia) {
-        state.competencia = state.raw.competencia_atual || (state.raw.competencias_disponiveis || [])[0] || '';
+    const estado = {
+      data: null,
+      competenciaSelecionada: null,
+      modal: {
+        aberto: false,
+        titulo: '',
+        entregas: [],
+        entregasFiltradas: [],
+        busca: '',
+        sortBy: 'dias_atraso',
+        sortDir: 'desc'
       }
+    };
 
-      atualizarMeta();
-      popularCompetencias();
-      popularResponsaveis();
-      render();
-    } catch (err) {
-      console.error(err);
-      document.getElementById('empresasGrid').innerHTML =
-        '<div class="error-state">Erro ao carregar dados: ' + err.message + '</div>';
-    }
-  }
-
-  function atualizarMeta() {
-    const dt = state.raw.atualizado_em ? new Date(state.raw.atualizado_em) : new Date();
-    document.getElementById('ts').textContent =
-      dt.toLocaleDateString('pt-BR') + ' ' +
-      dt.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
-    document.getElementById('total').textContent = (state.raw.total_entregas || 0).toLocaleString('pt-BR');
-  }
-
-  function popularCompetencias() {
-    const sel = document.getElementById('competencia');
-    const comps = state.raw.competencias_disponiveis || [];
-    sel.innerHTML = comps.map(c => `<option value="${c}">${c}</option>`).join('');
-    sel.value = state.competencia;
-  }
-
-  function popularResponsaveis() {
-    const sel = document.getElementById('responsavel');
-    const entregas = (state.raw.entregas || []).filter(e => e.competencia === state.competencia);
-    const nomes = [...new Set(entregas.map(e => e.responsavel).filter(Boolean))].sort();
-    sel.innerHTML = '<option value="">Todos</option>' + nomes.map(n => `<option value="${n}">${n}</option>`).join('');
-    sel.value = state.responsavel;
-  }
-
-  // ===== FILTER =====
-  function filtrar() {
-    return (state.raw.entregas || []).filter(e => {
-      if (state.competencia && e.competencia !== state.competencia) return false;
-      if (state.prioritarias && !e.prioritaria) return false;
-      if (state.status !== 'todos' && e.status_semaforo !== state.status) return false;
-      if (state.responsavel && e.responsavel !== state.responsavel) return false;
-      if (state.busca) {
-        const t = state.busca.toLowerCase();
-        if (!(e.empresa || '').toLowerCase().includes(t) &&
-            !(e.cnpj || '').toLowerCase().includes(t)) return false;
-      }
-      return true;
-    });
-  }
-
-  // ===== RENDER =====
-  function render() {
-    const filtradas = filtrar();
-    renderKPIs(filtradas);
-    renderChipCounts();
-    renderExpirando(filtradas);
-    renderAtrasados(filtradas);
-    renderEntreguesComAtraso(filtradas);
-    renderEmpresas(filtradas);
-    renderRanking();
-    renderTrend();
-    renderRecorrentes();
-  }
-
-  function renderKPIs(filtradas) {
-    const total = filtradas.length;
-    const entregues = filtradas.filter(e => e.status_semaforo === 'green').length;
-    const pendentes = filtradas.filter(e => e.status_semaforo === 'amber').length;
-    const atrasadas = filtradas.filter(e => e.status_semaforo === 'red').length;
-    const prio = filtradas.filter(e => e.prioritaria).length;
-    const pct = n => total > 0 ? +((n / total) * 100).toFixed(1) : 0;
-
-    document.getElementById('kpis').innerHTML = `
-      <div class="kpi">
-        <div class="kpi-accent"></div>
-        <div class="kpi-label">Total</div>
-        <div class="kpi-value">${total.toLocaleString('pt-BR')}</div>
-        <div class="kpi-meta"><span class="kpi-sub">${prio} prioritárias</span></div>
-      </div>
-      <div class="kpi green">
-        <div class="kpi-accent"></div>
-        <div class="kpi-label">Entregues</div>
-        <div class="kpi-value">${entregues.toLocaleString('pt-BR')}</div>
-        <div class="kpi-meta"><span class="kpi-percent">${pct(entregues).toFixed(1)}%</span><span class="kpi-sub">do total</span></div>
-      </div>
-      <div class="kpi amber">
-        <div class="kpi-accent"></div>
-        <div class="kpi-label">Pendentes</div>
-        <div class="kpi-value">${pendentes.toLocaleString('pt-BR')}</div>
-        <div class="kpi-meta"><span class="kpi-percent">${pct(pendentes).toFixed(1)}%</span><span class="kpi-sub">em trabalho</span></div>
-      </div>
-      <div class="kpi red">
-        <div class="kpi-accent"></div>
-        <div class="kpi-label">Atrasadas</div>
-        <div class="kpi-value">${atrasadas.toLocaleString('pt-BR')}</div>
-        <div class="kpi-meta"><span class="kpi-percent">${pct(atrasadas).toFixed(1)}%</span><span class="kpi-sub">precisam ação</span></div>
-      </div>
-    `;
-  }
-
-  function renderChipCounts() {
-    const base = (state.raw.entregas || []).filter(e => {
-      if (state.competencia && e.competencia !== state.competencia) return false;
-      if (state.prioritarias && !e.prioritaria) return false;
-      if (state.responsavel && e.responsavel !== state.responsavel) return false;
-      if (state.busca) {
-        const t = state.busca.toLowerCase();
-        if (!(e.empresa || '').toLowerCase().includes(t) &&
-            !(e.cnpj || '').toLowerCase().includes(t)) return false;
-      }
-      return true;
-    });
-    document.getElementById('cTodos').textContent = base.length;
-    document.getElementById('cGreen').textContent = base.filter(e => e.status_semaforo === 'green').length;
-    document.getElementById('cAmber').textContent = base.filter(e => e.status_semaforo === 'amber').length;
-    document.getElementById('cRed').textContent = base.filter(e => e.status_semaforo === 'red').length;
-  }
-
-  function renderExpirando(filtradas) {
-    const lista = filtradas
-      .filter(ehPrazoLegalExpirando)
-      .sort((a, b) => (diasAteHoje(a.prazo_legal) || 0) - (diasAteHoje(b.prazo_legal) || 0))
-      .slice(0, 12);
-
-    const sec = document.getElementById('secExpirando');
-    if (lista.length === 0) { sec.style.display = 'none'; return; }
-    sec.style.display = '';
-    document.getElementById('expirandoCount').textContent = lista.length;
-
-    document.getElementById('expirandoList').innerHTML = lista.map(e => {
-      const dias = diasAteHoje(e.prazo_legal);
-      return `
-        <div class="alert-card expirando">
-          <div class="alert-info">
-            <div class="alert-empresa">${escapeHtml(e.empresa)}</div>
-            <div class="alert-meta">
-              ${e.prioritaria ? '<span class="pri-badge">Prio</span>' : ''}
-              <span>Prazo legal ${e.prazo_legal}</span>
-              <span class="sep"></span>
-              <span>${escapeHtml(e.responsavel)}</span>
-            </div>
-          </div>
-          <div class="alert-num">
-            <div class="alert-num-value">${dias === 0 ? 'Hoje' : dias}</div>
-            <div class="alert-num-label">${dias === 0 ? '' : (dias === 1 ? 'dia' : 'dias')}</div>
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
-
-  function renderAtrasados(filtradas) {
-    const lista = filtradas
-      .filter(ehAtrasadaNaoEntregue)
-      .sort((a, b) => b.dias_atraso - a.dias_atraso)
-      .slice(0, 12);
-
-    const sec = document.getElementById('secAtrasados');
-    if (lista.length === 0) { sec.style.display = 'none'; return; }
-    sec.style.display = '';
-    document.getElementById('atrasadosCount').textContent = lista.length;
-
-    document.getElementById('atrasadosList').innerHTML = lista.map(e => `
-      <div class="alert-card urgente">
-        <div class="alert-info">
-          <div class="alert-empresa">${escapeHtml(e.empresa)}</div>
-          <div class="alert-meta">
-            ${e.prioritaria ? '<span class="pri-badge">Prio</span>' : ''}
-            <span>Prazo ${e.prazo_tecnico}</span>
-            <span class="sep"></span>
-            <span>${escapeHtml(e.responsavel)}</span>
-          </div>
-        </div>
-        <div class="alert-num">
-          <div class="alert-num-value">${e.dias_atraso}</div>
-          <div class="alert-num-label">dias</div>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  function renderEntreguesComAtraso(filtradas) {
-    const lista = filtradas
-      .filter(ehEntregueComAtraso)
-      .sort((a, b) => b.dias_atraso - a.dias_atraso)
-      .slice(0, 12);
-
-    const sec = document.getElementById('secEntreguesAtraso');
-    if (lista.length === 0) { sec.style.display = 'none'; return; }
-    sec.style.display = '';
-    document.getElementById('entreguesAtrasoCount').textContent = lista.length;
-
-    document.getElementById('entreguesAtrasoList').innerHTML = lista.map(e => `
-      <div class="alert-card historico">
-        <div class="alert-info">
-          <div class="alert-empresa">${escapeHtml(e.empresa)}</div>
-          <div class="alert-meta">
-            ${e.prioritaria ? '<span class="pri-badge">Prio</span>' : ''}
-            <span>Entregue ${e.data_entrega}</span>
-            <span class="sep"></span>
-            <span>${escapeHtml(e.responsavel)}</span>
-          </div>
-        </div>
-        <div class="alert-num">
-          <div class="alert-num-value">${e.dias_atraso}</div>
-          <div class="alert-num-label">dias</div>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  function renderEmpresas(filtradas) {
-    const grid = document.getElementById('empresasGrid');
-    document.getElementById('empresasCount').textContent = filtradas.length + ' entregas';
-
-    if (filtradas.length === 0) {
-      grid.innerHTML = '<div class="empty-state">Nenhuma entrega com os filtros atuais.</div>';
-      return;
-    }
-
-    const ord = { red: 0, amber: 1, green: 2 };
-    const sorted = [...filtradas].sort((a, b) => {
-      if (a.prioritaria !== b.prioritaria) return a.prioritaria ? -1 : 1;
-      if (ord[a.status_semaforo] !== ord[b.status_semaforo]) return ord[a.status_semaforo] - ord[b.status_semaforo];
-      if (a.status_semaforo === 'red') return b.dias_atraso - a.dias_atraso;
-      return (a.empresa || '').localeCompare(b.empresa || '');
-    });
-
-    grid.innerHTML = sorted.map(e => {
-      const classeExtra = ehEntregueComAtraso(e) ? 'orange' : e.status_semaforo;
-      return `
-        <div class="empresa-card ${classeExtra}">
-          <div class="empresa-info">
-            <div class="empresa-nome">${escapeHtml(e.empresa)}</div>
-            <div class="empresa-meta">
-              ${e.prioritaria ? '<span class="pri-badge">Prio</span>' : ''}
-              <span>${escapeHtml(e.responsavel)}</span>
-            </div>
-          </div>
-          <div class="empresa-status">
-            <div class="status-dot ${classeExtra}"></div>
-            <div class="empresa-prazo">${e.prazo_tecnico}${e.dias_atraso ? ' · ' + e.dias_atraso + 'd' : ''}</div>
-          </div>
-        </div>
-      `;
-    }).join('');
-  }
-
-  function renderRanking() {
-    const ranking = (state.raw.ranking_responsaveis && state.raw.ranking_responsaveis[state.competencia]) || [];
-    const list = document.getElementById('rankingList');
-    document.getElementById('rankCount').textContent = ranking.length + ' responsáveis';
-
-    if (ranking.length === 0) {
-      list.innerHTML = '<div class="empty-state">Sem dados de responsáveis para esta competência.</div>';
-      return;
-    }
-
-    list.innerHTML = ranking.map((r, i) => `
-      <div class="rank-row ${i < 3 ? 'top3' : ''}">
-        <div class="rank-num">${i + 1}</div>
-        <div class="rank-info">
-          <div class="rank-nome">${escapeHtml(r.nome)}</div>
-          <div class="rank-bar"><div class="rank-bar-fill" style="width: ${r.percentual}%"></div></div>
-        </div>
-        <div class="rank-stats">
-          <div class="rank-counts">
-            <div class="rank-count g"><strong>${r.entregues}</strong><span>Ent</span></div>
-            <div class="rank-count a"><strong>${r.pendentes}</strong><span>Pen</span></div>
-            <div class="rank-count r"><strong>${r.atrasadas}</strong><span>Atr</span></div>
-          </div>
-          <div class="rank-percent">${r.percentual.toFixed(1)}%</div>
-        </div>
-      </div>
-    `).join('');
-  }
-
-  function renderTrend() {
-    const comps = state.raw.competencias_disponiveis || [];
-    const kpis = state.raw.kpis || {};
-
-    // Ordenar do mais antigo pro mais recente (esquerda → direita)
-    const MESES_ORD = { jan: 1, fev: 2, mar: 3, abr: 4, mai: 5, jun: 6, jul: 7, ago: 8, set: 9, out: 10, nov: 11, dez: 12 };
-    const ordemComp = c => {
-      const m = String(c).match(/([a-z]+)\/(\d+)/);
+    function ordemComp(comp) {
+      if (!comp) return 0;
+      const m = String(comp).match(/([a-z]+)\/(\d+)/);
       if (!m) return 0;
       return parseInt(m[2]) * 100 + (MESES_ORD[m[1]] || 0);
-    };
-    const compsOrd = [...comps].sort((a, b) => ordemComp(a) - ordemComp(b));
+    }
 
-    document.getElementById('trendChart').innerHTML = compsOrd.map(c => {
-      const k = kpis[c] || { total: 0, entregues: 0, pendentes: 0, atrasadas: 0 };
-      const pctG = k.total > 0 ? (k.entregues / k.total) * 100 : 0;
-      const pctA = k.total > 0 ? (k.pendentes / k.total) * 100 : 0;
-      const pctR = k.total > 0 ? (k.atrasadas / k.total) * 100 : 0;
+    function classePercentual(pct) {
+      if (pct >= 75) return 'good';
+      if (pct >= 50) return 'mid';
+      return 'bad';
+    }
 
-      return `
-        <div class="trend-row">
-          <div class="trend-comp">${c}</div>
-          <div class="trend-bar-container">
-            ${pctG > 5 ? `<div class="trend-bar-seg green" style="width: ${pctG}%"><span>${pctG.toFixed(0)}%</span></div>` : (pctG > 0 ? `<div class="trend-bar-seg green" style="width: ${pctG}%"></div>` : '')}
-            ${pctA > 5 ? `<div class="trend-bar-seg amber" style="width: ${pctA}%"><span>${pctA.toFixed(0)}%</span></div>` : (pctA > 0 ? `<div class="trend-bar-seg amber" style="width: ${pctA}%"></div>` : '')}
-            ${pctR > 5 ? `<div class="trend-bar-seg red" style="width: ${pctR}%"><span>${pctR.toFixed(0)}%</span></div>` : (pctR > 0 ? `<div class="trend-bar-seg red" style="width: ${pctR}%"></div>` : '')}
-          </div>
-          <div class="trend-totals">
-            <span><strong>${k.total}</strong> total</span>
-          </div>
+    function formatarHora(iso) {
+      try {
+        const d = new Date(iso);
+        return d.toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' });
+      } catch (e) { return iso; }
+    }
+
+    function parseDataBR(d) {
+      if (!d) return null;
+      const s = String(d).trim();
+      if (!s) return null;
+      let m = s.match(/^(\d{2})\/(\d{2})\/(\d{4})/);
+      if (m) return new Date(+m[3], +m[2]-1, +m[1]);
+      m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (m) return new Date(+m[1], +m[2]-1, +m[3]);
+      return null;
+    }
+
+    // Regra "entregue se dentro de PzTec OU PzLegal"
+    function statusPrazo(e) {
+      if (!e.data_entrega) return { texto: 'Não entregue', classe: 'gray' };
+      const dEnt = parseDataBR(e.data_entrega);
+      if (!dEnt) return { texto: 'Data inválida', classe: 'gray' };
+      const dLeg = parseDataBR(e.prazo_legal);
+      const dTec = parseDataBR(e.prazo_tecnico);
+      const dentroLeg = dLeg && dEnt <= dLeg;
+      const dentroTec = dTec && dEnt <= dTec;
+      if (dentroLeg || dentroTec) return { texto: 'Dentro do prazo', classe: 'green' };
+      return { texto: 'Fora do prazo', classe: 'red' };
+    }
+
+    async function carregar() {
+      try {
+        const resp = await fetch(DATA_URL + '?ts=' + Date.now());
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const data = await resp.json();
+        estado.data = data;
+
+        const disponiveis = data.competencias_disponiveis || [];
+        if (estado.competenciaSelecionada === null || !disponiveis.includes(estado.competenciaSelecionada)) {
+          estado.competenciaSelecionada = data.competencia_atual;
+        }
+        renderTudo();
+      } catch (err) {
+        console.error('Erro carregando data.json:', err);
+        document.getElementById('atualizado').textContent = 'erro';
+      }
+    }
+
+    function renderTudo() {
+      if (!estado.data) return;
+      const data = estado.data;
+      renderCompFilter(data.competencias_disponiveis || [], data.competencia_atual);
+      document.getElementById('atualizado').textContent = formatarHora(data.atualizado_em);
+      renderTime('fiscal', data.fiscal, estado.competenciaSelecionada);
+      renderTime('contabil', data.contabil, estado.competenciaSelecionada);
+      renderTendencia(data.fiscal, data.contabil);
+      renderAtrasos(data.atrasos_criticos || []);
+    }
+
+    function renderCompFilter(competencias, competenciaAtualDoSistema) {
+      const comps = competencias.slice().sort((a, b) => ordemComp(a) - ordemComp(b));
+      const container = document.getElementById('comp-filter');
+      container.innerHTML = comps.map(c => `
+        <button class="comp-pill ${c === estado.competenciaSelecionada ? 'active' : ''} ${c === competenciaAtualDoSistema ? 'is-current' : ''}"
+          data-comp="${c}" title="${c === competenciaAtualDoSistema ? 'Competência corrente' : c}">${c}</button>
+      `).join('');
+      container.querySelectorAll('.comp-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          estado.competenciaSelecionada = btn.dataset.comp;
+          renderTudo();
+        });
+      });
+    }
+
+    function renderTime(slug, dadosTime, competencia) {
+      const cardsEl = document.getElementById('cards-' + slug);
+      const heroEl = document.getElementById('hero-' + slug);
+      const rankingEl = document.getElementById('ranking-' + slug);
+      const subtotalEl = document.getElementById('subtotal-' + slug);
+      const timeNome = slug === 'fiscal' ? 'Fiscal' : 'Contabil';
+
+      if (!dadosTime) {
+        cardsEl.innerHTML = '<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados do time.</div>';
+        return;
+      }
+
+      const kpis = (dadosTime.kpis || {})[competencia];
+      if (!kpis) {
+        cardsEl.innerHTML = `<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados para ${competencia}.</div>`;
+        heroEl.innerHTML = '';
+        rankingEl.innerHTML = '';
+        if (subtotalEl) subtotalEl.textContent = '--';
+        return;
+      }
+
+      if (subtotalEl) subtotalEl.textContent = `${kpis.total} entregas · ${kpis.prioritarias} prioritárias`;
+
+      cardsEl.innerHTML = `
+        <div class="card-count" data-time="${timeNome}" data-status="all" data-comp="${competencia}">
+          <div class="card-label">Total</div>
+          <div class="card-value">${kpis.total}</div>
+        </div>
+        <div class="card-count" data-time="${timeNome}" data-status="green" data-comp="${competencia}">
+          <div class="card-label">Entregues</div>
+          <div class="card-value">${kpis.entregues}</div>
+        </div>
+        <div class="card-count" data-time="${timeNome}" data-status="amber" data-comp="${competencia}">
+          <div class="card-label">Pendentes</div>
+          <div class="card-value amber">${kpis.pendentes}</div>
+        </div>
+        <div class="card-count" data-time="${timeNome}" data-status="red" data-comp="${competencia}">
+          <div class="card-label">Atrasadas</div>
+          <div class="card-value red">${kpis.atrasadas}</div>
         </div>
       `;
-    }).join('');
-  }
+      cardsEl.querySelectorAll('.card-count').forEach(el => {
+        el.addEventListener('click', () => abrirModalCard(el.dataset.time, el.dataset.status, el.dataset.comp));
+      });
 
-  function renderRecorrentes() {
-    const entregas = state.raw.entregas || [];
-    const porEmpresa = {};
+      const fc = dadosTime.forecast || {};
+      const forecastHTML = fc.baseline !== null && fc.baseline !== undefined
+        ? `
+          <div class="card-label">Forecast (baseline)</div>
+          <div class="forecast-value">${fc.baseline.toFixed(1)}<span class="percent-suffix">%</span></div>
+          <div class="forecast-source">média de ${fc.amostra_meses} ${fc.amostra_meses === 1 ? 'mês' : 'meses'}: ${(fc.competencias_baseline || []).join(', ')}</div>
+        `
+        : `<div class="card-label">Forecast (baseline)</div><div class="forecast-empty">Sem histórico fechado</div>`;
 
-    for (const e of entregas) {
-      if (e.status_semaforo !== 'red') continue;
-      const key = e.empresa;
-      if (!porEmpresa[key]) porEmpresa[key] = { empresa: e.empresa, cnpj: e.cnpj, competencias: new Set() };
-      porEmpresa[key].competencias.add(e.competencia);
-    }
+      heroEl.innerHTML = `
+        <div class="card-percent" data-time="${timeNome}" data-status="green" data-comp="${competencia}">
+          <div class="card-label">% Entregue</div>
+          <div class="percent-value">${kpis.percentual_entregues.toFixed(1)}<span class="percent-suffix">%</span></div>
+        </div>
+        <div class="card-forecast">${forecastHTML}</div>
+      `;
+      heroEl.querySelectorAll('.card-percent').forEach(el => {
+        el.addEventListener('click', () => abrirModalCard(el.dataset.time, el.dataset.status, el.dataset.comp));
+      });
 
-    const lista = Object.values(porEmpresa)
-      .map(o => ({ ...o, competencias: [...o.competencias].sort() }))
-      .filter(o => o.competencias.length >= 2)
-      .sort((a, b) => b.competencias.length - a.competencias.length)
-      .slice(0, 20);
-
-    document.getElementById('recorrentesCount').textContent = lista.length + ' empresas';
-
-    const list = document.getElementById('recorrentesList');
-    if (lista.length === 0) {
-      list.innerHTML = '<div class="empty-state">Nenhuma empresa recorrente. Não há padrão de falha sistêmica.</div>';
-      return;
-    }
-
-    list.innerHTML = lista.map((o, i) => `
-      <div class="recorrente-row">
-        <div class="rank-num">${i + 1}</div>
-        <div>
-          <div class="recorrente-empresa">${escapeHtml(o.empresa)}</div>
-          <div class="recorrente-comps">
-            ${o.competencias.map(c => `<span class="recorrente-chip">${c}</span>`).join('')}
+      const ranking = (dadosTime.ranking || {})[competencia] || [];
+      const top5 = ranking.slice(0, 5);
+      if (top5.length === 0) {
+        rankingEl.innerHTML = `
+          <div class="ranking-title">Top responsáveis · ${competencia}</div>
+          <div style="color:var(--text-dim); padding:10px 0; font-size:12px">Sem responsáveis na competência.</div>
+        `;
+        return;
+      }
+      rankingEl.innerHTML = `
+        <div class="ranking-title">Top responsáveis · ${competencia} (clique pra detalhar)</div>
+        ${top5.map(r => `
+          <div class="ranking-row" data-resp="${encodeURIComponent(r.nome)}" data-time="${timeNome}" data-comp="${competencia}">
+            <div class="rank-name">${r.nome}</div>
+            <div class="rank-numbers">${r.entregues}/${r.total}</div>
+            <div class="rank-pct ${classePercentual(r.percentual)}">${r.percentual.toFixed(1)}%</div>
           </div>
-        </div>
-        <div>
-          <div class="recorrente-num">${o.competencias.length}</div>
-          <div class="recorrente-num-label">meses</div>
-        </div>
-      </div>
-    `).join('');
-  }
+        `).join('')}
+      `;
+      rankingEl.querySelectorAll('.ranking-row').forEach(el => {
+        el.addEventListener('click', () => abrirModalResponsavel(
+          decodeURIComponent(el.dataset.resp), el.dataset.time, el.dataset.comp
+        ));
+      });
+    }
 
-  // ===== EVENTS =====
-  document.getElementById('competencia').addEventListener('change', e => {
-    state.competencia = e.target.value;
-    state.responsavel = '';
-    popularResponsaveis();
-    render();
-  });
-  document.getElementById('busca').addEventListener('input', e => { state.busca = e.target.value; render(); });
-  document.getElementById('prioToggle').addEventListener('change', e => { state.prioritarias = e.target.checked; render(); });
-  document.getElementById('responsavel').addEventListener('change', e => { state.responsavel = e.target.value; render(); });
-  document.getElementById('chips').addEventListener('click', e => {
-    const btn = e.target.closest('.chip');
-    if (!btn) return;
-    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active', 'green', 'amber', 'red'));
-    btn.classList.add('active');
-    if (btn.dataset.status !== 'todos') btn.classList.add(btn.dataset.status);
-    state.status = btn.dataset.status;
-    render();
-  });
-  document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-      tab.classList.add('active');
-      const v = tab.dataset.view;
-      document.getElementById('view' + v.charAt(0).toUpperCase() + v.slice(1)).classList.add('active');
-      state.aba = v;
+    function renderTendencia(fiscal, contabil) {
+      const tFiscal = (fiscal && fiscal.tendencia) ? fiscal.tendencia : [];
+      const tContabil = (contabil && contabil.tendencia) ? contabil.tendencia : [];
+      const compSet = new Set();
+      tFiscal.forEach(p => compSet.add(p.competencia));
+      tContabil.forEach(p => compSet.add(p.competencia));
+      const comps = Array.from(compSet).sort((a, b) => ordemComp(a) - ordemComp(b));
+      if (comps.length === 0) {
+        document.getElementById('chart-container').innerHTML = '<div style="color:var(--text-dim); padding:24px 0; text-align:center">Sem dados de tendência.</div>';
+        return;
+      }
+      const W = 1000, H = 280;
+      const pad = { top:20, right:20, bottom:36, left:40 };
+      const innerW = W - pad.left - pad.right;
+      const innerH = H - pad.top - pad.bottom;
+      const xStep = comps.length > 1 ? innerW / (comps.length - 1) : 0;
+      const xAt = i => pad.left + i * xStep;
+      const yAt = pct => pad.top + innerH - (pct / 100) * innerH;
+      const mapa = tend => { const m = {}; tend.forEach(p => m[p.competencia] = p); return m; };
+      const mFiscal = mapa(tFiscal), mContabil = mapa(tContabil);
+      const buildPath = mapaTime => {
+        const pontos = comps.map((c, i) => mapaTime[c] ? { x: xAt(i), y: yAt(mapaTime[c].percentual_entregues) } : null).filter(Boolean);
+        if (pontos.length === 0) return '';
+        return pontos.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
+      };
+      const buildDots = (mapaTime, slug) => comps.map((c, i) => mapaTime[c] ? `<circle class="chart-dot ${slug}" cx="${xAt(i).toFixed(1)}" cy="${yAt(mapaTime[c].percentual_entregues).toFixed(1)}" r="4" />` : '').join('');
+      const gridLines = [0,25,50,75,100].map(pct => `<line class="chart-grid-line" x1="${pad.left}" y1="${yAt(pct).toFixed(1)}" x2="${W-pad.right}" y2="${yAt(pct).toFixed(1)}" /><text class="chart-label" x="${pad.left-8}" y="${yAt(pct).toFixed(1)}" dy="3" text-anchor="end">${pct}%</text>`).join('');
+      const xLabels = comps.map((c, i) => `<text class="chart-label" x="${xAt(i).toFixed(1)}" y="${H-16}" text-anchor="middle">${c}</text>`).join('');
+      document.getElementById('chart-container').innerHTML = `
+        <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+          ${gridLines}
+          <path class="chart-line fiscal" d="${buildPath(mFiscal)}" />
+          <path class="chart-line contabil" d="${buildPath(mContabil)}" />
+          ${buildDots(mFiscal, 'fiscal')}
+          ${buildDots(mContabil, 'contabil')}
+          ${xLabels}
+        </svg>
+      `;
+    }
+
+    function renderAtrasos(lista) {
+      const el = document.getElementById('atrasos');
+      if (!lista || lista.length === 0) {
+        el.innerHTML = '<div style="color:var(--text-dim); padding:16px 0; text-align:center">Nenhum atraso crítico.</div>';
+        return;
+      }
+      el.innerHTML = lista.slice(0, 12).map(a => `
+        <div class="atraso-row" data-time="${a.time}">
+          <span class="time-tag ${(a.time || '').toLowerCase()}">${a.time || '--'}</span>
+          <span class="atraso-empresa" title="${a.empresa}">${a.empresa}</span>
+          <span class="atraso-dias">${a.dias_atraso}d</span>
+        </div>
+      `).join('');
+      el.querySelectorAll('.atraso-row').forEach(row => {
+        row.addEventListener('click', () => abrirModalCard(row.dataset.time, 'red', null));
+      });
+    }
+
+    // ========== MODAL DRILL-DOWN ==========
+
+    function abrirModalCard(time, status, comp) {
+      const todas = (estado.data && estado.data.entregas) || [];
+      let filtradas = todas.filter(e => e.time === time);
+      if (comp) filtradas = filtradas.filter(e => e.competencia === comp);
+      if (status === 'green') filtradas = filtradas.filter(e => e.status_semaforo === 'green');
+      else if (status === 'amber') filtradas = filtradas.filter(e => e.status_semaforo === 'amber');
+      else if (status === 'red') filtradas = filtradas.filter(e => e.status_semaforo === 'red');
+
+      const statusLabel = {
+        all: 'Todas',
+        green: 'Entregues',
+        amber: 'Pendentes',
+        red: 'Atrasadas'
+      }[status] || status;
+
+      const titulo = comp
+        ? `${statusLabel} · ${time} · ${comp}`
+        : `${statusLabel} · ${time} · todas as competências`;
+
+      abrirModalGenerico(titulo, filtradas);
+    }
+
+    function abrirModalResponsavel(responsavel, time, comp) {
+      const todas = (estado.data && estado.data.entregas) || [];
+      const filtradas = todas.filter(e =>
+        e.responsavel === responsavel && e.time === time && e.competencia === comp
+      );
+      abrirModalGenerico(`${responsavel} · ${time} · ${comp}`, filtradas);
+    }
+
+    function abrirModalGenerico(titulo, entregas) {
+      estado.modal.aberto = true;
+      estado.modal.titulo = titulo;
+      estado.modal.entregas = entregas;
+      estado.modal.busca = '';
+      estado.modal.sortBy = 'dias_atraso';
+      estado.modal.sortDir = 'desc';
+
+      document.getElementById('modal').classList.add('aberto');
+      document.getElementById('modal-title').textContent = titulo;
+      document.getElementById('modal-search').value = '';
+      renderModal();
+    }
+
+    function fecharModal() {
+      estado.modal.aberto = false;
+      document.getElementById('modal').classList.remove('aberto');
+    }
+
+    function renderModal() {
+      let entregas = estado.modal.entregas.slice();
+
+      // Filtro de busca
+      const termo = (estado.modal.busca || '').toLowerCase().trim();
+      if (termo) {
+        entregas = entregas.filter(e =>
+          (e.empresa || '').toLowerCase().includes(termo) ||
+          (e.cnpj || '').toLowerCase().includes(termo) ||
+          (e.responsavel || '').toLowerCase().includes(termo) ||
+          (e.obrigacao || '').toLowerCase().includes(termo)
+        );
+      }
+
+      // Sort
+      const sortBy = estado.modal.sortBy;
+      const dir = estado.modal.sortDir === 'asc' ? 1 : -1;
+      entregas.sort((a, b) => {
+        let va = a[sortBy], vb = b[sortBy];
+        if (sortBy === 'data_entrega' || sortBy === 'prazo_legal' || sortBy === 'prazo_tecnico') {
+          va = parseDataBR(va) || 0;
+          vb = parseDataBR(vb) || 0;
+        }
+        if (typeof va === 'string') va = va.toLowerCase();
+        if (typeof vb === 'string') vb = vb.toLowerCase();
+        if (va < vb) return -1 * dir;
+        if (va > vb) return 1 * dir;
+        return 0;
+      });
+
+      estado.modal.entregasFiltradas = entregas;
+      document.getElementById('modal-count').textContent = `(${entregas.length} ${entregas.length === 1 ? 'entrega' : 'entregas'})`;
+
+      const body = document.getElementById('modal-body');
+      if (entregas.length === 0) {
+        body.innerHTML = '<div class="modal-empty">Nenhuma entrega encontrada com os filtros aplicados.</div>';
+        return;
+      }
+
+      const cols = [
+        { key: 'time', label: 'Time' },
+        { key: 'empresa', label: 'Empresa' },
+        { key: 'cnpj', label: 'CNPJ' },
+        { key: 'obrigacao', label: 'Obrigação' },
+        { key: 'competencia', label: 'Comp' },
+        { key: 'responsavel', label: 'Responsável' },
+        { key: 'prazo_legal', label: 'Pz Legal' },
+        { key: 'prazo_tecnico', label: 'Pz Técnico' },
+        { key: 'data_entrega', label: 'Data Entrega' },
+        { key: 'prazo_atendido', label: 'Prazo' },
+        { key: 'status_original', label: 'Status' },
+        { key: 'dias_atraso', label: 'Dias Atraso' }
+      ];
+
+      const ths = cols.map(c => {
+        const sorted = sortBy === c.key ? 'sorted' : '';
+        const asc = estado.modal.sortDir === 'asc' ? 'asc' : '';
+        return `<th data-col="${c.key}" class="${sorted} ${asc}">${c.label}</th>`;
+      }).join('');
+
+      const rows = entregas.map(e => {
+        const sp = statusPrazo(e);
+        const semaforoClass = e.status_semaforo === 'green' ? 'green'
+                            : e.status_semaforo === 'red' ? 'red'
+                            : e.status_semaforo === 'amber' ? 'amber' : 'gray';
+        return `
+          <tr>
+            <td><span class="badge ${(e.time || '').toLowerCase()}">${e.time || '--'}</span></td>
+            <td class="empresa">${e.empresa || '--'}${e.prioritaria ? ' <span class="badge amber" style="margin-left:6px">prio</span>' : ''}</td>
+            <td class="cnpj">${e.cnpj || '--'}</td>
+            <td>${e.obrigacao || '--'}</td>
+            <td>${e.competencia || '--'}</td>
+            <td class="responsavel">${e.responsavel || 'Sem responsável'}</td>
+            <td class="data">${e.prazo_legal || '--'}</td>
+            <td class="data">${e.prazo_tecnico || '--'}</td>
+            <td class="data">${e.data_entrega || '--'}</td>
+            <td><span class="badge ${sp.classe}">${sp.texto}</span></td>
+            <td><span class="badge ${semaforoClass}">${e.status_original || '--'}</span></td>
+            <td class="dias">${e.dias_atraso > 0 ? e.dias_atraso + 'd' : '--'}</td>
+          </tr>
+        `;
+      }).join('');
+
+      body.innerHTML = `
+        <table class="modal-table">
+          <thead><tr>${ths}</tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+
+      body.querySelectorAll('th[data-col]').forEach(th => {
+        th.addEventListener('click', () => {
+          const col = th.dataset.col;
+          if (estado.modal.sortBy === col) {
+            estado.modal.sortDir = estado.modal.sortDir === 'asc' ? 'desc' : 'asc';
+          } else {
+            estado.modal.sortBy = col;
+            estado.modal.sortDir = 'desc';
+          }
+          renderModal();
+        });
+      });
+    }
+
+    function exportarCSV() {
+      const entregas = estado.modal.entregasFiltradas || [];
+      if (entregas.length === 0) return;
+      const header = ['Time','Empresa','CNPJ','Obrigacao','Competencia','Responsavel','Prazo Legal','Prazo Tecnico','Data Entrega','Dentro do Prazo','Status','Dias Atraso','Protocolo','Prioritaria','Justificado'];
+      const linhas = entregas.map(e => {
+        const sp = statusPrazo(e);
+        return [
+          e.time || '', e.empresa || '', e.cnpj || '', e.obrigacao || '',
+          e.competencia || '', e.responsavel || '', e.prazo_legal || '',
+          e.prazo_tecnico || '', e.data_entrega || '', sp.texto,
+          e.status_original || '', e.dias_atraso || 0, e.protocolo || '',
+          e.prioritaria ? 'Sim' : 'Nao', e.justificado ? 'Sim' : 'Nao'
+        ].map(v => `"${String(v).replace(/"/g, '""')}"`).join(';');
+      });
+      const csv = '\uFEFF' + [header.join(';'), ...linhas].join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `painel-larafy-${(estado.modal.titulo || 'export').replace(/[^a-z0-9-]/gi, '_').toLowerCase()}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Bindings
+    document.getElementById('modal-search').addEventListener('input', (e) => {
+      estado.modal.busca = e.target.value;
+      renderModal();
     });
-  });
-  document.getElementById('btnRefresh').addEventListener('click', () => carregar());
+    document.getElementById('btn-export').addEventListener('click', exportarCSV);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && estado.modal.aberto) fecharModal();
+    });
 
-  carregar();
-  setInterval(carregar, REFRESH_INTERVAL_MS);
-</script>
+    // Boot
+    carregar();
+    setInterval(carregar, REFRESH_MS);
+  </script>
 </body>
 </html>
