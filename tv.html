@@ -20,6 +20,7 @@
       --contabil-dim: rgba(255, 140, 66, 0.15);
       --green: #4ade80;
       --red: #ef4444;
+      --red-done: #fb7185;
       --amber: #fbbf24;
       --text: #ffffff;
       --text-muted: #94a3b8;
@@ -33,11 +34,7 @@
     .brand-divider { color: var(--text-dim); }
     .brand-context { font-size: 14px; color: var(--text-muted); font-weight: 400; letter-spacing: 0.3px; text-transform: uppercase; }
     .header-info { display: flex; gap: 16px; align-items: center; }
-    .header-link {
-      font-size: 12px; color: var(--text-muted); text-decoration: none;
-      padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px;
-      transition: all 0.15s; background: rgba(13,36,56,0.4);
-    }
+    .header-link { font-size: 12px; color: var(--text-muted); text-decoration: none; padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px; transition: all 0.15s; background: rgba(13,36,56,0.4); }
     .header-link:hover { background: var(--bg-card-2); color: var(--text); }
     .header-pill { display: flex; flex-direction: column; align-items: flex-end; padding-left: 16px; border-left: 1px solid var(--border); }
     .pill-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
@@ -62,14 +59,15 @@
     .team-block.contabil .team-name { color: var(--contabil); }
     .team-subtotal { font-size: 13px; color: var(--text-muted); }
 
-    .cards-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
-    .card-count { background: var(--bg-card-2); padding: 16px 14px; border-radius: 8px; border: 1px solid var(--border); }
-    .card-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
-    .card-value { font-size: 36px; font-weight: 700; line-height: 1; }
+    .cards-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 16px; }
+    .card-count { background: var(--bg-card-2); padding: 16px 12px; border-radius: 8px; border: 1px solid var(--border); }
+    .card-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; line-height: 1.2; }
+    .card-value { font-size: 32px; font-weight: 700; line-height: 1; }
     .card-value.amber { color: var(--amber); }
     .card-value.red { color: var(--red); }
+    .card-value.red-done { color: var(--red-done); }
 
-    .hero-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .hero-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px; }
     .card-percent { background: var(--bg-card-3); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid var(--border); }
     .card-percent .card-label { margin-bottom: 6px; }
     .percent-value { font-size: 72px; font-weight: 800; line-height: 1; color: var(--green); letter-spacing: -2px; }
@@ -78,17 +76,6 @@
     .forecast-value { font-size: 32px; font-weight: 700; color: var(--text); line-height: 1; margin-top: 4px; }
     .forecast-source { font-size: 11px; color: var(--text-dim); margin-top: 8px; line-height: 1.3; }
     .forecast-empty { font-size: 14px; color: var(--text-dim); font-style: italic; }
-
-    .ranking { background: var(--bg-card-2); border-radius: 10px; padding: 16px; border: 1px solid var(--border); }
-    .ranking-title { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
-    .ranking-row { display: grid; grid-template-columns: 1fr auto auto; gap: 14px; padding: 8px 0; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
-    .ranking-row:last-child { border-bottom: none; }
-    .rank-name { font-size: 14px; color: var(--text); }
-    .rank-numbers { font-size: 12px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
-    .rank-pct { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; min-width: 50px; text-align: right; }
-    .rank-pct.good { color: var(--green); }
-    .rank-pct.mid { color: var(--amber); }
-    .rank-pct.bad { color: var(--red); }
 
     .bottom-row { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; padding: 0 20px 20px; }
     .panel { background: var(--bg-card); border-radius: 12px; padding: 24px; }
@@ -104,7 +91,9 @@
     .time-tag.fiscal { background: var(--fiscal-dim); color: var(--fiscal); border: 1px solid rgba(53, 185, 215, 0.3); }
     .time-tag.contabil { background: var(--contabil-dim); color: var(--contabil); border: 1px solid rgba(255, 140, 66, 0.3); }
     .atraso-empresa { font-size: 13px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .atraso-dias { font-size: 14px; font-weight: 700; color: var(--red); font-variant-numeric: tabular-nums; }
+    .atraso-dias { font-size: 14px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .atraso-dias.red { color: var(--red); }
+    .atraso-dias.red-done { color: var(--red-done); }
 
     .footer { text-align: center; padding: 16px; font-size: 12px; color: var(--text-dim); border-top: 1px solid var(--border); }
 
@@ -149,7 +138,6 @@
         </div>
         <div class="cards-row" id="cards-fiscal"></div>
         <div class="hero-row" id="hero-fiscal"></div>
-        <div class="ranking" id="ranking-fiscal"></div>
       </div>
       <div class="team-block contabil">
         <div class="team-header">
@@ -158,7 +146,6 @@
         </div>
         <div class="cards-row" id="cards-contabil"></div>
         <div class="hero-row" id="hero-contabil"></div>
-        <div class="ranking" id="ranking-contabil"></div>
       </div>
     </section>
 
@@ -195,7 +182,6 @@
       if (!m) return 0;
       return parseInt(m[2]) * 100 + (MESES_ORD[m[1]] || 0);
     }
-    function classePercentual(pct) { if (pct >= 75) return 'good'; if (pct >= 50) return 'mid'; return 'bad'; }
     function formatarHora(iso) {
       try { return new Date(iso).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }); }
       catch (e) { return iso; }
@@ -243,43 +229,32 @@
     function renderTime(slug, dadosTime, competencia) {
       const cardsEl = document.getElementById('cards-' + slug);
       const heroEl = document.getElementById('hero-' + slug);
-      const rankingEl = document.getElementById('ranking-' + slug);
       const subtotalEl = document.getElementById('subtotal-' + slug);
 
       if (!dadosTime) { cardsEl.innerHTML = '<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados do time.</div>'; return; }
       const kpis = (dadosTime.kpis || {})[competencia];
       if (!kpis) {
         cardsEl.innerHTML = `<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados para ${competencia}.</div>`;
-        heroEl.innerHTML = ''; rankingEl.innerHTML = '';
+        heroEl.innerHTML = '';
         if (subtotalEl) subtotalEl.textContent = '--';
         return;
       }
       if (subtotalEl) subtotalEl.textContent = kpis.total + ' entregas · ' + kpis.prioritarias + ' prioritárias';
 
       cardsEl.innerHTML = `
-        <div class="card-count"><div class="card-label">Total</div><div class="card-value">${kpis.total}</div></div>
-        <div class="card-count"><div class="card-label">Entregues</div><div class="card-value">${kpis.entregues}</div></div>
-        <div class="card-count"><div class="card-label">Pendentes</div><div class="card-value amber">${kpis.pendentes}</div></div>
-        <div class="card-count"><div class="card-label">Atrasadas</div><div class="card-value red">${kpis.atrasadas}</div></div>
+        <div class="card-count" title="Total de liberações do time na competência"><div class="card-label">Total</div><div class="card-value">${kpis.total}</div></div>
+        <div class="card-count" title="Entregue dentro do prazo"><div class="card-label">Entregues</div><div class="card-value">${kpis.entregues}</div></div>
+        <div class="card-count" title="Pendentes, ainda no prazo"><div class="card-label">Pendentes</div><div class="card-value amber">${kpis.pendentes}</div></div>
+        <div class="card-count" title="Não entregue, prazo já vencido"><div class="card-label">Atrasadas</div><div class="card-value red">${kpis.atrasadas}</div></div>
+        <div class="card-count" title="Entregue, porém com atraso"><div class="card-label">Ent. Atrasada</div><div class="card-value red-done">${kpis.entregues_atrasados || 0}</div></div>
       `;
       const fc = dadosTime.forecast || {};
       const forecastHTML = fc.baseline !== null && fc.baseline !== undefined
         ? `<div class="card-label">Forecast (baseline)</div><div class="forecast-value">${fc.baseline.toFixed(1)}<span class="percent-suffix">%</span></div><div class="forecast-source">média de ${fc.amostra_meses} ${fc.amostra_meses === 1 ? 'mês' : 'meses'}: ${(fc.competencias_baseline || []).join(', ')}</div>`
         : `<div class="card-label">Forecast (baseline)</div><div class="forecast-empty">Sem histórico fechado</div>`;
-
       heroEl.innerHTML = `
-        <div class="card-percent"><div class="card-label">% Entregue</div><div class="percent-value">${kpis.percentual_entregues.toFixed(1)}<span class="percent-suffix">%</span></div></div>
+        <div class="card-percent"><div class="card-label">% Entregue no prazo</div><div class="percent-value">${kpis.percentual_entregues.toFixed(1)}<span class="percent-suffix">%</span></div></div>
         <div class="card-forecast">${forecastHTML}</div>
-      `;
-      const ranking = (dadosTime.ranking || {})[competencia] || [];
-      const top5 = ranking.slice(0, 5);
-      if (top5.length === 0) {
-        rankingEl.innerHTML = `<div class="ranking-title">Top responsáveis · ${competencia}</div><div style="color:var(--text-dim); padding:10px 0; font-size:13px">Sem responsáveis na competência.</div>`;
-        return;
-      }
-      rankingEl.innerHTML = `
-        <div class="ranking-title">Top responsáveis · ${competencia}</div>
-        ${top5.map(r => `<div class="ranking-row"><div class="rank-name">${r.nome}</div><div class="rank-numbers">${r.entregues}/${r.total}</div><div class="rank-pct ${classePercentual(r.percentual)}">${r.percentual.toFixed(1)}%</div></div>`).join('')}
       `;
     }
 
@@ -291,8 +266,7 @@
       tContabil.forEach(p => compSet.add(p.competencia));
       const comps = Array.from(compSet).sort((a, b) => ordemComp(a) - ordemComp(b));
       if (comps.length === 0) { document.getElementById('chart-container').innerHTML = '<div style="color:var(--text-dim); padding:24px 0; text-align:center">Sem dados de tendência.</div>'; return; }
-      const W = 1000, H = 280;
-      const pad = { top:20, right:20, bottom:36, left:40 };
+      const W = 1000, H = 280, pad = { top:20, right:20, bottom:36, left:40 };
       const innerW = W - pad.left - pad.right, innerH = H - pad.top - pad.bottom;
       const xStep = comps.length > 1 ? innerW / (comps.length - 1) : 0;
       const xAt = i => pad.left + i * xStep;
@@ -312,13 +286,16 @@
 
     function renderAtrasos(lista) {
       if (!lista || lista.length === 0) { document.getElementById('atrasos').innerHTML = '<div style="color:var(--text-dim); padding:16px 0; text-align:center">Nenhum atraso crítico.</div>'; return; }
-      document.getElementById('atrasos').innerHTML = lista.slice(0, 12).map(a => `
-        <div class="atraso-row">
-          <span class="time-tag ${(a.time || '').toLowerCase()}">${a.time || '--'}</span>
-          <span class="atraso-empresa" title="${a.empresa}">${a.empresa}</span>
-          <span class="atraso-dias">${a.dias_atraso}d</span>
-        </div>
-      `).join('');
+      document.getElementById('atrasos').innerHTML = lista.slice(0, 12).map(a => {
+        const colorClass = a.status_semaforo === 'red_done' ? 'red-done' : 'red';
+        return `
+          <div class="atraso-row">
+            <span class="time-tag ${(a.time || '').toLowerCase()}">${a.time || '--'}</span>
+            <span class="atraso-empresa" title="${a.empresa}">${a.empresa}</span>
+            <span class="atraso-dias ${colorClass}">${a.dias_atraso}d</span>
+          </div>
+        `;
+      }).join('');
     }
 
     carregar();
