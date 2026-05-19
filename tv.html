@@ -25,399 +25,93 @@
       --text-muted: #94a3b8;
       --text-dim: #64748b;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html, body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--bg-deepest);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ==================== HEADER ==================== */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 28px;
-      background: linear-gradient(180deg, #0a1f33 0%, #061525 100%);
-      border-bottom: 1px solid var(--border);
-    }
-    .brand {
-      display: flex;
-      align-items: baseline;
-      gap: 14px;
-    }
-    .brand-name {
-      font-size: 28px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-    }
+    html, body { font-family: 'Poppins', sans-serif; background: var(--bg-deepest); color: var(--text); min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    .header { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; background: linear-gradient(180deg, #0a1f33 0%, #061525 100%); border-bottom: 1px solid var(--border); }
+    .brand { display: flex; align-items: baseline; gap: 14px; }
+    .brand-name { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
     .brand-divider { color: var(--text-dim); }
-    .brand-context {
-      font-size: 14px;
-      color: var(--text-muted);
-      font-weight: 400;
-      letter-spacing: 0.3px;
-      text-transform: uppercase;
+    .brand-context { font-size: 14px; color: var(--text-muted); font-weight: 400; letter-spacing: 0.3px; text-transform: uppercase; }
+    .header-info { display: flex; gap: 16px; align-items: center; }
+    .header-link {
+      font-size: 12px; color: var(--text-muted); text-decoration: none;
+      padding: 8px 14px; border: 1px solid var(--border); border-radius: 6px;
+      transition: all 0.15s; background: rgba(13,36,56,0.4);
     }
-    .header-info {
-      display: flex;
-      gap: 32px;
-      align-items: center;
-    }
-    .header-pill {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-    }
-    .pill-label {
-      font-size: 11px;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .pill-value {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--text);
-    }
+    .header-link:hover { background: var(--bg-card-2); color: var(--text); }
+    .header-pill { display: flex; flex-direction: column; align-items: flex-end; padding-left: 16px; border-left: 1px solid var(--border); }
+    .pill-label { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+    .pill-value { font-size: 18px; font-weight: 600; color: var(--text); }
 
-    /* ==================== BARRA DE COMPETENCIA ==================== */
-    .comp-bar {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 14px 28px;
-      background: rgba(13, 36, 56, 0.5);
-      border-bottom: 1px solid var(--border);
-      flex-wrap: wrap;
-    }
-    .comp-label {
-      font-size: 12px;
-      color: var(--text-dim);
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      font-weight: 600;
-    }
-    .comp-filter {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .comp-pill {
-      background: var(--bg-card);
-      color: var(--text-muted);
-      border: 1px solid var(--border);
-      padding: 8px 18px;
-      border-radius: 6px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-      font-family: 'Poppins', sans-serif;
-      letter-spacing: 0.3px;
-    }
-    .comp-pill:hover {
-      background: var(--bg-card-2);
-      color: var(--text);
-    }
-    .comp-pill.active {
-      background: var(--text);
-      color: var(--bg-deepest);
-      border-color: var(--text);
-      font-weight: 700;
-    }
-    .comp-pill.is-current::after {
-      content: '·';
-      margin-left: 6px;
-      color: var(--fiscal);
-    }
-    .comp-pill.active.is-current::after {
-      color: var(--bg-deepest);
-    }
+    .comp-bar { display: flex; align-items: center; gap: 18px; padding: 14px 28px; background: rgba(13, 36, 56, 0.5); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .comp-label { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600; }
+    .comp-filter { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .comp-pill { background: var(--bg-card); color: var(--text-muted); border: 1px solid var(--border); padding: 8px 18px; border-radius: 6px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; font-family: 'Poppins', sans-serif; letter-spacing: 0.3px; }
+    .comp-pill:hover { background: var(--bg-card-2); color: var(--text); }
+    .comp-pill.active { background: var(--text); color: var(--bg-deepest); border-color: var(--text); font-weight: 700; }
+    .comp-pill.is-current::after { content: '·'; margin-left: 6px; color: var(--fiscal); }
+    .comp-pill.active.is-current::after { color: var(--bg-deepest); }
 
-    /* ==================== SPLIT PRINCIPAL ==================== */
-    .split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      padding: 20px;
-    }
-
-    .team-block {
-      background: var(--bg-card);
-      border-radius: 12px;
-      padding: 24px;
-      border-top: 4px solid;
-    }
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; }
+    .team-block { background: var(--bg-card); border-radius: 12px; padding: 24px; border-top: 4px solid; }
     .team-block.fiscal { border-top-color: var(--fiscal); }
     .team-block.contabil { border-top-color: var(--contabil); }
-
-    .team-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    .team-name {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
+    .team-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 20px; }
+    .team-name { font-size: 22px; font-weight: 700; letter-spacing: 1px; }
     .team-block.fiscal .team-name { color: var(--fiscal); }
     .team-block.contabil .team-name { color: var(--contabil); }
-    .team-subtotal {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
+    .team-subtotal { font-size: 13px; color: var(--text-muted); }
 
-    /* ==================== CARDS DE CONTAGEM ==================== */
-    .cards-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-bottom: 16px;
-    }
-    .card-count {
-      background: var(--bg-card-2);
-      padding: 16px 14px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-    .card-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: 8px;
-    }
-    .card-value {
-      font-size: 36px;
-      font-weight: 700;
-      line-height: 1;
-    }
+    .cards-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+    .card-count { background: var(--bg-card-2); padding: 16px 14px; border-radius: 8px; border: 1px solid var(--border); }
+    .card-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px; }
+    .card-value { font-size: 36px; font-weight: 700; line-height: 1; }
     .card-value.amber { color: var(--amber); }
     .card-value.red { color: var(--red); }
 
-    /* ==================== % ENTREGUE + FORECAST ==================== */
-    .hero-row {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-    .card-percent {
-      background: var(--bg-card-3);
-      border-radius: 10px;
-      padding: 20px;
-      text-align: center;
-      border: 1px solid var(--border);
-    }
-    .card-percent .card-label {
-      margin-bottom: 6px;
-    }
-    .percent-value {
-      font-size: 72px;
-      font-weight: 800;
-      line-height: 1;
-      color: var(--green);
-      letter-spacing: -2px;
-    }
-    .percent-suffix {
-      font-size: 32px;
-      font-weight: 600;
-    }
-    .card-forecast {
-      background: var(--bg-card-2);
-      border-radius: 10px;
-      padding: 20px;
-      border: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .forecast-value {
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1;
-      margin-top: 4px;
-    }
-    .forecast-source {
-      font-size: 11px;
-      color: var(--text-dim);
-      margin-top: 8px;
-      line-height: 1.3;
-    }
-    .forecast-empty {
-      font-size: 14px;
-      color: var(--text-dim);
-      font-style: italic;
-    }
+    .hero-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .card-percent { background: var(--bg-card-3); border-radius: 10px; padding: 20px; text-align: center; border: 1px solid var(--border); }
+    .card-percent .card-label { margin-bottom: 6px; }
+    .percent-value { font-size: 72px; font-weight: 800; line-height: 1; color: var(--green); letter-spacing: -2px; }
+    .percent-suffix { font-size: 32px; font-weight: 600; }
+    .card-forecast { background: var(--bg-card-2); border-radius: 10px; padding: 20px; border: 1px solid var(--border); display: flex; flex-direction: column; justify-content: center; }
+    .forecast-value { font-size: 32px; font-weight: 700; color: var(--text); line-height: 1; margin-top: 4px; }
+    .forecast-source { font-size: 11px; color: var(--text-dim); margin-top: 8px; line-height: 1.3; }
+    .forecast-empty { font-size: 14px; color: var(--text-dim); font-style: italic; }
 
-    /* ==================== RANKING ==================== */
-    .ranking {
-      background: var(--bg-card-2);
-      border-radius: 10px;
-      padding: 16px;
-      border: 1px solid var(--border);
-    }
-    .ranking-title {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      margin-bottom: 10px;
-    }
-    .ranking-row {
-      display: grid;
-      grid-template-columns: 1fr auto auto;
-      gap: 14px;
-      padding: 8px 0;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    }
+    .ranking { background: var(--bg-card-2); border-radius: 10px; padding: 16px; border: 1px solid var(--border); }
+    .ranking-title { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 10px; }
+    .ranking-row { display: grid; grid-template-columns: 1fr auto auto; gap: 14px; padding: 8px 0; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.04); }
     .ranking-row:last-child { border-bottom: none; }
-    .rank-name {
-      font-size: 14px;
-      color: var(--text);
-    }
-    .rank-numbers {
-      font-size: 12px;
-      color: var(--text-muted);
-      font-variant-numeric: tabular-nums;
-    }
-    .rank-pct {
-      font-size: 14px;
-      font-weight: 600;
-      font-variant-numeric: tabular-nums;
-      min-width: 50px;
-      text-align: right;
-    }
+    .rank-name { font-size: 14px; color: var(--text); }
+    .rank-numbers { font-size: 12px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+    .rank-pct { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; min-width: 50px; text-align: right; }
     .rank-pct.good { color: var(--green); }
     .rank-pct.mid { color: var(--amber); }
     .rank-pct.bad { color: var(--red); }
 
-    /* ==================== TENDENCIA HISTORICA ==================== */
-    .bottom-row {
-      display: grid;
-      grid-template-columns: 1.6fr 1fr;
-      gap: 20px;
-      padding: 0 20px 20px;
-    }
-    .panel {
-      background: var(--bg-card);
-      border-radius: 12px;
-      padding: 24px;
-    }
-    .panel-title {
-      font-size: 14px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .legend {
-      display: flex;
-      gap: 16px;
-      font-size: 12px;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-muted);
-    }
-    .legend-swatch {
-      width: 12px; height: 12px; border-radius: 50%;
-    }
+    .bottom-row { display: grid; grid-template-columns: 1.6fr 1fr; gap: 20px; padding: 0 20px 20px; }
+    .panel { background: var(--bg-card); border-radius: 12px; padding: 24px; }
+    .panel-title { font-size: 14px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; }
+    .legend { display: flex; gap: 16px; font-size: 12px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; color: var(--text-muted); }
+    .legend-swatch { width: 12px; height: 12px; border-radius: 50%; }
 
-    /* ==================== ATRASOS CRITICOS ==================== */
-    .atrasos {
-      max-height: 320px;
-      overflow-y: auto;
-    }
-    .atraso-row {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: 10px;
-      padding: 10px 0;
-      align-items: center;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
+    .atrasos { max-height: 320px; overflow-y: auto; }
+    .atraso-row { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; padding: 10px 0; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
     .atraso-row:last-child { border-bottom: none; }
-    .time-tag {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 3px 8px;
-      border-radius: 4px;
-      min-width: 70px;
-      text-align: center;
-    }
-    .time-tag.fiscal {
-      background: var(--fiscal-dim);
-      color: var(--fiscal);
-      border: 1px solid rgba(53, 185, 215, 0.3);
-    }
-    .time-tag.contabil {
-      background: var(--contabil-dim);
-      color: var(--contabil);
-      border: 1px solid rgba(255, 140, 66, 0.3);
-    }
-    .atraso-empresa {
-      font-size: 13px;
-      color: var(--text);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-    .atraso-dias {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--red);
-      font-variant-numeric: tabular-nums;
-    }
+    .time-tag { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 4px; min-width: 70px; text-align: center; }
+    .time-tag.fiscal { background: var(--fiscal-dim); color: var(--fiscal); border: 1px solid rgba(53, 185, 215, 0.3); }
+    .time-tag.contabil { background: var(--contabil-dim); color: var(--contabil); border: 1px solid rgba(255, 140, 66, 0.3); }
+    .atraso-empresa { font-size: 13px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .atraso-dias { font-size: 14px; font-weight: 700; color: var(--red); font-variant-numeric: tabular-nums; }
 
-    /* ==================== FOOTER ==================== */
-    .footer {
-      text-align: center;
-      padding: 16px;
-      font-size: 12px;
-      color: var(--text-dim);
-      border-top: 1px solid var(--border);
-    }
+    .footer { text-align: center; padding: 16px; font-size: 12px; color: var(--text-dim); border-top: 1px solid var(--border); }
 
-    /* ==================== SVG TENDENCIA ==================== */
-    .chart-svg {
-      width: 100%;
-      height: auto;
-      max-height: 280px;
-    }
-    .chart-grid-line {
-      stroke: rgba(255, 255, 255, 0.06);
-      stroke-width: 1;
-    }
-    .chart-label {
-      fill: var(--text-dim);
-      font-size: 11px;
-      font-family: 'Poppins', sans-serif;
-    }
-    .chart-line {
-      fill: none;
-      stroke-width: 2.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
+    .chart-svg { width: 100%; height: auto; max-height: 280px; }
+    .chart-grid-line { stroke: rgba(255, 255, 255, 0.06); stroke-width: 1; }
+    .chart-label { fill: var(--text-dim); font-size: 11px; font-family: 'Poppins', sans-serif; }
+    .chart-line { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
     .chart-line.fiscal { stroke: var(--fiscal); }
     .chart-line.contabil { stroke: var(--contabil); }
     .chart-dot.fiscal { fill: var(--fiscal); }
@@ -433,6 +127,7 @@
       <span class="brand-context">Painel Operacional Fiscal & Contábil</span>
     </div>
     <div class="header-info">
+      <a class="header-link" href="index.html" title="Modo Analítico">Modo Analítico</a>
       <div class="header-pill">
         <span class="pill-label">Atualizado</span>
         <span class="pill-value" id="atualizado">--</span>
@@ -485,20 +180,14 @@
     </section>
   </main>
 
-  <footer class="footer">
-    LaraFy. Inteligência tributária para quem decide.
-  </footer>
+  <footer class="footer">LaraFy. Inteligência tributária para quem decide.</footer>
 
   <script>
     const DATA_URL = 'data/data.json';
-    const REFRESH_MS = 5 * 60 * 1000; // 5 minutos
-
+    const REFRESH_MS = 5 * 60 * 1000;
     const MESES_ORD = { jan:1, fev:2, mar:3, abr:4, mai:5, jun:6, jul:7, ago:8, set:9, out:10, nov:11, dez:12 };
 
-    const estado = {
-      data: null,
-      competenciaSelecionada: null
-    };
+    const estado = { data: null, competenciaSelecionada: null };
 
     function ordemComp(comp) {
       if (!comp) return 0;
@@ -506,23 +195,10 @@
       if (!m) return 0;
       return parseInt(m[2]) * 100 + (MESES_ORD[m[1]] || 0);
     }
-
-    function classePercentual(pct) {
-      if (pct >= 75) return 'good';
-      if (pct >= 50) return 'mid';
-      return 'bad';
-    }
-
+    function classePercentual(pct) { if (pct >= 75) return 'good'; if (pct >= 50) return 'mid'; return 'bad'; }
     function formatarHora(iso) {
-      try {
-        const d = new Date(iso);
-        return d.toLocaleString('pt-BR', {
-          day: '2-digit', month: '2-digit',
-          hour: '2-digit', minute: '2-digit'
-        });
-      } catch (e) {
-        return iso;
-      }
+      try { return new Date(iso).toLocaleString('pt-BR', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' }); }
+      catch (e) { return iso; }
     }
 
     async function carregar() {
@@ -531,13 +207,10 @@
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         const data = await resp.json();
         estado.data = data;
-
-        // Ajusta competencia selecionada se necessario
         const disponiveis = data.competencias_disponiveis || [];
         if (estado.competenciaSelecionada === null || !disponiveis.includes(estado.competenciaSelecionada)) {
           estado.competenciaSelecionada = data.competencia_atual;
         }
-
         renderTudo();
       } catch (err) {
         console.error('Erro carregando data.json:', err);
@@ -548,10 +221,8 @@
     function renderTudo() {
       if (!estado.data) return;
       const data = estado.data;
-
       renderCompFilter(data.competencias_disponiveis || [], data.competencia_atual);
       document.getElementById('atualizado').textContent = formatarHora(data.atualizado_em);
-
       renderTime('fiscal', data.fiscal, estado.competenciaSelecionada);
       renderTime('contabil', data.contabil, estado.competenciaSelecionada);
       renderTendencia(data.fiscal, data.contabil);
@@ -561,185 +232,87 @@
     function renderCompFilter(competencias, competenciaAtualDoSistema) {
       const comps = competencias.slice().sort((a, b) => ordemComp(a) - ordemComp(b));
       const container = document.getElementById('comp-filter');
-
       container.innerHTML = comps.map(c => `
-        <button
-          class="comp-pill ${c === estado.competenciaSelecionada ? 'active' : ''} ${c === competenciaAtualDoSistema ? 'is-current' : ''}"
-          data-comp="${c}"
-          title="${c === competenciaAtualDoSistema ? 'Competência corrente' : c}">
-          ${c}
-        </button>
+        <button class="comp-pill ${c === estado.competenciaSelecionada ? 'active' : ''} ${c === competenciaAtualDoSistema ? 'is-current' : ''}" data-comp="${c}">${c}</button>
       `).join('');
-
       container.querySelectorAll('.comp-pill').forEach(btn => {
-        btn.addEventListener('click', () => {
-          estado.competenciaSelecionada = btn.dataset.comp;
-          renderTudo();
-        });
+        btn.addEventListener('click', () => { estado.competenciaSelecionada = btn.dataset.comp; renderTudo(); });
       });
     }
 
     function renderTime(slug, dadosTime, competencia) {
-      if (!dadosTime) {
-        document.getElementById('cards-' + slug).innerHTML = '<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados do time.</div>';
-        return;
-      }
-
-      const kpis = (dadosTime.kpis || {})[competencia];
+      const cardsEl = document.getElementById('cards-' + slug);
+      const heroEl = document.getElementById('hero-' + slug);
+      const rankingEl = document.getElementById('ranking-' + slug);
       const subtotalEl = document.getElementById('subtotal-' + slug);
 
+      if (!dadosTime) { cardsEl.innerHTML = '<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados do time.</div>'; return; }
+      const kpis = (dadosTime.kpis || {})[competencia];
       if (!kpis) {
-        document.getElementById('cards-' + slug).innerHTML =
-          '<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados para ' + competencia + '.</div>';
-        document.getElementById('hero-' + slug).innerHTML = '';
-        document.getElementById('ranking-' + slug).innerHTML = '';
+        cardsEl.innerHTML = `<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados para ${competencia}.</div>`;
+        heroEl.innerHTML = ''; rankingEl.innerHTML = '';
         if (subtotalEl) subtotalEl.textContent = '--';
         return;
       }
-
       if (subtotalEl) subtotalEl.textContent = kpis.total + ' entregas · ' + kpis.prioritarias + ' prioritárias';
 
-      document.getElementById('cards-' + slug).innerHTML = `
-        <div class="card-count">
-          <div class="card-label">Total</div>
-          <div class="card-value">${kpis.total}</div>
-        </div>
-        <div class="card-count">
-          <div class="card-label">Entregues</div>
-          <div class="card-value">${kpis.entregues}</div>
-        </div>
-        <div class="card-count">
-          <div class="card-label">Pendentes</div>
-          <div class="card-value amber">${kpis.pendentes}</div>
-        </div>
-        <div class="card-count">
-          <div class="card-label">Atrasadas</div>
-          <div class="card-value red">${kpis.atrasadas}</div>
-        </div>
+      cardsEl.innerHTML = `
+        <div class="card-count"><div class="card-label">Total</div><div class="card-value">${kpis.total}</div></div>
+        <div class="card-count"><div class="card-label">Entregues</div><div class="card-value">${kpis.entregues}</div></div>
+        <div class="card-count"><div class="card-label">Pendentes</div><div class="card-value amber">${kpis.pendentes}</div></div>
+        <div class="card-count"><div class="card-label">Atrasadas</div><div class="card-value red">${kpis.atrasadas}</div></div>
       `;
-
       const fc = dadosTime.forecast || {};
       const forecastHTML = fc.baseline !== null && fc.baseline !== undefined
-        ? `
-          <div class="card-label">Forecast (baseline)</div>
-          <div class="forecast-value">${fc.baseline.toFixed(1)}<span class="percent-suffix">%</span></div>
-          <div class="forecast-source">média de ${fc.amostra_meses} ${fc.amostra_meses === 1 ? 'mês' : 'meses'}: ${(fc.competencias_baseline || []).join(', ')}</div>
-        `
-        : `
-          <div class="card-label">Forecast (baseline)</div>
-          <div class="forecast-empty">Sem histórico fechado</div>
-        `;
+        ? `<div class="card-label">Forecast (baseline)</div><div class="forecast-value">${fc.baseline.toFixed(1)}<span class="percent-suffix">%</span></div><div class="forecast-source">média de ${fc.amostra_meses} ${fc.amostra_meses === 1 ? 'mês' : 'meses'}: ${(fc.competencias_baseline || []).join(', ')}</div>`
+        : `<div class="card-label">Forecast (baseline)</div><div class="forecast-empty">Sem histórico fechado</div>`;
 
-      document.getElementById('hero-' + slug).innerHTML = `
-        <div class="card-percent">
-          <div class="card-label">% Entregue</div>
-          <div class="percent-value">${kpis.percentual_entregues.toFixed(1)}<span class="percent-suffix">%</span></div>
-        </div>
-        <div class="card-forecast">
-          ${forecastHTML}
-        </div>
+      heroEl.innerHTML = `
+        <div class="card-percent"><div class="card-label">% Entregue</div><div class="percent-value">${kpis.percentual_entregues.toFixed(1)}<span class="percent-suffix">%</span></div></div>
+        <div class="card-forecast">${forecastHTML}</div>
       `;
-
       const ranking = (dadosTime.ranking || {})[competencia] || [];
       const top5 = ranking.slice(0, 5);
-
       if (top5.length === 0) {
-        document.getElementById('ranking-' + slug).innerHTML = `
-          <div class="ranking-title">Top responsáveis · ${competencia}</div>
-          <div style="color:var(--text-dim); padding:10px 0; font-size:13px">Sem responsáveis na competência.</div>
-        `;
+        rankingEl.innerHTML = `<div class="ranking-title">Top responsáveis · ${competencia}</div><div style="color:var(--text-dim); padding:10px 0; font-size:13px">Sem responsáveis na competência.</div>`;
         return;
       }
-
-      document.getElementById('ranking-' + slug).innerHTML = `
+      rankingEl.innerHTML = `
         <div class="ranking-title">Top responsáveis · ${competencia}</div>
-        ${top5.map(r => `
-          <div class="ranking-row">
-            <div class="rank-name">${r.nome}</div>
-            <div class="rank-numbers">${r.entregues}/${r.total}</div>
-            <div class="rank-pct ${classePercentual(r.percentual)}">${r.percentual.toFixed(1)}%</div>
-          </div>
-        `).join('')}
+        ${top5.map(r => `<div class="ranking-row"><div class="rank-name">${r.nome}</div><div class="rank-numbers">${r.entregues}/${r.total}</div><div class="rank-pct ${classePercentual(r.percentual)}">${r.percentual.toFixed(1)}%</div></div>`).join('')}
       `;
     }
 
     function renderTendencia(fiscal, contabil) {
       const tFiscal = (fiscal && fiscal.tendencia) ? fiscal.tendencia : [];
       const tContabil = (contabil && contabil.tendencia) ? contabil.tendencia : [];
-
       const compSet = new Set();
       tFiscal.forEach(p => compSet.add(p.competencia));
       tContabil.forEach(p => compSet.add(p.competencia));
       const comps = Array.from(compSet).sort((a, b) => ordemComp(a) - ordemComp(b));
-
-      if (comps.length === 0) {
-        document.getElementById('chart-container').innerHTML =
-          '<div style="color:var(--text-dim); padding:24px 0; text-align:center">Sem dados de tendência.</div>';
-        return;
-      }
-
+      if (comps.length === 0) { document.getElementById('chart-container').innerHTML = '<div style="color:var(--text-dim); padding:24px 0; text-align:center">Sem dados de tendência.</div>'; return; }
       const W = 1000, H = 280;
-      const pad = { top: 20, right: 20, bottom: 36, left: 40 };
-      const innerW = W - pad.left - pad.right;
-      const innerH = H - pad.top - pad.bottom;
-
+      const pad = { top:20, right:20, bottom:36, left:40 };
+      const innerW = W - pad.left - pad.right, innerH = H - pad.top - pad.bottom;
       const xStep = comps.length > 1 ? innerW / (comps.length - 1) : 0;
-      const xAt = (i) => pad.left + i * xStep;
-      const yAt = (pct) => pad.top + innerH - (pct / 100) * innerH;
-
-      const mapa = (tend) => {
-        const m = {};
-        tend.forEach(p => { m[p.competencia] = p; });
-        return m;
-      };
-      const mFiscal = mapa(tFiscal);
-      const mContabil = mapa(tContabil);
-
-      const buildPath = (mapaTime) => {
-        const pontos = comps
-          .map((c, i) => mapaTime[c] ? { x: xAt(i), y: yAt(mapaTime[c].percentual_entregues) } : null)
-          .filter(Boolean);
+      const xAt = i => pad.left + i * xStep;
+      const yAt = pct => pad.top + innerH - (pct / 100) * innerH;
+      const mapa = tend => { const m = {}; tend.forEach(p => m[p.competencia] = p); return m; };
+      const mFiscal = mapa(tFiscal), mContabil = mapa(tContabil);
+      const buildPath = mapaTime => {
+        const pontos = comps.map((c, i) => mapaTime[c] ? { x: xAt(i), y: yAt(mapaTime[c].percentual_entregues) } : null).filter(Boolean);
         if (pontos.length === 0) return '';
         return pontos.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
       };
-
-      const buildDots = (mapaTime, slug) => {
-        return comps.map((c, i) => {
-          if (!mapaTime[c]) return '';
-          return `<circle class="chart-dot ${slug}" cx="${xAt(i).toFixed(1)}" cy="${yAt(mapaTime[c].percentual_entregues).toFixed(1)}" r="4" />`;
-        }).join('');
-      };
-
-      const gridLines = [0, 25, 50, 75, 100].map(pct => `
-        <line class="chart-grid-line" x1="${pad.left}" y1="${yAt(pct).toFixed(1)}" x2="${W - pad.right}" y2="${yAt(pct).toFixed(1)}" />
-        <text class="chart-label" x="${pad.left - 8}" y="${yAt(pct).toFixed(1)}" dy="3" text-anchor="end">${pct}%</text>
-      `).join('');
-
-      const xLabels = comps.map((c, i) => `
-        <text class="chart-label" x="${xAt(i).toFixed(1)}" y="${H - 16}" text-anchor="middle">${c}</text>
-      `).join('');
-
-      const svg = `
-        <svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
-          ${gridLines}
-          <path class="chart-line fiscal" d="${buildPath(mFiscal)}" />
-          <path class="chart-line contabil" d="${buildPath(mContabil)}" />
-          ${buildDots(mFiscal, 'fiscal')}
-          ${buildDots(mContabil, 'contabil')}
-          ${xLabels}
-        </svg>
-      `;
-      document.getElementById('chart-container').innerHTML = svg;
+      const buildDots = (mapaTime, slug) => comps.map((c, i) => mapaTime[c] ? `<circle class="chart-dot ${slug}" cx="${xAt(i).toFixed(1)}" cy="${yAt(mapaTime[c].percentual_entregues).toFixed(1)}" r="4" />` : '').join('');
+      const gridLines = [0,25,50,75,100].map(pct => `<line class="chart-grid-line" x1="${pad.left}" y1="${yAt(pct).toFixed(1)}" x2="${W-pad.right}" y2="${yAt(pct).toFixed(1)}" /><text class="chart-label" x="${pad.left-8}" y="${yAt(pct).toFixed(1)}" dy="3" text-anchor="end">${pct}%</text>`).join('');
+      const xLabels = comps.map((c, i) => `<text class="chart-label" x="${xAt(i).toFixed(1)}" y="${H-16}" text-anchor="middle">${c}</text>`).join('');
+      document.getElementById('chart-container').innerHTML = `<svg class="chart-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">${gridLines}<path class="chart-line fiscal" d="${buildPath(mFiscal)}" /><path class="chart-line contabil" d="${buildPath(mContabil)}" />${buildDots(mFiscal, 'fiscal')}${buildDots(mContabil, 'contabil')}${xLabels}</svg>`;
     }
 
     function renderAtrasos(lista) {
-      if (!lista || lista.length === 0) {
-        document.getElementById('atrasos').innerHTML =
-          '<div style="color:var(--text-dim); padding:16px 0; text-align:center">Nenhum atraso crítico.</div>';
-        return;
-      }
-      const top = lista.slice(0, 12);
-      document.getElementById('atrasos').innerHTML = top.map(a => `
+      if (!lista || lista.length === 0) { document.getElementById('atrasos').innerHTML = '<div style="color:var(--text-dim); padding:16px 0; text-align:center">Nenhum atraso crítico.</div>'; return; }
+      document.getElementById('atrasos').innerHTML = lista.slice(0, 12).map(a => `
         <div class="atraso-row">
           <span class="time-tag ${(a.time || '').toLowerCase()}">${a.time || '--'}</span>
           <span class="atraso-empresa" title="${a.empresa}">${a.empresa}</span>
@@ -748,7 +321,6 @@
       `).join('');
     }
 
-    // Boot
     carregar();
     setInterval(carregar, REFRESH_MS);
   </script>
