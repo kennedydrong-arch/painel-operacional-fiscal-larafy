@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Operacional Fiscal · LaraFy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy: #0a2638;
+    --navy-light: #143a52;
+    --navy-dark: #061525;
+    --cyan: #35b9d7;
+    --cyan-soft: #5fcce5;
+    --cyan-dim: #1d8aa3;
+    --white: #ffffff;
+    --bg: #f5f7f9;
+    --surface: #ffffff;
+    --border: #e2e8ee;
+    --border-strong: #cbd5dd;
+    --text: #1a2937;
+    --text-secondary: #4a6378;
+    --text-muted: #7a8b9b;
+    --green: #10b981;
+    --green-bg: #d1fae5;
+    --green-soft: #ecfdf5;
+    --amber: #f59e0b;
+    --amber-bg: #fef3c7;
+    --amber-soft: #fffbeb;
+    --red: #ef4444;
+    --red-bg: #fee2e2;
+    --red-soft: #fef2f2;
+    --serif: 'Fraunces', 'Times New Roman', serif;
+    --sans: 'Inter Tight', -apple-system, system-ui, sans-serif;
+    --shadow-sm: 0 1px 2px rgba(10, 38, 56, 0.04);
+    --shadow: 0 2px 8px rgba(10, 38, 56, 0.06);
+  }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-feature-settings: 'tnum', 'kern';
+    min-height: 100vh;
+  }
+
+  .app {
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  /* === HEADER === */
+  .topbar {
+    background: var(--navy);
+    color: var(--white);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    border-bottom: 1px solid var(--navy-light);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .brand-logo {
+    height: 28px;
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+  }
+
+  .brand-sep {
+    width: 1px;
+    height: 22px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  .brand-title {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .brand-title em {
+    font-style: italic;
+    color: var(--cyan);
+    font-weight: 400;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  .meta-item strong {
+    color: var(--white);
+    font-weight: 500;
+  }
+
+  .live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    animation: pulse 2.4s infinite;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+    70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+  }
+
+  .btn-refresh {
+    background: rgba(255,255,255,0.08);
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.03em;
+  }
+
+  .btn-refresh:hover {
+    background: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  /* === FILTERS === */
+  .filters {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .filter-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .filter-select, .filter-input {
+    font-family: var(--sans);
+    font-size: 14px;
+    padding: 8px 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    transition: border 0.15s;
+  }
+
+  .filter-select:focus, .filter-input:focus {
+    outline: none;
+    border-color: var(--cyan);
+  }
+
+  .filter-input {
+    cursor: text;
+    min-width: 240px;
+  }
+
+  .chips {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .chip {
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.15s;
+    color: var(--text-secondary);
+  }
+
+  .chip:hover {
+    border-color: var(--cyan);
+    color: var(--text);
+  }
+
+  .chip.active {
+    background: var(--navy);
+    color: var(--white);
+    border-color: var(--navy);
+  }
+
+  .chip.active.green { background: var(--green); border-color: var(--green); }
+  .chip.active.amber { background: var(--amber); border-color: var(--amber); }
+  .chip.active.red { background: var(--red); border-color: var(--red); }
+
+  .chip-count {
+    font-size: 11px;
+    opacity: 0.7;
+    margin-left: 4px;
+  }
+
+  .toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-secondary);
+    user-select: none;
+  }
+
+  .toggle input {
+    appearance: none;
+    width: 36px;
+    height: 20px;
+    background: var(--border-strong);
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .toggle input::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: var(--white);
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: left 0.2s;
+  }
+
+  .toggle input:checked {
+    background: var(--cyan);
+  }
+
+  .toggle input:checked::after {
+    left: 18px;
+  }
+
+  /* === TABS === */
+  .tabs {
+    display: flex;
+    gap: 0;
+    padding: 0 32px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tab {
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: var(--sans);
+    letter-spacing: 0.02em;
+  }
+
+  .tab:hover {
+    color: var(--text);
+  }
+
+  .tab.active {
+    color: var(--navy);
+    border-bottom-color: var(--cyan);
+  }
+
+  /* === CONTENT === */
+  .content {
+    padding: 32px;
+  }
+
+  .view {
+    display: none;
+  }
+
+  .view.active {
+    display: block;
+  }
+
+  /* === KPI CARDS === */
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .kpi-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--cyan);
+  }
+
+  .kpi.green .kpi-accent { background: var(--green); }
+  .kpi.amber .kpi-accent { background: var(--amber); }
+  .kpi.red .kpi-accent { background: var(--red); }
+
+  .kpi-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .kpi-value {
+    font-family: var(--serif);
+    font-size: 48px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .kpi-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .kpi-percent {
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--cyan);
+  }
+
+  .kpi.green .kpi-percent { color: var(--green); }
+  .kpi.amber .kpi-percent { color: var(--amber); }
+  .kpi.red .kpi-percent { color: var(--red); }
+
+  .kpi-sub {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* === SECTIONS === */
+  .section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--cyan-dim);
+    font-weight: 400;
+  }
+
+  .section-count {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  /* === ATRASOS === */
+  .atrasos-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 12px;
+  }
+
+  .atraso-card {
+    border: 1px solid var(--red-bg);
+    background: var(--red-soft);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .atraso-info {
+    min-width: 0;
+  }
+
+  .atraso-empresa {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .atraso-meta {
+    font-size: 11px;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .atraso-meta .sep {
+    width: 3px;
+    height: 3px;
+    background: var(--text-muted);
+    border-radius: 50%;
+    opacity: 0.5;
+  }
+
+  .pri-badge {
+    background: var(--cyan);
+    color: var(--white);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  .atraso-dias {
+    text-align: right;
+    color: var(--red);
+  }
+
+  .atraso-dias-num {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .atraso-dias-lbl {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-top: 2px;
+  }
+
+  /* === EMPRESAS GRID === */
+  .empresas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+  }
+
+  .empresa-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--amber);
+    border-radius: 6px;
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+
+  .empresa-card:hover {
+    box-shadow: var(--shadow);
+  }
+
+  .empresa-card.green { border-left-color: var(--green); }
+  .empresa-card.amber { border-left-color: var(--amber); }
+  .empresa-card.red { border-left-color: var(--red); }
+
+  .empresa-info { min-width: 0; }
+
+  .empresa-nome {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 5px;
+  }
+
+  .empresa-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .empresa-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+
+  .status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .status-dot.green { background: var(--green); }
+  .status-dot.amber { background: var(--amber); }
+  .status-dot.red { background: var(--red); }
+
+  .empresa-prazo {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* === RANKING === */
+  .ranking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .rank-row {
+    display: grid;
+    grid-template-columns: 32px 1fr 220px;
+    align-items: center;
+    gap: 16px;
+    padding: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: border 0.15s;
+  }
+
+  .rank-row:hover {
+    border-color: var(--cyan);
+  }
+
+  .rank-num {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-style: italic;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1;
+  }
+
+  .rank-row.top3 .rank-num { color: var(--cyan-dim); font-weight: 500; }
+
+  .rank-info { min-width: 0; }
+
+  .rank-nome {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .rank-bar {
+    height: 5px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .rank-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--cyan-dim), var(--cyan));
+    border-radius: 3px;
+    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .rank-stats {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .rank-counts {
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .rank-count {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rank-count strong {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+
+  .rank-count.g strong { color: var(--green); }
+  .rank-count.a strong { color: var(--amber); }
+  .rank-count.r strong { color: var(--red); }
+
+  .rank-count span {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .rank-percent {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    min-width: 64px;
+    text-align: right;
+  }
+
+  /* === STATES === */
+  .empty-state, .loading-state, .error-state {
+    padding: 60px 32px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    background: var(--surface);
+    border: 1px dashed var(--border-strong);
+    border-radius: 10px;
+  }
+
+  .error-state {
+    color: var(--red);
+    border-color: var(--red-bg);
+    background: var(--red-soft);
+  }
+
+  /* === FOOTER === */
+  .footer {
+    padding: 18px 32px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 900px) {
+    .topbar { padding: 14px 18px; flex-wrap: wrap; }
+    .filters { padding: 14px 18px; }
+    .tabs { padding: 0 18px; }
+    .content { padding: 18px; }
+    .meta { gap: 14px; font-size: 11px; }
+    .rank-row {
+      grid-template-columns: 28px 1fr;
+      grid-template-rows: auto auto;
+    }
+    .rank-stats {
+      grid-column: 1 / -1;
+    }
+    .filter-input { min-width: 180px; flex: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <header class="topbar">
+    <div class="brand">
+      <img class="brand-logo" src="https://www.larafy.com.br/assets/images/larafy.png" alt="LaraFy">
+      <div class="brand-sep"></div>
+      <div class="brand-title">Painel Operacional <em>Fiscal</em></div>
+    </div>
+    <div class="meta">
+      <div class="meta-item">
+        <span class="live-dot"></span>
+        <span>Atualizado <strong id="ts">--:--</strong></span>
+      </div>
+      <div class="meta-item">
+        <span>Total: <strong id="total">0</strong></span>
+      </div>
+      <button class="btn-refresh" id="btnRefresh">Atualizar</button>
+    </div>
+  </header>
+
+  <!-- FILTERS -->
+  <div class="filters">
+    <div class="filter-group">
+      <span class="filter-label">Competência</span>
+      <select class="filter-select" id="competencia"></select>
+    </div>
+
+    <input type="text" class="filter-input" id="busca" placeholder="Buscar empresa...">
+
+    <div class="chips" id="chips">
+      <button class="chip active" data-status="todos">Todos <span class="chip-count" id="cTodos">0</span></button>
+      <button class="chip" data-status="green">Entregues <span class="chip-count" id="cGreen">0</span></button>
+      <button class="chip" data-status="amber">Pendentes <span class="chip-count" id="cAmber">0</span></button>
+      <button class="chip" data-status="red">Atrasadas <span class="chip-count" id="cRed">0</span></button>
+    </div>
+
+    <label class="toggle">
+      <input type="checkbox" id="prioToggle">
+      Só prioritárias
+    </label>
+
+    <div class="filter-group">
+      <span class="filter-label">Responsável</span>
+      <select class="filter-select" id="responsavel"><option value="">Todos</option></select>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab active" data-view="geral">Visão Geral</button>
+    <button class="tab" data-view="resp">Por Responsável</button>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- VIEW: GERAL -->
+    <div class="view active" id="viewGeral">
+      <div class="kpis" id="kpis"></div>
+
+      <div class="section" id="secAtrasos" style="display: none;">
+        <div class="section-head">
+          <h2 class="section-title">Atrasos <em>críticos</em></h2>
+          <span class="section-count" id="atrasosCount">0 entregas</span>
+        </div>
+        <div class="atrasos-list" id="atrasosList"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-head">
+          <h2 class="section-title">Empresas</h2>
+          <span class="section-count" id="empresasCount">0 entregas</span>
+        </div>
+        <div class="empresas-grid" id="empresasGrid"></div>
+      </div>
+    </div>
+
+    <!-- VIEW: POR RESPONSÁVEL -->
+    <div class="view" id="viewResp">
+      <div class="section">
+        <div class="section-head">
+          <h2 class="section-title">Ranking de <em>desempenho</em></h2>
+          <span class="section-count" id="rankCount">0 responsáveis</span>
+        </div>
+        <div class="ranking-list" id="rankingList"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    LaraFy. Inteligência tributária para quem decide.
+  </footer>
+</div>
+
+<script>
+  const DATA_URL = './data/data.json';
+  const REFRESH_INTERVAL_MS = 5 * 60 * 1000;
+
+  const state = {
+    raw: null,
+    competencia: '',
+    busca: '',
+    status: 'todos',
+    prioritarias: false,
+    responsavel: '',
+    aba: 'geral'
+  };
+
+  // ===== FETCH =====
+  async function carregar() {
+    try {
+      const resp = await fetch(DATA_URL + '?t=' + Date.now(), { cache: 'no-store' });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      state.raw = await resp.json();
+
+      if (!state.competencia) {
+        state.competencia = state.raw.competencia_atual || (state.raw.competencias_disponiveis || [])[0] || '';
+      }
+
+      atualizarMeta();
+      popularCompetencias();
+      popularResponsaveis();
+      render();
+    } catch (err) {
+      console.error(err);
+      document.getElementById('empresasGrid').innerHTML =
+        '<div class="error-state">Erro ao carregar dados: ' + err.message + '</div>';
+    }
+  }
+
+  function atualizarMeta() {
+    const dt = state.raw.atualizado_em ? new Date(state.raw.atualizado_em) : new Date();
+    document.getElementById('ts').textContent =
+      dt.toLocaleDateString('pt-BR') + ' ' +
+      dt.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('total').textContent = state.raw.total_entregas || 0;
+  }
+
+  // ===== POPULATE SELECTS =====
+  function popularCompetencias() {
+    const sel = document.getElementById('competencia');
+    const comps = state.raw.competencias_disponiveis || [];
+    sel.innerHTML = comps.map(c => `<option value="${c}">${c}</option>`).join('');
+    sel.value = state.competencia;
+  }
+
+  function popularResponsaveis() {
+    const sel = document.getElementById('responsavel');
+    const entregas = (state.raw.entregas || []).filter(e => e.competencia === state.competencia);
+    const nomes = [...new Set(entregas.map(e => e.responsavel).filter(Boolean))].sort();
+    sel.innerHTML = '<option value="">Todos</option>' +
+      nomes.map(n => `<option value="${n}">${n}</option>`).join('');
+    sel.value = state.responsavel;
+  }
+
+  // ===== FILTER PIPELINE =====
+  function filtrar() {
+    const todas = state.raw.entregas || [];
+    return todas.filter(e => {
+      if (state.competencia && e.competencia !== state.competencia) return false;
+      if (state.prioritarias && !e.prioritaria) return false;
+      if (state.status !== 'todos' && e.status_semaforo !== state.status) return false;
+      if (state.responsavel && e.responsavel !== state.responsavel) return false;
+      if (state.busca) {
+        const t = state.busca.toLowerCase();
+        if (!(e.empresa || '').toLowerCase().includes(t) &&
+            !(e.cnpj || '').toLowerCase().includes(t)) return false;
+      }
+      return true;
+    });
+  }
+
+  // ===== RENDER =====
+  function render() {
+    const filtradas = filtrar();
+    renderKPIs(filtradas);
+    renderChipCounts(filtradas);
+    renderAtrasos(filtradas);
+    renderEmpresas(filtradas);
+    renderRanking();
+  }
+
+  function renderKPIs(filtradas) {
+    const total = filtradas.length;
+    const entregues = filtradas.filter(e => e.status_semaforo === 'green').length;
+    const pendentes = filtradas.filter(e => e.status_semaforo === 'amber').length;
+    const atrasadas = filtradas.filter(e => e.status_semaforo === 'red').length;
+    const prio = filtradas.filter(e => e.prioritaria).length;
+
+    const pct = n => total > 0 ? +((n / total) * 100).toFixed(1) : 0;
+
+    document.getElementById('kpis').innerHTML = `
+      <div class="kpi">
+        <div class="kpi-accent"></div>
+        <div class="kpi-label">Total</div>
+        <div class="kpi-value">${total.toLocaleString('pt-BR')}</div>
+        <div class="kpi-meta">
+          <span class="kpi-sub">${prio} prioritárias</span>
+        </div>
+      </div>
+      <div class="kpi green">
+        <div class="kpi-accent"></div>
+        <div class="kpi-label">Entregues</div>
+        <div class="kpi-value">${entregues.toLocaleString('pt-BR')}</div>
+        <div class="kpi-meta">
+          <span class="kpi-percent">${pct(entregues).toFixed(1)}%</span>
+          <span class="kpi-sub">do total</span>
+        </div>
+      </div>
+      <div class="kpi amber">
+        <div class="kpi-accent"></div>
+        <div class="kpi-label">Pendentes</div>
+        <div class="kpi-value">${pendentes.toLocaleString('pt-BR')}</div>
+        <div class="kpi-meta">
+          <span class="kpi-percent">${pct(pendentes).toFixed(1)}%</span>
+          <span class="kpi-sub">em trabalho</span>
+        </div>
+      </div>
+      <div class="kpi red">
+        <div class="kpi-accent"></div>
+        <div class="kpi-label">Atrasadas</div>
+        <div class="kpi-value">${atrasadas.toLocaleString('pt-BR')}</div>
+        <div class="kpi-meta">
+          <span class="kpi-percent">${pct(atrasadas).toFixed(1)}%</span>
+          <span class="kpi-sub">precisam ação</span>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderChipCounts(filtradas) {
+    // Conta sobre todas da competência atual (não a filtragem completa, senão fica circular)
+    const base = (state.raw.entregas || []).filter(e => {
+      if (state.competencia && e.competencia !== state.competencia) return false;
+      if (state.prioritarias && !e.prioritaria) return false;
+      if (state.responsavel && e.responsavel !== state.responsavel) return false;
+      if (state.busca) {
+        const t = state.busca.toLowerCase();
+        if (!(e.empresa || '').toLowerCase().includes(t) &&
+            !(e.cnpj || '').toLowerCase().includes(t)) return false;
+      }
+      return true;
+    });
+    document.getElementById('cTodos').textContent = base.length;
+    document.getElementById('cGreen').textContent = base.filter(e => e.status_semaforo === 'green').length;
+    document.getElementById('cAmber').textContent = base.filter(e => e.status_semaforo === 'amber').length;
+    document.getElementById('cRed').textContent = base.filter(e => e.status_semaforo === 'red').length;
+  }
+
+  function renderAtrasos(filtradas) {
+    const atrasos = filtradas
+      .filter(e => e.status_semaforo === 'red')
+      .sort((a, b) => b.dias_atraso - a.dias_atraso)
+      .slice(0, 12);
+
+    const sec = document.getElementById('secAtrasos');
+    const list = document.getElementById('atrasosList');
+
+    if (atrasos.length === 0) {
+      sec.style.display = 'none';
+      return;
+    }
+
+    sec.style.display = '';
+    document.getElementById('atrasosCount').textContent = atrasos.length + ' entregas';
+
+    list.innerHTML = atrasos.map(e => `
+      <div class="atraso-card">
+        <div class="atraso-info">
+          <div class="atraso-empresa">${escapeHtml(e.empresa)}</div>
+          <div class="atraso-meta">
+            ${e.prioritaria ? '<span class="pri-badge">Prio</span>' : ''}
+            <span>Prazo ${e.prazo_tecnico}</span>
+            <span class="sep"></span>
+            <span>${escapeHtml(e.responsavel)}</span>
+          </div>
+        </div>
+        <div class="atraso-dias">
+          <div class="atraso-dias-num">${e.dias_atraso}</div>
+          <div class="atraso-dias-lbl">dias</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderEmpresas(filtradas) {
+    const grid = document.getElementById('empresasGrid');
+    document.getElementById('empresasCount').textContent = filtradas.length + ' entregas';
+
+    if (filtradas.length === 0) {
+      grid.innerHTML = '<div class="empty-state">Nenhuma entrega encontrada com os filtros atuais.</div>';
+      return;
+    }
+
+    // Ordena: prioritárias primeiro, atrasadas por dias_atraso, depois pendentes, depois entregues
+    const ord = { red: 0, amber: 1, green: 2 };
+    const sorted = [...filtradas].sort((a, b) => {
+      if (a.prioritaria !== b.prioritaria) return a.prioritaria ? -1 : 1;
+      if (ord[a.status_semaforo] !== ord[b.status_semaforo]) return ord[a.status_semaforo] - ord[b.status_semaforo];
+      if (a.status_semaforo === 'red') return b.dias_atraso - a.dias_atraso;
+      return a.empresa.localeCompare(b.empresa);
+    });
+
+    grid.innerHTML = sorted.map(e => `
+      <div class="empresa-card ${e.status_semaforo}">
+        <div class="empresa-info">
+          <div class="empresa-nome">${escapeHtml(e.empresa)}</div>
+          <div class="empresa-meta">
+            ${e.prioritaria ? '<span class="pri-badge">Prio</span>' : ''}
+            <span>${escapeHtml(e.responsavel)}</span>
+          </div>
+        </div>
+        <div class="empresa-status">
+          <div class="status-dot ${e.status_semaforo}"></div>
+          <div class="empresa-prazo">${e.prazo_tecnico}${e.dias_atraso ? ' · ' + e.dias_atraso + 'd' : ''}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderRanking() {
+    const ranking = (state.raw.ranking_responsaveis && state.raw.ranking_responsaveis[state.competencia]) || [];
+    const list = document.getElementById('rankingList');
+
+    document.getElementById('rankCount').textContent = ranking.length + ' responsáveis';
+
+    if (ranking.length === 0) {
+      list.innerHTML = '<div class="empty-state">Sem dados de responsáveis para esta competência.</div>';
+      return;
+    }
+
+    list.innerHTML = ranking.map((r, i) => `
+      <div class="rank-row ${i < 3 ? 'top3' : ''}">
+        <div class="rank-num">${i + 1}</div>
+        <div class="rank-info">
+          <div class="rank-nome">${escapeHtml(r.nome)}</div>
+          <div class="rank-bar">
+            <div class="rank-bar-fill" style="width: ${r.percentual}%"></div>
+          </div>
+        </div>
+        <div class="rank-stats">
+          <div class="rank-counts">
+            <div class="rank-count g"><strong>${r.entregues}</strong><span>Ent</span></div>
+            <div class="rank-count a"><strong>${r.pendentes}</strong><span>Pen</span></div>
+            <div class="rank-count r"><strong>${r.atrasadas}</strong><span>Atr</span></div>
+          </div>
+          <div class="rank-percent">${r.percentual.toFixed(1)}%</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function escapeHtml(str) {
+    return String(str || '').replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[c]));
+  }
+
+  // ===== EVENTS =====
+  document.getElementById('competencia').addEventListener('change', e => {
+    state.competencia = e.target.value;
+    state.responsavel = '';
+    popularResponsaveis();
+    render();
+  });
+
+  document.getElementById('busca').addEventListener('input', e => {
+    state.busca = e.target.value;
+    render();
+  });
+
+  document.getElementById('prioToggle').addEventListener('change', e => {
+    state.prioritarias = e.target.checked;
+    render();
+  });
+
+  document.getElementById('responsavel').addEventListener('change', e => {
+    state.responsavel = e.target.value;
+    render();
+  });
+
+  document.getElementById('chips').addEventListener('click', e => {
+    const btn = e.target.closest('.chip');
+    if (!btn) return;
+    document.querySelectorAll('.chip').forEach(c => {
+      c.classList.remove('active', 'green', 'amber', 'red');
+    });
+    btn.classList.add('active');
+    if (btn.dataset.status !== 'todos') btn.classList.add(btn.dataset.status);
+    state.status = btn.dataset.status;
+    render();
+  });
+
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('view' + tab.dataset.view.charAt(0).toUpperCase() + tab.dataset.view.slice(1)).classList.add('active');
+      state.aba = tab.dataset.view;
+    });
+  });
+
+  document.getElementById('btnRefresh').addEventListener('click', () => {
+    carregar();
+  });
+
+  // ===== AUTO REFRESH =====
+  carregar();
+  setInterval(carregar, REFRESH_INTERVAL_MS);
+</script>
+</body>
+</html>
