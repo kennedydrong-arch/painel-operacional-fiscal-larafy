@@ -567,13 +567,17 @@
     return parseInt(m[2]) * 100 + (MESES_ORD[m[1]] || 0);
   }
 
-  function ehNoTecnico(statusOriginal) {
-    const s = (statusOriginal || '').toLowerCase();
+  // NOTA: hoje a métrica usa STATUS do Acessórias porque os campos
+  // prazo_tecnico e prazo_legal no Google Sheets estão preenchidos com
+  // o mesmo valor (bug do Apps Script v5). Após corrigir o Apps Script
+  // no item B, trocar para cálculo por data (data_entrega vs prazos).
+  function ehNoTecnico(entrega) {
+    const s = (entrega.status_original || '').toLowerCase();
     return s.includes('pztéc') || s.includes('pztec') || s.includes('antecipada');
   }
 
-  function ehNoLegal(statusOriginal) {
-    const s = (statusOriginal || '').toLowerCase();
+  function ehNoLegal(entrega) {
+    const s = (entrega.status_original || '').toLowerCase();
     return s.includes('pztéc') || s.includes('pztec') ||
            s.includes('antecipada') || s.includes('pzlegal');
   }
@@ -592,8 +596,8 @@
       const entr = entregas.filter(e => e.competencia === comp);
       totalGeral += entr.length;
       for (const e of entr) {
-        if (ehNoTecnico(e.status_original)) totalTec++;
-        if (ehNoLegal(e.status_original)) totalLegal++;
+        if (ehNoTecnico(e)) totalTec++;
+        if (ehNoLegal(e)) totalLegal++;
       }
     }
 
@@ -631,8 +635,8 @@
     // % Prazo Técnico atual / Prazo Legal atual
     let entrTec = 0, entrLegal = 0;
     for (const e of entrComp) {
-      if (ehNoTecnico(e.status_original)) entrTec++;
-      if (ehNoLegal(e.status_original)) entrLegal++;
+      if (ehNoTecnico(e)) entrTec++;
+      if (ehNoLegal(e)) entrLegal++;
     }
     const total = kpi.total || 0;
     const pctTec = total > 0 ? (entrTec / total * 100) : 0;
@@ -703,15 +707,15 @@
       </div>
       <div class="kpi red">
         <div class="kpi-accent"></div>
-        <div class="kpi-label">Atrasadas</div>
+        <div class="kpi-label">Atrasadas (total)</div>
         <div class="kpi-value">${k.atrasadas.toLocaleString('pt-BR')}</div>
-        <div class="kpi-sub">precisam ação imediata</div>
+        <div class="kpi-sub">soma de todas as atrasadas no mês</div>
       </div>
       <div class="kpi red">
         <div class="kpi-accent"></div>
-        <div class="kpi-label">Atrasadas prioritárias</div>
+        <div class="kpi-label">Prioritárias atrasadas</div>
         <div class="kpi-value">${k.atrPrio.toLocaleString('pt-BR')}</div>
-        <div class="kpi-sub">prioritárias atrasadas, urgente</div>
+        <div class="kpi-sub">subset das ${k.atrasadas} acima, urgente</div>
       </div>
     `;
   }
