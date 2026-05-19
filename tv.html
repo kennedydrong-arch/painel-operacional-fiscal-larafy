@@ -86,6 +86,61 @@
       color: var(--text);
     }
 
+    /* ==================== BARRA DE COMPETENCIA ==================== */
+    .comp-bar {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 14px 28px;
+      background: rgba(13, 36, 56, 0.5);
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .comp-label {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      font-weight: 600;
+    }
+    .comp-filter {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .comp-pill {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.3px;
+    }
+    .comp-pill:hover {
+      background: var(--bg-card-2);
+      color: var(--text);
+    }
+    .comp-pill.active {
+      background: var(--text);
+      color: var(--bg-deepest);
+      border-color: var(--text);
+      font-weight: 700;
+    }
+    .comp-pill.is-current::after {
+      content: '·';
+      margin-left: 6px;
+      color: var(--fiscal);
+    }
+    .comp-pill.active.is-current::after {
+      color: var(--bg-deepest);
+    }
+
     /* ==================== SPLIT PRINCIPAL ==================== */
     .split {
       display: grid;
@@ -367,8 +422,6 @@
     .chart-line.contabil { stroke: var(--contabil); }
     .chart-dot.fiscal { fill: var(--fiscal); }
     .chart-dot.contabil { fill: var(--contabil); }
-    .chart-area.fiscal { fill: var(--fiscal-dim); }
-    .chart-area.contabil { fill: var(--contabil-dim); }
   </style>
 </head>
 <body>
@@ -381,15 +434,16 @@
     </div>
     <div class="header-info">
       <div class="header-pill">
-        <span class="pill-label">Competência</span>
-        <span class="pill-value" id="comp-atual">--</span>
-      </div>
-      <div class="header-pill">
         <span class="pill-label">Atualizado</span>
         <span class="pill-value" id="atualizado">--</span>
       </div>
     </div>
   </header>
+
+  <div class="comp-bar">
+    <span class="comp-label">Competência</span>
+    <div class="comp-filter" id="comp-filter"></div>
+  </div>
 
   <main>
     <section class="split">
@@ -441,6 +495,11 @@
 
     const MESES_ORD = { jan:1, fev:2, mar:3, abr:4, mai:5, jun:6, jul:7, ago:8, set:9, out:10, nov:11, dez:12 };
 
+    const estado = {
+      data: null,
+      competenciaSelecionada: null
+    };
+
     function ordemComp(comp) {
       if (!comp) return 0;
       const m = String(comp).match(/([a-z]+)\/(\d+)/);
@@ -471,36 +530,67 @@
         const resp = await fetch(DATA_URL + '?ts=' + Date.now());
         if (!resp.ok) throw new Error('HTTP ' + resp.status);
         const data = await resp.json();
-        render(data);
+        estado.data = data;
+
+        // Ajusta competencia selecionada se necessario
+        const disponiveis = data.competencias_disponiveis || [];
+        if (estado.competenciaSelecionada === null || !disponiveis.includes(estado.competenciaSelecionada)) {
+          estado.competenciaSelecionada = data.competencia_atual;
+        }
+
+        renderTudo();
       } catch (err) {
         console.error('Erro carregando data.json:', err);
-        document.getElementById('comp-atual').textContent = 'erro';
+        document.getElementById('atualizado').textContent = 'erro';
       }
     }
 
-    function render(data) {
-      const compAtual = data.competencia_atual;
-      document.getElementById('comp-atual').textContent = compAtual || '--';
+    function renderTudo() {
+      if (!estado.data) return;
+      const data = estado.data;
+
+      renderCompFilter(data.competencias_disponiveis || [], data.competencia_atual);
       document.getElementById('atualizado').textContent = formatarHora(data.atualizado_em);
 
-      renderTime('fiscal', data.fiscal, compAtual);
-      renderTime('contabil', data.contabil, compAtual);
+      renderTime('fiscal', data.fiscal, estado.competenciaSelecionada);
+      renderTime('contabil', data.contabil, estado.competenciaSelecionada);
       renderTendencia(data.fiscal, data.contabil);
       renderAtrasos(data.atrasos_criticos || []);
     }
 
-    function renderTime(slug, dadosTime, compAtual) {
+    function renderCompFilter(competencias, competenciaAtualDoSistema) {
+      const comps = competencias.slice().sort((a, b) => ordemComp(a) - ordemComp(b));
+      const container = document.getElementById('comp-filter');
+
+      container.innerHTML = comps.map(c => `
+        <button
+          class="comp-pill ${c === estado.competenciaSelecionada ? 'active' : ''} ${c === competenciaAtualDoSistema ? 'is-current' : ''}"
+          data-comp="${c}"
+          title="${c === competenciaAtualDoSistema ? 'Competência corrente' : c}">
+          ${c}
+        </button>
+      `).join('');
+
+      container.querySelectorAll('.comp-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          estado.competenciaSelecionada = btn.dataset.comp;
+          renderTudo();
+        });
+      });
+    }
+
+    function renderTime(slug, dadosTime, competencia) {
       if (!dadosTime) {
         document.getElementById('cards-' + slug).innerHTML = '<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados do time.</div>';
         return;
       }
 
-      const kpis = (dadosTime.kpis || {})[compAtual];
+      const kpis = (dadosTime.kpis || {})[competencia];
       const subtotalEl = document.getElementById('subtotal-' + slug);
 
       if (!kpis) {
         document.getElementById('cards-' + slug).innerHTML =
-          '<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados para ' + compAtual + '.</div>';
+          '<div style="grid-column:1/-1; padding:16px; color:var(--text-dim)">Sem dados para ' + competencia + '.</div>';
         document.getElementById('hero-' + slug).innerHTML = '';
         document.getElementById('ranking-' + slug).innerHTML = '';
         if (subtotalEl) subtotalEl.textContent = '--';
@@ -509,7 +599,6 @@
 
       if (subtotalEl) subtotalEl.textContent = kpis.total + ' entregas · ' + kpis.prioritarias + ' prioritárias';
 
-      // Cards de contagem
       document.getElementById('cards-' + slug).innerHTML = `
         <div class="card-count">
           <div class="card-label">Total</div>
@@ -529,7 +618,6 @@
         </div>
       `;
 
-      // % Entregue + Forecast
       const fc = dadosTime.forecast || {};
       const forecastHTML = fc.baseline !== null && fc.baseline !== undefined
         ? `
@@ -552,20 +640,19 @@
         </div>
       `;
 
-      // Ranking top 5
-      const ranking = (dadosTime.ranking || {})[compAtual] || [];
+      const ranking = (dadosTime.ranking || {})[competencia] || [];
       const top5 = ranking.slice(0, 5);
 
       if (top5.length === 0) {
         document.getElementById('ranking-' + slug).innerHTML = `
-          <div class="ranking-title">Top responsáveis · ${compAtual}</div>
+          <div class="ranking-title">Top responsáveis · ${competencia}</div>
           <div style="color:var(--text-dim); padding:10px 0; font-size:13px">Sem responsáveis na competência.</div>
         `;
         return;
       }
 
       document.getElementById('ranking-' + slug).innerHTML = `
-        <div class="ranking-title">Top responsáveis · ${compAtual}</div>
+        <div class="ranking-title">Top responsáveis · ${competencia}</div>
         ${top5.map(r => `
           <div class="ranking-row">
             <div class="rank-name">${r.nome}</div>
@@ -580,7 +667,6 @@
       const tFiscal = (fiscal && fiscal.tendencia) ? fiscal.tendencia : [];
       const tContabil = (contabil && contabil.tendencia) ? contabil.tendencia : [];
 
-      // União de competências, ordenada crescente
       const compSet = new Set();
       tFiscal.forEach(p => compSet.add(p.competencia));
       tContabil.forEach(p => compSet.add(p.competencia));
@@ -601,7 +687,6 @@
       const xAt = (i) => pad.left + i * xStep;
       const yAt = (pct) => pad.top + innerH - (pct / 100) * innerH;
 
-      // Mapa pra acesso rapido
       const mapa = (tend) => {
         const m = {};
         tend.forEach(p => { m[p.competencia] = p; });
@@ -625,13 +710,11 @@
         }).join('');
       };
 
-      // Grid horizontal: 0, 25, 50, 75, 100
       const gridLines = [0, 25, 50, 75, 100].map(pct => `
         <line class="chart-grid-line" x1="${pad.left}" y1="${yAt(pct).toFixed(1)}" x2="${W - pad.right}" y2="${yAt(pct).toFixed(1)}" />
         <text class="chart-label" x="${pad.left - 8}" y="${yAt(pct).toFixed(1)}" dy="3" text-anchor="end">${pct}%</text>
       `).join('');
 
-      // Labels X
       const xLabels = comps.map((c, i) => `
         <text class="chart-label" x="${xAt(i).toFixed(1)}" y="${H - 16}" text-anchor="middle">${c}</text>
       `).join('');
